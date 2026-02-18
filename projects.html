@@ -40,28 +40,51 @@
   <a href="homelab.html">Home Labs</a>
 </nav>
 
-<h1>Infrastructure & Security Projects</h1>
-
 <div class="project">
-    <h2>Hybrid AD & Azure Infrastructure Deployment</h2>
-    <p><strong>Problem:</strong> Multi-site environment required centralized identity management and secure remote access.</p>
-    <p><strong>Solution:</strong> Designed hybrid Active Directory architecture integrating on-prem AD with Azure AD, implemented conditional access policies and RBAC controls.</p>
-    <p class="tech"><strong>Technologies:</strong> Windows Server 2019, Azure AD, Intune, Conditional Access, RBAC</p>
+    <h2>Okta to Microsoft Entra ID SSO Migration</h2>
+
+    <p><strong>Objective:</strong> Migrate single sign-on (SSO) and identity provisioning 
+    from Okta to Microsoft Entra ID to centralize authentication, streamline licensing, 
+    and align identity management with Microsoft 365 infrastructure.</p>
+
+    <p><strong>Planning & Preparation:</strong></p>
+    <ul>
+        <li>Documented and exported full Okta tenant configuration including applications, groups, provisioning rules, and license assignments.</li>
+        <li>Conducted sandbox testing using dedicated test accounts prior to production rollout.</li>
+        <li>Planned migration during off-hours to minimize user disruption.</li>
+        <li>Created detailed documentation and internal tutorials for stakeholders.</li>
+    </ul>
+
+    <p><strong>Implementation:</strong></p>
+    <ul>
+        <li>Rebuilt enterprise applications within Microsoft Entra ID using prebuilt and custom SAML configurations.</li>
+        <li>Configured and exchanged SAML IdP metadata and signing certificates.</li>
+        <li>Created security groups and mapped license assignments to application access.</li>
+        <li>Configured and validated automatic provisioning workflows.</li>
+        <li>Tested password transfer capabilities and validated authentication flows.</li>
+    </ul>
+
+    <p><strong>Challenges & Mitigation:</strong></p>
+    <ul>
+        <li>Troubleshot provisioning failures and permission mismatches.</li>
+        <li>Resolved SAML configuration errors including metadata and endpoint mismatches.</li>
+        <li>Addressed issues related to password transfer limitations and 404 authentication errors.</li>
+    </ul>
+
+    <p><strong>Outcome:</strong></p>
+    <p>
+        Successfully transitioned identity provider services to Entra ID with minimal downtime, 
+        improved centralized access control, and enhanced administrative visibility across 
+        cloud applications.
+    </p>
+
+    <p class="tech">
+        <strong>Technologies:</strong> Okta, Microsoft Entra ID (Azure AD), SAML 2.0, RBAC, 
+        Microsoft 365, Identity Provisioning
+    </p>
 </div>
 
-<div class="project">
-    <h2>Enterprise Endpoint Management Modernization</h2>
-    <p><strong>Problem:</strong> Inconsistent endpoint configuration and patching across distributed workforce.</p>
-    <p><strong>Solution:</strong> Implemented centralized device management using SCCM and Intune, automated patch deployment and compliance enforcement.</p>
-    <p class="tech"><strong>Technologies:</strong> SCCM, Intune, PowerShell, Microsoft Defender</p>
-</div>
 
-<div class="project">
-    <h2>MDR & Vulnerability Remediation Program</h2>
-    <p><strong>Problem:</strong> High volume of endpoint alerts and delayed remediation workflows.</p>
-    <p><strong>Solution:</strong> Integrated MDR platform with structured triage process, automated remediation scripts and reduced response time.</p>
-    <p class="tech"><strong>Technologies:</strong> MDR Platform, PowerShell, Security+ Framework Alignment</p>
-</div>
 
 </body>
 </html>
