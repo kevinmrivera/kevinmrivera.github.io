@@ -137,6 +137,57 @@
         and aligned email infrastructure with centralized identity and security policies.
     </p>
 
+    <div class="project">
+    <h2>VMware to Microsoft Azure Infrastructure Migration</h2>
+
+    <p><strong>Objective:</strong> Migrate on-premise VMware virtual machines and associated 
+    workloads to Microsoft Azure to modernize infrastructure, improve scalability, and enhance 
+    disaster recovery capabilities.</p>
+
+    <p><strong>Planning & Preparation:</strong></p>
+    <ul>
+        <li>Audited VMware ESXi/vSphere environment and documented virtual machine inventory.</li>
+        <li>Recorded operating system versions, resource utilization, storage dependencies, and application requirements.</li>
+        <li>Identified SQL database dependencies and service account requirements.</li>
+        <li>Outlined required Azure services including Virtual Machines, Azure SQL/SQL on VM, Azure Backup, Virtual Network (VNet), Network Security Groups (NSG), and monitoring tools.</li>
+        <li>Used Azure Pricing Calculator to estimate monthly infrastructure costs and optimize resource sizing.</li>
+        <li>Reviewed licensing requirements including Windows Server licensing and Client Access Licenses (CALs).</li>
+    </ul>
+
+    <p><strong>Migration Strategy & Execution:</strong></p>
+    <ul>
+        <li>Evaluated migration methods including PowerShell-based VM recreation and manual snapshot/backup restoration.</li>
+        <li>Provisioned Azure Virtual Machines aligned with production workload specifications.</li>
+        <li>Configured Azure Virtual Network (VNet) architecture to mirror on-prem segmentation.</li>
+        <li>Implemented Network Security Groups (NSG) to restrict RDP access and enforce least-privilege network policies.</li>
+        <li>Deployed and configured RDP access securely through controlled inbound rules.</li>
+        <li>Migrated SQL workloads and validated database connectivity and application integration.</li>
+        <li>Configured Azure Backup policies to protect cloud-hosted workloads.</li>
+    </ul>
+
+    <p><strong>Post-Migration Validation:</strong></p>
+    <ul>
+        <li>Validated RDP connectivity and remote administrative access.</li>
+        <li>Confirmed SQL database accessibility and application functionality.</li>
+        <li>Verified Azure Role-Based Access Control (RBAC) permissions were correctly assigned.</li>
+        <li>Tested backup and recovery processes.</li>
+        <li>Monitored performance metrics and adjusted VM sizing as necessary.</li>
+    </ul>
+
+    <p><strong>Outcome:</strong></p>
+    <p>
+        Successfully migrated critical workloads from VMware to Azure, improving scalability, 
+        strengthening security posture, enabling centralized RBAC controls, and enhancing 
+        disaster recovery readiness within a hybrid cloud environment.
+    </p>
+
+    <p class="tech">
+        <strong>Technologies:</strong> VMware ESXi/vSphere, Microsoft Azure, Azure Virtual Machines, 
+        Azure SQL, Azure Backup, Virtual Network (VNet), Network Security Groups (NSG), 
+        RBAC, PowerShell
+    </p>
+</div>
+
     <p class="tech">
         <strong>Technologies:</strong> Intermedia, Microsoft 365, Exchange Online, BitTitan MigrationWiz, DNS (MX/SPF/Autodiscover)
     </p>
