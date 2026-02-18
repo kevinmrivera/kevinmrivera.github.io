@@ -16,9 +16,7 @@
       background-color: #f9fafb;
     }
 
-    nav {
-      margin-bottom: 40px;
-    }
+    nav { margin-bottom: 40px; }
 
     nav a {
       margin-right: 20px;
@@ -27,27 +25,42 @@
       font-weight: 600;
     }
 
-    nav a:hover {
-      text-decoration: underline;
-    }
+    nav a:hover { text-decoration: underline; }
 
-    h1 {
-      font-size: 34px;
-      margin-bottom: 10px;
-    }
+    h1 { font-size: 34px; margin-bottom: 10px; }
 
-    .subtitle {
-      color: #6b7280;
-      margin-bottom: 30px;
-    }
+    h2 { margin-top: 32px; font-size: 22px; }
 
-    .placeholder {
+    .subtitle { color: #6b7280; margin-bottom: 28px; }
+
+    .card {
       background: white;
-      padding: 30px;
+      padding: 22px;
+      margin-top: 18px;
       border-radius: 12px;
       box-shadow: 0 6px 18px rgba(0,0,0,0.05);
-      text-align: center;
+      border: 1px solid #e5e7eb;
+    }
+
+    .meta {
       color: #6b7280;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    ul { margin-top: 10px; padding-left: 18px; }
+
+    .diagram {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      background: #0b1020;
+      color: #e6e9f2;
+      padding: 16px;
+      border-radius: 12px;
+      overflow: auto;
+      border: 1px solid #111827;
+      margin-top: 12px;
+      font-size: 13px;
+      line-height: 1.5;
     }
   </style>
 </head>
@@ -65,13 +78,81 @@
 
 <h1>Home Lab Environments</h1>
 <p class="subtitle">
-Ongoing experimentation with infrastructure, security monitoring, and hybrid architecture in controlled lab environments.
+Controlled lab environments used to validate security monitoring, detection engineering, and infrastructure workflows.
 </p>
 
-<div class="placeholder">
-  Content coming soon.
-  <br><br>
-  Lab environments will include architecture diagrams, tooling experiments, and security testing scenarios.
+<div class="card">
+  <h2>Security Lab Topology</h2>
+  <p>
+    This lab simulates a small enterprise security monitoring environment, designed for testing detection rules,
+    endpoint visibility, and incident workflows.
+  </p>
+
+  <div class="diagram">
+Modem → Firewall → Router → Switches → KVM Switch → Endpoints
+                                  ├─ Windows (Workstation)
+                                  ├─ macOS (Workstation)
+                                  ├─ Kali Linux (Testing / Security Tools)
+                                  └─ Raspberry Pi (Wazuh Agent / collectors)
+
+Security Monitoring Stack (Ubuntu Server)
+  ├─ Wazuh Manager
+  ├─ Elasticsearch
+  └─ Kibana
+  </div>
+
+  <p class="meta">
+    <strong>Focus:</strong> endpoint telemetry, log collection, alerting, and repeatable testing scenarios.
+  </p>
+</div>
+
+<div class="card">
+  <h2>Security Monitoring Workflow</h2>
+  <ul>
+    <li>Endpoints forward security telemetry to the Wazuh Manager (agent-based monitoring).</li>
+    <li>Wazuh analyzes events and forwards indexed data into Elasticsearch.</li>
+    <li>Kibana provides dashboards for visibility, investigations, and detection validation.</li>
+    <li>The firewall can forward logs (syslog) into the monitoring pipeline for perimeter visibility.</li>
+  </ul>
+  <p class="meta">
+    <strong>Outcomes:</strong> improved detection tuning, reduced false positives, and repeatable incident simulations.
+  </p>
+</div>
+
+<div class="card">
+  <h2>SOAR Integration: Where It Fits</h2>
+  <p>
+    A SOAR platform should sit <strong>next to the SIEM</strong> (not on endpoints) and consume alerts from Wazuh/Elastic.
+    In this lab, the SOAR tool would run either:
+  </p>
+  <ul>
+    <li><strong>On the Ubuntu Server</strong> (same host as the SIEM stack, if resources allow), or</li>
+    <li><strong>On a separate VM / lightweight host</strong> to keep SOAR workflows isolated and stable.</li>
+  </ul>
+
+  <p><strong>How it works across this setup:</strong></p>
+  <ul>
+    <li><strong>Ingest:</strong> SOAR pulls alerts via API/webhook from Wazuh or Elasticsearch.</li>
+    <li><strong>Enrich:</strong> SOAR queries additional context (asset inventory, user identity, GeoIP, threat intel).</li>
+    <li><strong>Decide:</strong> Runs playbooks (rules-based) to classify severity and recommend actions.</li>
+    <li><strong>Respond:</strong> Triggers automated tasks such as opening a ticket, notifying Slack/email, or running scripts.</li>
+    <li><strong>Contain (lab-safe):</strong> Optional actions like disabling a test account, blocking an IP at the firewall,
+        or isolating a test endpoint (only where supported and configured).</li>
+  </ul>
+
+  <p class="meta">
+    <strong>Goal:</strong> reduce time-to-triage by automating repetitive steps while keeping actions controlled and auditable.
+  </p>
+</div>
+
+<div class="card">
+  <h2>Planned Lab Scenarios</h2>
+  <ul>
+    <li>Credential access simulations and detection tuning (lab-only test accounts).</li>
+    <li>Phishing and suspicious sign-in investigations using log correlation.</li>
+    <li>Baseline hardening checks and compliance validation workflows.</li>
+    <li>SOAR playbooks for alert enrichment + ticket creation + notification.</li>
+  </ul>
 </div>
 
 </body>
