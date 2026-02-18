@@ -95,7 +95,52 @@
     </p>
 </div>
 
+<div class="project">
+    <h2>Intermedia to Microsoft 365 Email Migration</h2>
 
+    <p><strong>Objective:</strong> Migrate email services from Intermedia to Microsoft 365 
+    to consolidate collaboration tools, centralize identity management, and improve 
+    administrative visibility and security controls.</p>
+
+    <p><strong>Planning & Preparation:</strong></p>
+    <ul>
+        <li>Documented the complete Intermedia tenant configuration including mailboxes, groups, licenses, forwarding rules, transport rules, and email signatures.</li>
+        <li>Reviewed distribution groups, shared mailboxes, and access permissions to ensure proper recreation in Microsoft 365.</li>
+        <li>Backed up all mailboxes using a disaster recovery solution prior to migration.</li>
+        <li>Scheduled migration during off-hours to minimize user impact.</li>
+        <li>Selected BitTitan MigrationWiz as the migration tool after evaluating migration options.</li>
+    </ul>
+
+    <p><strong>Migration Execution:</strong></p>
+    <ul>
+        <li>Configured BitTitan migration projects and validated source and destination connectivity.</li>
+        <li>Enabled the “Do Not Duplicate Emails” feature to prevent mailbox inflation and data redundancy.</li>
+        <li>Performed staged mailbox migrations to reduce cutover risk.</li>
+        <li>Recreated distribution groups, forwarding rules, mailbox permissions, and transport rules in Microsoft 365.</li>
+        <li>Reconfigured user email signatures and verified mailbox settings.</li>
+        <li>Transferred and updated DNS records (MX, SPF, Autodiscover) to redirect mail flow to Microsoft 365.</li>
+    </ul>
+
+    <p><strong>Post-Migration Validation:</strong></p>
+    <ul>
+        <li>Validated inbound and outbound email functionality across all users.</li>
+        <li>Confirmed mailbox data integrity and folder structure consistency.</li>
+        <li>Verified group membership, shared mailbox access, and forwarding configurations.</li>
+        <li>Monitored message trace and delivery reports to ensure stable mail flow.</li>
+        <li>Provided user support during transition and updated internal documentation.</li>
+    </ul>
+
+    <p><strong>Outcome:</strong></p>
+    <p>
+        Successfully migrated organizational email services to Microsoft 365 with minimal 
+        downtime, preserved mailbox data integrity, improved administrative control, 
+        and aligned email infrastructure with centralized identity and security policies.
+    </p>
+
+    <p class="tech">
+        <strong>Technologies:</strong> Intermedia, Microsoft 365, Exchange Online, BitTitan MigrationWiz, DNS (MX/SPF/Autodiscover)
+    </p>
+</div>
 
 </body>
 </html>
