@@ -1,15 +1,16 @@
-/* ===== Automation Page Styling ===== */
+/* ===== Automation Page Styling (separate from other pages) ===== */
 
 :root{
   --bg: #060913;
   --panel: rgba(255,255,255,0.06);
+  --panel2: rgba(255,255,255,0.09);
   --border: rgba(255,255,255,0.14);
   --text: #e6e9f2;
-  --muted: rgba(230,233,242,0.7);
+  --muted: rgba(230,233,242,0.72);
 
-  --ps-blue: #4cc9ff;
-  --py-yellow: #fbbf24;
-  --py-green: #34d399;
+  --ps: #4cc9ff;      /* PowerShell */
+  --py: #fbbf24;      /* Python */
+  --api: #34d399;     /* API / cloud */
 }
 
 * { box-sizing: border-box; }
@@ -19,54 +20,64 @@ body{
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   color: var(--text);
   background:
-    radial-gradient(800px 400px at 15% 0%, rgba(76,201,255,0.25), transparent 60%),
-    radial-gradient(800px 400px at 85% 10%, rgba(52,211,153,0.18), transparent 60%),
+    radial-gradient(900px 500px at 12% 0%, rgba(76,201,255,0.26), transparent 58%),
+    radial-gradient(850px 450px at 88% 12%, rgba(52,211,153,0.18), transparent 58%),
+    radial-gradient(800px 450px at 70% 95%, rgba(251,191,36,0.12), transparent 55%),
     linear-gradient(180deg, #050714, #060913 60%, #050714);
   min-height: 100vh;
 }
 
 /* NAV */
-nav{
+.topnav{
   max-width: 1100px;
-  margin: 30px auto 0;
+  margin: 28px auto 0;
   padding: 14px 18px;
   border-radius: 16px;
   border: 1px solid var(--border);
   background: rgba(255,255,255,0.04);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
 }
 
-nav a{
+.topnav a{
   color: var(--text);
   text-decoration: none;
-  margin-right: 16px;
   font-weight: 600;
+  margin-right: 16px;
   padding: 8px 10px;
-  border-radius: 8px;
+  border-radius: 10px;
+  display: inline-block;
 }
 
-nav a:hover{
-  background: rgba(255,255,255,0.06);
+.topnav a:hover{ background: rgba(255,255,255,0.06); }
+
+.topnav a.active{
+  background: rgba(76,201,255,0.12);
+  border: 1px solid rgba(76,201,255,0.25);
 }
 
-/* HEADINGS */
-h1{
+/* HERO */
+.hero{
   max-width: 1100px;
-  margin: 30px auto 10px;
-  padding: 0 18px;
+  margin: 28px auto 0;
+  padding: 26px 18px 10px;
+}
+
+.hero h1{
+  margin: 0 0 8px;
   font-size: 34px;
+  letter-spacing: 0.2px;
 }
 
-.subtitle{
-  max-width: 1100px;
-  margin: 0 auto 30px;
-  padding: 0 18px;
+.hero p{
+  margin: 0;
   color: var(--muted);
+  max-width: 75ch;
 }
 
-h2{
+/* SECTION HEADERS */
+.section-title{
   max-width: 1100px;
-  margin: 40px auto 10px;
+  margin: 26px auto 10px;
   padding: 0 18px;
   font-size: 22px;
 }
@@ -74,8 +85,8 @@ h2{
 /* GRID */
 .grid{
   max-width: 1100px;
-  margin: 0 auto 40px;
-  padding: 0 18px;
+  margin: 0 auto 24px;
+  padding: 0 18px 30px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 18px;
@@ -86,39 +97,22 @@ h2{
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 18px;
-  padding: 20px;
+  padding: 18px;
   position: relative;
   overflow: hidden;
 }
 
 @media (min-width: 900px){
-  .card{
-    grid-column: span 6;
-  }
+  .card{ grid-column: span 6; }
 }
 
-.card h3{
-  margin-top: 0;
-  font-size: 18px;
-}
-
-.card p{
-  color: var(--muted);
-}
-
-.card ul{
-  margin-left: 18px;
-  color: var(--muted);
-}
-
-/* Glow border */
 .card:before{
   content: "";
   position: absolute;
   inset: -2px;
   background: linear-gradient(90deg,
     rgba(76,201,255,0.35),
-    rgba(251,191,36,0.25),
+    rgba(251,191,36,0.28),
     rgba(52,211,153,0.25)
   );
   filter: blur(20px);
@@ -126,43 +120,90 @@ h2{
   z-index: 0;
 }
 
-.card > * {
-  position: relative;
-  z-index: 1;
+.card > * { position: relative; z-index: 1; }
+
+.card-top{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
 }
 
-/* TAGS */
-.tagrow{
-  margin-top: 14px;
+.card h3{
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.25;
 }
 
-.tag{
-  display: inline-block;
-  font-size: 12px;
-  padding: 6px 10px;
+.card p, .card ul{
+  color: var(--muted);
+}
+
+.card ul{
+  margin: 10px 0 0 18px;
+}
+
+/* BADGES */
+.badges{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.badge{
+  border: 1px solid rgba(255,255,255,0.16);
   border-radius: 999px;
-  margin-right: 8px;
-  margin-top: 6px;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,0.05);
+  padding: 6px 10px;
+  font-size: 12px;
+  background: rgba(255,255,255,0.04);
+  white-space: nowrap;
 }
 
-/* PowerShell tags */
-.tag.powershell{
-  border-color: rgba(76,201,255,0.5);
-  background: rgba(76,201,255,0.15);
-  color: var(--ps-blue);
+.badge.ps{ border-color: rgba(76,201,255,0.40); background: rgba(76,201,255,0.12); color: var(--ps); }
+.badge.py{ border-color: rgba(251,191,36,0.45); background: rgba(251,191,36,0.12); color: var(--py); }
+.badge.api{ border-color: rgba(52,211,153,0.45); background: rgba(52,211,153,0.12); color: var(--api); }
+
+/* DETAILS / CODE */
+details{
+  margin-top: 14px;
+  border-top: 1px solid rgba(255,255,255,0.10);
+  padding-top: 12px;
 }
 
-/* Python tags */
-.tag.python{
-  border-color: rgba(251,191,36,0.5);
-  background: rgba(251,191,36,0.15);
-  color: var(--py-yellow);
+summary{
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  font-weight: 700;
+  color: var(--text);
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.10);
+  display: inline-block;
 }
 
-.tag.api{
-  border-color: rgba(52,211,153,0.5);
-  background: rgba(52,211,153,0.15);
-  color: var(--py-green);
+summary:hover{ background: rgba(255,255,255,0.06); }
+
+details[open] summary{
+  background: rgba(76,201,255,0.10);
+  border-color: rgba(76,201,255,0.22);
+}
+
+/* Terminal-style code block */
+pre{
+  margin: 12px 0 0;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.12);
+  overflow: auto;
+}
+
+code{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 12.5px;
+  color: rgba(230,233,242,0.9);
+  white-space: pre;
 }
