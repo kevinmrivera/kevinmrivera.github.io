@@ -4,77 +4,7 @@
   <title>Automation | Kevin Rivera</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      max-width: 950px;
-      margin: 60px auto;
-      padding: 0 20px;
-      line-height: 1.7;
-      color: #1f2937;
-      background-color: #f9fafb;
-    }
-
-    nav { margin-bottom: 40px; }
-
-    nav a {
-      margin-right: 20px;
-      text-decoration: none;
-      color: #2563eb;
-      font-weight: 600;
-    }
-
-    nav a:hover { text-decoration: underline; }
-
-    h1 { font-size: 34px; margin-bottom: 10px; }
-
-    .subtitle { color: #6b7280; margin-bottom: 30px; }
-
-    h2 { margin-top: 32px; font-size: 22px; }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 18px;
-    }
-
-    @media (min-width: 900px) {
-      .grid { grid-template-columns: 1fr 1fr; }
-    }
-
-    .card {
-      background: white;
-      padding: 22px;
-      border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.05);
-      border: 1px solid #e5e7eb;
-    }
-
-    .tagrow { margin-top: 12px; }
-
-    .tag {
-      display: inline-block;
-      font-size: 12px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid #e5e7eb;
-      background: #f9fafb;
-      color: #374151;
-      margin-right: 8px;
-      margin-top: 6px;
-    }
-
-    .meta { color: #6b7280; font-size: 14px; margin-top: 10px; }
-
-    ul { margin-top: 10px; padding-left: 18px; }
-
-    .section-note {
-      margin-top: 8px;
-      color: #6b7280;
-      font-size: 14px;
-    }
-  </style>
+  <link rel="stylesheet" href="automationstyles.css">
 </head>
 
 <body>
@@ -94,7 +24,6 @@ Automation projects focused on repeatability, compliance, and operational effici
 </p>
 
 <h2>PowerShell Automations</h2>
-<p class="section-note">Windows-focused automations supporting Active Directory, endpoint operations, and reporting.</p>
 
 <div class="grid">
 
@@ -104,52 +33,51 @@ Automation projects focused on repeatability, compliance, and operational effici
     <ul>
       <li>Exports OU structure, group membership (including privileged groups), and user account status.</li>
       <li>Collects GPO reports and highlights newly created/modified policies.</li>
-      <li>Outputs results to CSV/HTML and emails a weekly summary to IT leadership.</li>
+      <li>Outputs results to CSV/HTML and sends a weekly summary report.</li>
     </ul>
     <div class="tagrow">
-      <span class="tag">PowerShell</span>
-      <span class="tag">Active Directory</span>
-      <span class="tag">GPO</span>
-      <span class="tag">Reporting</span>
+      <span class="tag powershell">PowerShell</span>
+      <span class="tag powershell">Active Directory</span>
+      <span class="tag powershell">GPO</span>
+      <span class="tag powershell">Reporting</span>
     </div>
   </div>
 
   <div class="card">
     <h3>Patch Compliance & Endpoint Inventory Report</h3>
-    <p><strong>Purpose:</strong> Automate endpoint compliance reporting and highlight machines missing critical updates.</p>
+    <p><strong>Purpose:</strong> Automate endpoint compliance reporting and highlight devices missing critical updates.</p>
     <ul>
       <li>Pulls device inventory and OS/build information from management tooling and local queries.</li>
       <li>Flags devices missing patches beyond a defined threshold (e.g., 14–30 days).</li>
-      <li>Generates a remediation list for follow-up and change window scheduling.</li>
+      <li>Generates a remediation list for follow-up and maintenance scheduling.</li>
     </ul>
     <div class="tagrow">
-      <span class="tag">PowerShell</span>
-      <span class="tag">Compliance</span>
-      <span class="tag">Inventory</span>
-      <span class="tag">Patch Management</span>
+      <span class="tag powershell">PowerShell</span>
+      <span class="tag powershell">Compliance</span>
+      <span class="tag powershell">Inventory</span>
+      <span class="tag powershell">Patch Management</span>
     </div>
   </div>
 
   <div class="card">
     <h3>Automated User Provisioning + Group Assignment Workflow</h3>
-    <p><strong>Purpose:</strong> Standardize onboarding by automatically creating users, assigning groups, and applying baseline policies.</p>
+    <p><strong>Purpose:</strong> Standardize onboarding by creating users, assigning groups, and applying baseline access.</p>
     <ul>
       <li>Creates user accounts using standardized naming and attribute templates.</li>
       <li>Assigns department-based AD groups and access profiles.</li>
-      <li>Triggers a “new hire checklist” output for IT operations (accounts, apps, device readiness).</li>
+      <li>Outputs a “new hire checklist” for IT operations (accounts, apps, device readiness).</li>
     </ul>
     <div class="tagrow">
-      <span class="tag">PowerShell</span>
-      <span class="tag">Onboarding</span>
-      <span class="tag">Access Control</span>
-      <span class="tag">Standardization</span>
+      <span class="tag powershell">PowerShell</span>
+      <span class="tag powershell">Onboarding</span>
+      <span class="tag powershell">Access Control</span>
+      <span class="tag powershell">Standardization</span>
     </div>
   </div>
 
 </div>
 
 <h2>Python Automations</h2>
-<p class="section-note">API-driven automations supporting cloud services, data extraction, and workflow improvement.</p>
 
 <div class="grid">
 
@@ -157,49 +85,49 @@ Automation projects focused on repeatability, compliance, and operational effici
     <h3>Microsoft Graph API Integration: Entra ID → SharePoint Data Pull</h3>
     <p><strong>Purpose:</strong> Use Microsoft Graph to extract Entra ID and SharePoint information for reporting and operational visibility.</p>
     <ul>
-      <li>Authenticates using app registration (least-privilege scopes).</li>
+      <li>Authenticates using an app registration with least-privilege scopes.</li>
       <li>Pulls targeted SharePoint list/library data and normalizes output for reporting.</li>
       <li>Supports scheduled exports to CSV/JSON for dashboards or audits.</li>
     </ul>
     <div class="tagrow">
-      <span class="tag">Python</span>
-      <span class="tag">Microsoft Graph</span>
-      <span class="tag">Entra ID</span>
-      <span class="tag">SharePoint</span>
-      <span class="tag">API</span>
+      <span class="tag python">Python</span>
+      <span class="tag api">Microsoft Graph</span>
+      <span class="tag api">Entra ID</span>
+      <span class="tag api">SharePoint</span>
+      <span class="tag api">API</span>
     </div>
   </div>
 
   <div class="card">
     <h3>Security Alert Normalization & Triage Helper</h3>
-    <p><strong>Purpose:</strong> Reduce alert fatigue by normalizing alert data into a consistent format and prioritizing by severity and asset criticality.</p>
+    <p><strong>Purpose:</strong> Reduce alert fatigue by normalizing alert data into a consistent format and prioritizing by severity.</p>
     <ul>
       <li>Ingests alerts via API or exported JSON/CSV.</li>
       <li>Tags alerts with severity, category, and recommended next actions.</li>
       <li>Outputs a daily triage queue for faster response and tracking.</li>
     </ul>
     <div class="tagrow">
-      <span class="tag">Python</span>
-      <span class="tag">Security Operations</span>
-      <span class="tag">Automation</span>
-      <span class="tag">Triage</span>
+      <span class="tag python">Python</span>
+      <span class="tag api">Security Operations</span>
+      <span class="tag api">Automation</span>
+      <span class="tag api">Triage</span>
     </div>
   </div>
 
   <div class="card">
     <h3>Asset & License Reconciliation Report</h3>
-    <p><strong>Purpose:</strong> Automatically reconcile user/device inventory with licensing assignments to identify mismatches and reduce cost waste.</p>
+    <p><strong>Purpose:</strong> Reconcile inventory and licensing assignments to identify mismatches and reduce cost waste.</p>
     <ul>
       <li>Pulls user/device inventory from APIs and compares against license assignments.</li>
       <li>Flags inactive accounts still consuming licenses and devices missing required entitlements.</li>
       <li>Produces a remediation list for IT and Finance review.</li>
     </ul>
     <div class="tagrow">
-      <span class="tag">Python</span>
-      <span class="tag">Inventory</span>
-      <span class="tag">Licensing</span>
-      <span class="tag">Cost Optimization</span>
-      <span class="tag">API</span>
+      <span class="tag python">Python</span>
+      <span class="tag api">Inventory</span>
+      <span class="tag api">Licensing</span>
+      <span class="tag api">Cost Optimization</span>
+      <span class="tag api">API</span>
     </div>
   </div>
 
