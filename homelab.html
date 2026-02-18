@@ -4,92 +4,43 @@
   <title>Home Labs | Kevin Rivera</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      max-width: 950px;
-      margin: 60px auto;
-      padding: 0 20px;
-      line-height: 1.7;
-      color: #1f2937;
-      background-color: #f9fafb;
-    }
-
-    nav { margin-bottom: 40px; }
-
-    nav a {
-      margin-right: 20px;
-      text-decoration: none;
-      color: #2563eb;
-      font-weight: 600;
-    }
-
-    nav a:hover { text-decoration: underline; }
-
-    h1 { font-size: 34px; margin-bottom: 10px; }
-
-    h2 { margin-top: 32px; font-size: 22px; }
-
-    .subtitle { color: #6b7280; margin-bottom: 28px; }
-
-    .card {
-      background: white;
-      padding: 22px;
-      margin-top: 18px;
-      border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.05);
-      border: 1px solid #e5e7eb;
-    }
-
-    .meta {
-      color: #6b7280;
-      font-size: 14px;
-      margin-top: 10px;
-    }
-
-    ul { margin-top: 10px; padding-left: 18px; }
-
-    .diagram {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      background: #0b1020;
-      color: #e6e9f2;
-      padding: 16px;
-      border-radius: 12px;
-      overflow: auto;
-      border: 1px solid #111827;
-      margin-top: 12px;
-      font-size: 13px;
-      line-height: 1.5;
-    }
-  </style>
+  <link rel="stylesheet" href="homelabstyles.css">
 </head>
 
 <body>
 
-<nav>
+<nav class="topnav">
   <a href="index.html">Home</a>
   <a href="projects.html">Projects</a>
   <a href="infrastructure.html">Infrastructure</a>
   <a href="cybersecurity.html">Cybersecurity</a>
   <a href="automation.html">Automation</a>
-  <a href="homelab.html">Home Labs</a>
+  <a class="active" href="homelab.html">Home Labs</a>
 </nav>
 
-<h1>Home Lab Environments</h1>
-<p class="subtitle">
-Controlled lab environments used to validate security monitoring, detection engineering, and infrastructure workflows.
-</p>
+<header class="hero">
+  <h1>Home Lab Environments</h1>
+  <p>Controlled lab environments used to validate security monitoring, detection workflows, and infrastructure experiments.</p>
+</header>
 
-<div class="card">
-  <h2>Security Lab Topology</h2>
-  <p>
-    This lab simulates a small enterprise security monitoring environment, designed for testing detection rules,
-    endpoint visibility, and incident workflows.
-  </p>
+<section class="grid">
 
-  <div class="diagram">
-Modem → Firewall → Router → Switches → KVM Switch → Endpoints
+  <article class="card">
+    <div class="card-top">
+      <h2>Security Lab Topology</h2>
+      <div class="badges">
+        <span class="badge lab">Lab</span>
+        <span class="badge sec">Security</span>
+        <span class="badge net">Network</span>
+      </div>
+    </div>
+
+    <p>
+      This lab simulates a small enterprise security monitoring environment. It is designed for testing detection rules,
+      endpoint visibility, and incident workflows in a controlled setting.
+    </p>
+
+    <pre class="diagram"><code>Modem → Firewall → Router → Switches → KVM Switch → Endpoints
                                   ├─ Windows (Workstation)
                                   ├─ macOS (Workstation)
                                   ├─ Kali Linux (Testing / Security Tools)
@@ -98,62 +49,88 @@ Modem → Firewall → Router → Switches → KVM Switch → Endpoints
 Security Monitoring Stack (Ubuntu Server)
   ├─ Wazuh Manager
   ├─ Elasticsearch
-  └─ Kibana
-  </div>
+  └─ Kibana</code></pre>
 
-  <p class="meta">
-    <strong>Focus:</strong> endpoint telemetry, log collection, alerting, and repeatable testing scenarios.
-  </p>
-</div>
+    <p class="meta">
+      <strong>Focus:</strong> endpoint telemetry, log collection, alerting, and repeatable security testing scenarios.
+    </p>
+  </article>
 
-<div class="card">
-  <h2>Security Monitoring Workflow</h2>
-  <ul>
-    <li>Endpoints forward security telemetry to the Wazuh Manager (agent-based monitoring).</li>
-    <li>Wazuh analyzes events and forwards indexed data into Elasticsearch.</li>
-    <li>Kibana provides dashboards for visibility, investigations, and detection validation.</li>
-    <li>The firewall can forward logs (syslog) into the monitoring pipeline for perimeter visibility.</li>
-  </ul>
-  <p class="meta">
-    <strong>Outcomes:</strong> improved detection tuning, reduced false positives, and repeatable incident simulations.
-  </p>
-</div>
+  <article class="card">
+    <div class="card-top">
+      <h2>Monitoring Workflow</h2>
+      <div class="badges">
+        <span class="badge siem">SIEM</span>
+        <span class="badge api">Logs</span>
+        <span class="badge dash">Dashboards</span>
+      </div>
+    </div>
 
-<div class="card">
-  <h2>SOAR Integration: Where It Fits</h2>
-  <p>
-    A SOAR platform should sit <strong>next to the SIEM</strong> (not on endpoints) and consume alerts from Wazuh/Elastic.
-    In this lab, the SOAR tool would run either:
-  </p>
-  <ul>
-    <li><strong>On the Ubuntu Server</strong> (same host as the SIEM stack, if resources allow), or</li>
-    <li><strong>On a separate VM / lightweight host</strong> to keep SOAR workflows isolated and stable.</li>
-  </ul>
+    <ul>
+      <li>Endpoints forward security telemetry to the Wazuh Manager (agent-based monitoring).</li>
+      <li>Wazuh analyzes events and forwards indexed data into Elasticsearch.</li>
+      <li>Kibana provides dashboards for visibility, investigations, and detection tuning.</li>
+      <li>The firewall can forward logs (syslog) into the monitoring pipeline for perimeter visibility.</li>
+    </ul>
 
-  <p><strong>How it works across this setup:</strong></p>
-  <ul>
-    <li><strong>Ingest:</strong> SOAR pulls alerts via API/webhook from Wazuh or Elasticsearch.</li>
-    <li><strong>Enrich:</strong> SOAR queries additional context (asset inventory, user identity, GeoIP, threat intel).</li>
-    <li><strong>Decide:</strong> Runs playbooks (rules-based) to classify severity and recommend actions.</li>
-    <li><strong>Respond:</strong> Triggers automated tasks such as opening a ticket, notifying Slack/email, or running scripts.</li>
-    <li><strong>Contain (lab-safe):</strong> Optional actions like disabling a test account, blocking an IP at the firewall,
-        or isolating a test endpoint (only where supported and configured).</li>
-  </ul>
+    <p class="meta">
+      <strong>Outcome:</strong> improved detection tuning, reduced false positives, and repeatable incident simulations.
+    </p>
+  </article>
 
-  <p class="meta">
-    <strong>Goal:</strong> reduce time-to-triage by automating repetitive steps while keeping actions controlled and auditable.
-  </p>
-</div>
+  <article class="card">
+    <div class="card-top">
+      <h2>SOAR Integration</h2>
+      <div class="badges">
+        <span class="badge soar">SOAR</span>
+        <span class="badge sec">Response</span>
+        <span class="badge auto">Automation</span>
+      </div>
+    </div>
 
-<div class="card">
-  <h2>Planned Lab Scenarios</h2>
-  <ul>
-    <li>Credential access simulations and detection tuning (lab-only test accounts).</li>
-    <li>Phishing and suspicious sign-in investigations using log correlation.</li>
-    <li>Baseline hardening checks and compliance validation workflows.</li>
-    <li>SOAR playbooks for alert enrichment + ticket creation + notification.</li>
-  </ul>
-</div>
+    <p>
+      A SOAR platform should sit <strong>next to the SIEM</strong> and consume alerts from Wazuh/Elastic. In this lab,
+      the SOAR tool would run either on the Ubuntu Server (if resources allow) or on a separate lightweight VM/host
+      to keep workflows isolated and stable.
+    </p>
+
+    <h3>How it works across this setup</h3>
+    <ul>
+      <li><strong>Ingest:</strong> SOAR pulls alerts via API/webhook from Wazuh or Elasticsearch.</li>
+      <li><strong>Enrich:</strong> Adds context (asset inventory, user identity, GeoIP, threat intel).</li>
+      <li><strong>Decide:</strong> Runs playbooks to classify severity and recommend actions.</li>
+      <li><strong>Respond:</strong> Triggers actions such as ticket creation, Slack/email alerts, or script execution.</li>
+      <li><strong>Contain (lab-safe):</strong> Optional actions like blocking a test IP at the firewall or disabling a test account (where supported).</li>
+    </ul>
+
+    <p class="meta">
+      <strong>Goal:</strong> reduce time-to-triage by automating repetitive steps while keeping actions controlled and auditable.
+    </p>
+  </article>
+
+  <article class="card">
+    <div class="card-top">
+      <h2>Planned Lab Scenarios</h2>
+      <div class="badges">
+        <span class="badge test">Testing</span>
+        <span class="badge sec">Detection</span>
+        <span class="badge ops">Ops</span>
+      </div>
+    </div>
+
+    <ul>
+      <li>Credential access simulations and detection tuning (lab-only test accounts).</li>
+      <li>Phishing and suspicious sign-in investigations using log correlation.</li>
+      <li>Baseline hardening checks and compliance validation workflows.</li>
+      <li>SOAR playbooks for alert enrichment + ticketing + notifications.</li>
+    </ul>
+  </article>
+
+</section>
+
+<footer class="footer">
+  <p>All lab details are shared at a high level with no internal identifiers, IPs, or sensitive configurations.</p>
+</footer>
 
 </body>
 </html>
