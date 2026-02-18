@@ -39,7 +39,6 @@
   <a href="automation.html">Automation</a>
   <a href="homelab.html">Home Labs</a>
 </nav>
-
 <div class="project">
     <h2>Okta to Microsoft Entra ID SSO Migration</h2>
 
@@ -49,33 +48,45 @@
 
     <p><strong>Planning & Preparation:</strong></p>
     <ul>
-        <li>Documented and exported full Okta tenant configuration including applications, groups, provisioning rules, and license assignments.</li>
-        <li>Conducted sandbox testing using dedicated test accounts prior to production rollout.</li>
-        <li>Planned migration during off-hours to minimize user disruption.</li>
-        <li>Created detailed documentation and internal tutorials for stakeholders.</li>
+        <li>Captured and documented the complete Okta tenant configuration including applications, groups, provisioning rules, and license mappings.</li>
+        <li>Reviewed application dependencies and authentication methods prior to migration.</li>
+        <li>Performed sandbox testing using dedicated test accounts to validate authentication and provisioning behavior.</li>
+        <li>Scheduled implementation during off-hours to minimize production impact.</li>
+        <li>Created step-by-step documentation and internal tutorials to support administrators and end users.</li>
     </ul>
 
     <p><strong>Implementation:</strong></p>
     <ul>
-        <li>Rebuilt enterprise applications within Microsoft Entra ID using prebuilt and custom SAML configurations.</li>
-        <li>Configured and exchanged SAML IdP metadata and signing certificates.</li>
-        <li>Created security groups and mapped license assignments to application access.</li>
-        <li>Configured and validated automatic provisioning workflows.</li>
-        <li>Tested password transfer capabilities and validated authentication flows.</li>
+        <li>Recreated enterprise applications in Microsoft Entra ID using prebuilt gallery apps and custom SAML configurations.</li>
+        <li>Configured SAML trust relationships, exchanged IdP metadata, and validated signing certificates.</li>
+        <li>Created security groups and assigned them to applications and license bundles.</li>
+        <li>Configured user provisioning and attribute mappings for supported applications.</li>
+        <li>Validated authentication flows using test and pilot user accounts.</li>
     </ul>
 
     <p><strong>Challenges & Mitigation:</strong></p>
     <ul>
-        <li>Troubleshot provisioning failures and permission mismatches.</li>
-        <li>Resolved SAML configuration errors including metadata and endpoint mismatches.</li>
-        <li>Addressed issues related to password transfer limitations and 404 authentication errors.</li>
+        <li>Troubleshot SAML errors related to metadata mismatches, endpoints, and certificate configuration.</li>
+        <li>Resolved provisioning failures caused by permission scope and attribute mapping issues.</li>
+        <li>Identified limitations with password transfer functionality and planned user communication accordingly.</li>
+        <li>Investigated and remediated authentication errors (e.g., 404 and access-denied scenarios).</li>
+    </ul>
+
+    <p><strong>Post-Migration Validation & Stabilization:</strong></p>
+    <ul>
+        <li>Verified successful login access across all migrated applications using Entra ID as the primary identity provider.</li>
+        <li>Confirmed all user accounts were correctly federated and pointing to the new IdP.</li>
+        <li>Validated group-based access and license assignments post-migration.</li>
+        <li>Monitored sign-in logs and provisioning logs to identify and remediate residual issues.</li>
+        <li>Provided post-migration support and updated documentation to reflect the new identity architecture.</li>
     </ul>
 
     <p><strong>Outcome:</strong></p>
     <p>
-        Successfully transitioned identity provider services to Entra ID with minimal downtime, 
-        improved centralized access control, and enhanced administrative visibility across 
-        cloud applications.
+        Successfully transitioned SSO and identity provisioning services from Okta to Microsoft 
+        Entra ID with minimal user disruption. The migration resulted in centralized identity 
+        management, improved visibility into authentication activity, and simplified ongoing 
+        access administration.
     </p>
 
     <p class="tech">
