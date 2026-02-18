@@ -1,197 +1,180 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Projects | Kevin Rivera</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 900px;
-            margin: 60px auto;
-            line-height: 1.6;
-        }
-        nav a {
-            margin-right: 20px;
-            text-decoration: none;
-            color: #007acc;
-            font-weight: bold;
-        }
-        h2 { margin-top: 40px; }
-        .project {
-            margin-bottom: 50px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #ddd;
-        }
-        .tech {
-            font-style: italic;
-            color: #555;
-        }
-    </style>
+  <title>Projects | Kevin Rivera</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="projectstyles.css">
 </head>
+
 <body>
 
-<nav>
+<nav class="topnav">
   <a href="index.html">Home</a>
-  <a href="projects.html">Projects</a>
+  <a class="active" href="projects.html">Projects</a>
   <a href="infrastructure.html">Infrastructure</a>
   <a href="cybersecurity.html">Cybersecurity</a>
   <a href="automation.html">Automation</a>
   <a href="homelab.html">Home Labs</a>
 </nav>
-<div class="project">
-    <h2>Okta to Microsoft Entra ID SSO Migration</h2>
 
-    <p><strong>Objective:</strong> Migrate single sign-on (SSO) and identity provisioning 
-    from Okta to Microsoft Entra ID to centralize authentication, streamline licensing, 
-    and align identity management with Microsoft 365 infrastructure.</p>
+<header class="hero">
+  <h1>Infrastructure, Cloud & Security Projects</h1>
+  <p>Selected projects focused on identity, migrations, and hybrid infrastructure modernization.</p>
+</header>
 
-    <p><strong>Planning & Preparation:</strong></p>
-    <ul>
-        <li>Captured and documented the complete Okta tenant configuration including applications, groups, provisioning rules, and license mappings.</li>
-        <li>Reviewed application dependencies and authentication methods prior to migration.</li>
-        <li>Performed sandbox testing using dedicated test accounts to validate authentication and provisioning behavior.</li>
-        <li>Scheduled implementation during off-hours to minimize production impact.</li>
-        <li>Created step-by-step documentation and internal tutorials to support administrators and end users.</li>
-    </ul>
+<section class="grid">
 
-    <p><strong>Implementation:</strong></p>
-    <ul>
-        <li>Recreated enterprise applications in Microsoft Entra ID using prebuilt gallery apps and custom SAML configurations.</li>
-        <li>Configured SAML trust relationships, exchanged IdP metadata, and validated signing certificates.</li>
-        <li>Created security groups and assigned them to applications and license bundles.</li>
-        <li>Configured user provisioning and attribute mappings for supported applications.</li>
-        <li>Validated authentication flows using test and pilot user accounts.</li>
-    </ul>
+  <!-- Project 1 -->
+  <article class="project-card">
+    <div class="card-top">
+      <h2>Okta → Microsoft Entra ID SSO Migration</h2>
+      <div class="badges">
+        <span class="badge id">Identity</span>
+        <span class="badge azure">Entra ID</span>
+        <span class="badge saml">SAML</span>
+      </div>
+    </div>
 
-    <p><strong>Challenges & Mitigation:</strong></p>
-    <ul>
-        <li>Troubleshot SAML errors related to metadata mismatches, endpoints, and certificate configuration.</li>
-        <li>Resolved provisioning failures caused by permission scope and attribute mapping issues.</li>
-        <li>Identified limitations with password transfer functionality and planned user communication accordingly.</li>
-        <li>Investigated and remediated authentication errors (e.g., 404 and access-denied scenarios).</li>
-    </ul>
+    <p><strong>Objective:</strong> Migrate single sign-on (SSO) and identity provisioning from Okta to Microsoft Entra ID to centralize authentication, streamline licensing, and align identity with Microsoft 365.</p>
 
-    <p><strong>Post-Migration Validation & Stabilization:</strong></p>
-    <ul>
-        <li>Verified successful login access across all migrated applications using Entra ID as the primary identity provider.</li>
-        <li>Confirmed all user accounts were correctly federated and pointing to the new IdP.</li>
-        <li>Validated group-based access and license assignments post-migration.</li>
-        <li>Monitored sign-in logs and provisioning logs to identify and remediate residual issues.</li>
-        <li>Provided post-migration support and updated documentation to reflect the new identity architecture.</li>
-    </ul>
+    <details>
+      <summary>View approach</summary>
 
-    <p><strong>Outcome:</strong></p>
-    <p>
-        Successfully transitioned SSO and identity provisioning services from Okta to Microsoft 
-        Entra ID with minimal user disruption. The migration resulted in centralized identity 
-        management, improved visibility into authentication activity, and simplified ongoing 
-        access administration.
-    </p>
+      <h3>Planning & Preparation</h3>
+      <ul>
+        <li>Captured and documented Okta applications, groups, provisioning rules, and license mappings.</li>
+        <li>Validated application dependencies and authentication methods.</li>
+        <li>Performed sandbox testing with dedicated test accounts.</li>
+        <li>Scheduled implementation during off-hours to reduce impact.</li>
+        <li>Created step-by-step documentation and internal tutorials.</li>
+      </ul>
 
-    <p class="tech">
-        <strong>Technologies:</strong> Okta, Microsoft Entra ID (Azure AD), SAML 2.0, RBAC, 
-        Microsoft 365, Identity Provisioning
-    </p>
-</div>
+      <h3>Implementation</h3>
+      <ul>
+        <li>Recreated applications in Entra ID using gallery apps and custom SAML configurations.</li>
+        <li>Exchanged IdP metadata, validated certificates, and confirmed trust configuration.</li>
+        <li>Created security groups and assigned access and license bundles.</li>
+        <li>Configured provisioning and attribute mappings where supported.</li>
+        <li>Validated authentication flows with test and pilot users.</li>
+      </ul>
 
-<div class="project">
-    <h2>Intermedia to Microsoft 365 Email Migration</h2>
+      <h3>Post-Migration Validation</h3>
+      <ul>
+        <li>Verified login access across all migrated applications using Entra ID as IdP.</li>
+        <li>Confirmed users were federated and pointing to the new IdP.</li>
+        <li>Validated group-based access and license assignments.</li>
+        <li>Monitored sign-in/provisioning logs and resolved residual issues.</li>
+        <li>Updated documentation and stabilized support handoff.</li>
+      </ul>
 
-    <p><strong>Objective:</strong> Migrate email services from Intermedia to Microsoft 365 
-    to consolidate collaboration tools, centralize identity management, and improve 
-    administrative visibility and security controls.</p>
+      <h3>Outcome</h3>
+      <p>Centralized identity management, improved authentication visibility, and simplified ongoing access administration with minimal disruption.</p>
 
-    <p><strong>Planning & Preparation:</strong></p>
-    <ul>
-        <li>Documented the complete Intermedia tenant configuration including mailboxes, groups, licenses, forwarding rules, transport rules, and email signatures.</li>
-        <li>Reviewed distribution groups, shared mailboxes, and access permissions to ensure proper recreation in Microsoft 365.</li>
-        <li>Backed up all mailboxes using a disaster recovery solution prior to migration.</li>
-        <li>Scheduled migration during off-hours to minimize user impact.</li>
-        <li>Selected BitTitan MigrationWiz as the migration tool after evaluating migration options.</li>
-    </ul>
+      <p class="techline"><strong>Tech:</strong> Okta, Entra ID (Azure AD), SAML 2.0, RBAC, Microsoft 365, Provisioning</p>
+    </details>
+  </article>
 
-    <p><strong>Migration Execution:</strong></p>
-    <ul>
-        <li>Configured BitTitan migration projects and validated source and destination connectivity.</li>
-        <li>Enabled the “Do Not Duplicate Emails” feature to prevent mailbox inflation and data redundancy.</li>
+  <!-- Project 2 -->
+  <article class="project-card">
+    <div class="card-top">
+      <h2>Intermedia → Microsoft 365 Email Migration</h2>
+      <div class="badges">
+        <span class="badge m365">M365</span>
+        <span class="badge mail">Email</span>
+        <span class="badge dns">DNS</span>
+      </div>
+    </div>
+
+    <p><strong>Objective:</strong> Migrate email services from Intermedia to Microsoft 365 to consolidate collaboration tooling and improve administrative visibility and security controls.</p>
+
+    <details>
+      <summary>View approach</summary>
+
+      <h3>Planning & Preparation</h3>
+      <ul>
+        <li>Documented mailboxes, groups, licenses, forwarding, rules, and signatures.</li>
+        <li>Backed up mailboxes using a disaster recovery solution.</li>
+        <li>Scheduled migration after-hours and selected BitTitan MigrationWiz.</li>
+      </ul>
+
+      <h3>Migration Execution</h3>
+      <ul>
+        <li>Configured MigrationWiz projects and validated connectivity.</li>
+        <li>Enabled “Do Not Duplicate Emails” to prevent redundancy.</li>
         <li>Performed staged mailbox migrations to reduce cutover risk.</li>
-        <li>Recreated distribution groups, forwarding rules, mailbox permissions, and transport rules in Microsoft 365.</li>
-        <li>Reconfigured user email signatures and verified mailbox settings.</li>
-        <li>Transferred and updated DNS records (MX, SPF, Autodiscover) to redirect mail flow to Microsoft 365.</li>
-    </ul>
+        <li>Recreated groups, shared mailbox access, forwarding, and mail flow rules.</li>
+        <li>Transferred DNS records (MX, SPF, Autodiscover) for mail cutover.</li>
+      </ul>
 
-    <p><strong>Post-Migration Validation:</strong></p>
-    <ul>
-        <li>Validated inbound and outbound email functionality across all users.</li>
-        <li>Confirmed mailbox data integrity and folder structure consistency.</li>
-        <li>Verified group membership, shared mailbox access, and forwarding configurations.</li>
-        <li>Monitored message trace and delivery reports to ensure stable mail flow.</li>
-        <li>Provided user support during transition and updated internal documentation.</li>
-    </ul>
+      <h3>Post-Migration Validation</h3>
+      <ul>
+        <li>Validated inbound/outbound mail flow and mailbox data integrity.</li>
+        <li>Verified group membership, shared mailbox access, and forwarding.</li>
+        <li>Monitored message trace and delivery reports for stability.</li>
+        <li>Provided user support and updated internal documentation.</li>
+      </ul>
 
-    <p><strong>Outcome:</strong></p>
-    <p>
-        Successfully migrated organizational email services to Microsoft 365 with minimal 
-        downtime, preserved mailbox data integrity, improved administrative control, 
-        and aligned email infrastructure with centralized identity and security policies.
-    </p>
+      <h3>Outcome</h3>
+      <p>Completed migration with minimal downtime, preserved mailbox integrity, and aligned email with Microsoft 365 identity and security policies.</p>
 
-    <div class="project">
-    <h2>VMware to Microsoft Azure Infrastructure Migration</h2>
+      <p class="techline"><strong>Tech:</strong> Intermedia, Microsoft 365, Exchange Online, BitTitan MigrationWiz, DNS (MX/SPF/Autodiscover)</p>
+    </details>
+  </article>
 
-    <p><strong>Objective:</strong> Migrate on-premise VMware virtual machines and associated 
-    workloads to Microsoft Azure to modernize infrastructure, improve scalability, and enhance 
-    disaster recovery capabilities.</p>
+  <!-- Project 3 -->
+  <article class="project-card">
+    <div class="card-top">
+      <h2>VMware → Microsoft Azure Infrastructure Migration</h2>
+      <div class="badges">
+        <span class="badge vmware">VMware</span>
+        <span class="badge azure">Azure</span>
+        <span class="badge sec">NSG/RBAC</span>
+      </div>
+    </div>
 
-    <p><strong>Planning & Preparation:</strong></p>
-    <ul>
-        <li>Audited VMware ESXi/vSphere environment and documented virtual machine inventory.</li>
-        <li>Recorded operating system versions, resource utilization, storage dependencies, and application requirements.</li>
-        <li>Identified SQL database dependencies and service account requirements.</li>
-        <li>Outlined required Azure services including Virtual Machines, Azure SQL/SQL on VM, Azure Backup, Virtual Network (VNet), Network Security Groups (NSG), and monitoring tools.</li>
-        <li>Used Azure Pricing Calculator to estimate monthly infrastructure costs and optimize resource sizing.</li>
-        <li>Reviewed licensing requirements including Windows Server licensing and Client Access Licenses (CALs).</li>
-    </ul>
+    <p><strong>Objective:</strong> Migrate VMware workloads to Microsoft Azure to modernize infrastructure, improve scalability, and enhance disaster recovery capabilities.</p>
 
-    <p><strong>Migration Strategy & Execution:</strong></p>
-    <ul>
-        <li>Evaluated migration methods including PowerShell-based VM recreation and manual snapshot/backup restoration.</li>
-        <li>Provisioned Azure Virtual Machines aligned with production workload specifications.</li>
-        <li>Configured Azure Virtual Network (VNet) architecture to mirror on-prem segmentation.</li>
-        <li>Implemented Network Security Groups (NSG) to restrict RDP access and enforce least-privilege network policies.</li>
-        <li>Deployed and configured RDP access securely through controlled inbound rules.</li>
-        <li>Migrated SQL workloads and validated database connectivity and application integration.</li>
-        <li>Configured Azure Backup policies to protect cloud-hosted workloads.</li>
-    </ul>
+    <details>
+      <summary>View approach</summary>
 
-    <p><strong>Post-Migration Validation:</strong></p>
-    <ul>
-        <li>Validated RDP connectivity and remote administrative access.</li>
-        <li>Confirmed SQL database accessibility and application functionality.</li>
-        <li>Verified Azure Role-Based Access Control (RBAC) permissions were correctly assigned.</li>
-        <li>Tested backup and recovery processes.</li>
-        <li>Monitored performance metrics and adjusted VM sizing as necessary.</li>
-    </ul>
+      <h3>Planning & Preparation</h3>
+      <ul>
+        <li>Documented VM inventory, OS versions, dependencies, and resource utilization.</li>
+        <li>Outlined required Azure services (VMs, VNet, NSG, RBAC, Backup, SQL).</li>
+        <li>Used Azure Pricing Calculator to estimate costs and right-size resources.</li>
+        <li>Reviewed licensing requirements (Windows Server licensing, CAL considerations).</li>
+      </ul>
 
-    <p><strong>Outcome:</strong></p>
-    <p>
-        Successfully migrated critical workloads from VMware to Azure, improving scalability, 
-        strengthening security posture, enabling centralized RBAC controls, and enhancing 
-        disaster recovery readiness within a hybrid cloud environment.
-    </p>
+      <h3>Migration Strategy & Execution</h3>
+      <ul>
+        <li>Evaluated VM rebuild via PowerShell vs. restoration from snapshots/backups.</li>
+        <li>Provisioned Azure VMs and configured VNet segmentation.</li>
+        <li>Implemented NSGs to restrict RDP and enforce least-privilege rules.</li>
+        <li>Migrated SQL workload and validated application/database connectivity.</li>
+        <li>Configured Azure Backup policies for workload protection.</li>
+      </ul>
 
-    <p class="tech">
-        <strong>Technologies:</strong> VMware ESXi/vSphere, Microsoft Azure, Azure Virtual Machines, 
-        Azure SQL, Azure Backup, Virtual Network (VNet), Network Security Groups (NSG), 
-        RBAC, PowerShell
-    </p>
-</div>
+      <h3>Post-Migration Validation</h3>
+      <ul>
+        <li>Validated RDP access and confirmed remote administration worked as expected.</li>
+        <li>Confirmed SQL database accessibility and dependent app functionality.</li>
+        <li>Verified RBAC assignments were correct for administrative and operational roles.</li>
+        <li>Tested backup/recovery and monitored performance for right-sizing.</li>
+      </ul>
 
-    <p class="tech">
-        <strong>Technologies:</strong> Intermedia, Microsoft 365, Exchange Online, BitTitan MigrationWiz, DNS (MX/SPF/Autodiscover)
-    </p>
-</div>
+      <h3>Outcome</h3>
+      <p>Modernized infrastructure into Azure with improved scalability, stronger access controls, and better DR readiness.</p>
+
+      <p class="techline"><strong>Tech:</strong> VMware ESXi/vSphere, Azure VMs, VNet, NSG, RBAC, Azure Backup, Azure SQL/SQL on VM, PowerShell</p>
+    </details>
+  </article>
+
+</section>
+
+<footer class="footer">
+  <p>More projects coming soon (Intune, automation, SIEM labs).</p>
+</footer>
 
 </body>
 </html>
