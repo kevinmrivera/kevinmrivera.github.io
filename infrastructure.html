@@ -8,7 +8,7 @@
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      max-width: 950px;
+      max-width: 1000px;
       margin: 60px auto;
       padding: 0 20px;
       line-height: 1.7;
@@ -16,9 +16,7 @@
       background-color: #f9fafb;
     }
 
-    nav {
-      margin-bottom: 40px;
-    }
+    nav { margin-bottom: 40px; }
 
     nav a {
       margin-right: 20px;
@@ -27,32 +25,39 @@
       font-weight: 600;
     }
 
-    nav a:hover {
-      text-decoration: underline;
-    }
+    nav a:hover { text-decoration: underline; }
 
     h1 {
       font-size: 34px;
-      margin-bottom: 10px;
-    }
-
-    h2 {
-      margin-top: 32px;
-      font-size: 22px;
+      margin-bottom: 8px;
     }
 
     .subtitle {
       color: #6b7280;
-      margin-bottom: 30px;
+      margin-bottom: 26px;
+    }
+
+    h2 {
+      margin-top: 34px;
+      font-size: 22px;
+    }
+
+    h3 {
+      margin-top: 18px;
+      font-size: 16px;
+      color: #111827;
     }
 
     .card {
       background: white;
       padding: 22px;
-      margin-top: 22px;
+      margin-top: 18px;
       border-radius: 12px;
+      border: 1px solid #e5e7eb;
       box-shadow: 0 6px 18px rgba(0,0,0,0.05);
     }
+
+    ul { margin-top: 10px; padding-left: 18px; }
 
     .meta {
       color: #6b7280;
@@ -60,8 +65,56 @@
       margin-top: 10px;
     }
 
-    ul {
-      margin-top: 10px;
+    .diagram {
+      margin-top: 12px;
+      padding: 14px;
+      border-radius: 12px;
+      background: #0b1020;
+      color: #e6e9f2;
+      border: 1px solid #111827;
+      overflow: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 13px;
+      line-height: 1.55;
+      white-space: pre;
+    }
+
+    .imgwrap {
+      margin-top: 14px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .imgwrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .note {
+      background: #eff6ff;
+      border: 1px solid #dbeafe;
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-top: 14px;
+      color: #1f2937;
+    }
+
+    .tagrow { margin-top: 12px; }
+
+    .tag {
+      display: inline-block;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid #e5e7eb;
+      background: #f9fafb;
+      color: #374151;
+      margin-right: 8px;
+      margin-top: 6px;
+      font-weight: 600;
     }
   </style>
 </head>
@@ -77,7 +130,154 @@
   <a href="homelab.html">Home Labs</a>
 </nav>
 
+<h1>Infrastructure</h1>
+<p class="subtitle">
+Infrastructure designs focused on reliability, security, segmentation, and scalable operations across hybrid environments.
+</p>
 
+<div class="card">
+  <h2>Design 1 — Secure Lab / Small Office Topology (Monitoring + Resilience)</h2>
+  <p>
+    This design is built for a home lab or small office where the goals are <strong>strong network security</strong>,
+    <strong>repeatable operations</strong>, and <strong>centralized visibility</strong> (SIEM + SOAR),
+    while still keeping the setup practical to run.
+  </p>
+
+  <div class="diagram">ISP Modem → Firewall → Router → Primary Switch (+ Backup Switch) → KVM → Endpoints
+                                              ├─ Windows / macOS Workstations
+                                              ├─ Linux / Kali (testing)
+                                              ├─ SIEM (log collection + correlation)
+                                              └─ SOAR (workflow automation)
+Power: Back-UPS for network + monitoring stack</div>
+
+  <h3>What each component is doing</h3>
+  <ul>
+    <li><strong>Modem:</strong> Terminates the ISP connection and hands off internet connectivity.</li>
+    <li><strong>Firewall:</strong> The security perimeter (NAT, stateful filtering, threat controls, VPN, logging). This is where you enforce inbound/outbound policy.</li>
+    <li><strong>Router:</strong> Handles internal routing (or you can collapse router/firewall into a single device depending on the setup). Often manages local subnets/VLAN routing.</li>
+    <li><strong>Primary switch + backup switch:</strong> Access layer connectivity. Backup switch provides quick recovery if the primary fails.</li>
+    <li><strong>KVM switch:</strong> Operational convenience to control multiple machines from one keyboard/mouse/monitor while keeping systems segmented.</li>
+    <li><strong>SIEM:</strong> Central log ingestion + correlation (endpoints, firewall logs, auth logs) for detection and investigation.</li>
+    <li><strong>SOAR:</strong> Runs playbooks to automate triage, enrichment, notifications, and safe response actions.</li>
+    <li><strong>Back-UPS:</strong> Keeps firewall/switch/SIEM online during short outages to prevent data loss and keep monitoring continuous.</li>
+  </ul>
+
+  <h3>How SIEM and SOAR work together here</h3>
+  <ul>
+    <li><strong>Collection:</strong> endpoints + firewall forward logs to the SIEM.</li>
+    <li><strong>Detection:</strong> the SIEM correlates events and generates alerts.</li>
+    <li><strong>Automation:</strong> SOAR consumes alerts, enriches context (asset/user), and triggers actions (ticket, Slack/email alert, scripted checks).</li>
+    <li><strong>Controlled response:</strong> optional actions like blocking a test IP, disabling a test user, or isolating a lab endpoint (only where supported and configured).</li>
+  </ul>
+
+  <div class="tagrow">
+    <span class="tag">Segmentation</span>
+    <span class="tag">SIEM</span>
+    <span class="tag">SOAR</span>
+    <span class="tag">Back-UPS</span>
+    <span class="tag">Operational Resilience</span>
+  </div>
+
+  <p class="meta">Use case: secure monitoring lab, small office network, repeatable testing and documentation.</p>
+</div>
+
+<div class="card">
+  <h2>Design 2 — Business On-Prem Virtualized Environment (Primary + Backup ISP)</h2>
+  <p>
+    This design represents a more traditional business infrastructure model with
+    <strong>redundant internet</strong>, <strong>virtualized servers</strong>, and
+    <strong>core services</strong> hosted on VMware. It supports centralized identity,
+    business-critical apps, and remote access for employees.
+  </p>
+
+  <div class="diagram">Primary ISP + Backup ISP → Firewall → Switch (+ Backup Switch) → VMware Hosts → Server Workloads
+                                         ├─ Domain Controller (Primary)
+                                         ├─ Domain Controller (Backup/Secondary)
+                                         ├─ Remote Desktop Services (Employees)
+                                         ├─ QuickBooks Server (DB Manager / App role)
+                                         ├─ IIS Web Server
+                                         ├─ SQL Server
+                                         ├─ Linux Server (apps/services)
+                                         └─ Exchange Server (or M365 hybrid depending on model)</div>
+
+  <h3>Core capabilities</h3>
+  <ul>
+    <li><strong>Redundant ISP:</strong> business continuity if the primary circuit fails (failover policy defined at the firewall).</li>
+    <li><strong>Firewall at the edge:</strong> VPN/remote access, security filtering, NAT, and centralized logging.</li>
+    <li><strong>Switching layer (+ backup):</strong> stable LAN connectivity and reduced downtime risk.</li>
+    <li><strong>Virtualization (VMware):</strong> consolidates workloads, improves resource utilization, and simplifies recovery.</li>
+  </ul>
+
+  <h3>Server role explanation (what each VM typically handles)</h3>
+  <ul>
+    <li><strong>Domain Controller (Primary):</strong> authentication, Group Policy, DNS (often), core identity services.</li>
+    <li><strong>Domain Controller (Backup):</strong> redundancy for identity services, improves resilience and maintenance windows.</li>
+    <li><strong>Remote Desktop Services:</strong> secure access to internal applications without exposing them directly to the internet.</li>
+    <li><strong>QuickBooks Server:</strong> hosts QuickBooks Database Server Manager and supports multi-user accounting access.</li>
+    <li><strong>IIS Web Server:</strong> internal web apps, intranet services, or app front-ends.</li>
+    <li><strong>SQL Server:</strong> database workloads supporting business apps and services.</li>
+    <li><strong>Linux Server:</strong> web services, automation tooling, monitoring, or application runtime needs.</li>
+    <li><strong>Exchange Server:</strong> on-prem mail (or hybrid / migration path toward Microsoft 365).</li>
+  </ul>
+
+  <h3>Security and operational practices commonly paired with this design</h3>
+  <ul>
+    <li>Patch management and scheduled maintenance windows.</li>
+    <li>Backups (image-level + app-aware) and periodic restore testing.</li>
+    <li>Least privilege, RBAC, and admin separation.</li>
+    <li>Network segmentation (VLANs) for servers, users, and restricted systems.</li>
+    <li>Central monitoring (availability + logs) and alerting.</li>
+  </ul>
+
+  <div class="tagrow">
+    <span class="tag">VMware</span>
+    <span class="tag">Active Directory</span>
+    <span class="tag">RDS</span>
+    <span class="tag">QuickBooks</span>
+    <span class="tag">IIS / SQL</span>
+    <span class="tag">Primary + Backup ISP</span>
+  </div>
+
+  <p class="meta">Use case: SMB/enterprise-style on-prem infrastructure supporting identity, apps, and remote workforce access.</p>
+</div>
+
+<div class="card">
+  <h2>Design 3 — Reference Diagram (Hybrid / Multi-Environment)</h2>
+  <p>
+    Design 3 is a high-level reference diagram showing a more complex environment that blends
+    on-prem connectivity with cloud services and segmented network tiers. It is useful for
+    explaining <strong>network boundaries</strong>, <strong>interconnectivity</strong>, and
+    <strong>how services flow</strong> across multiple environments.
+  </p>
+
+  <div class="note">
+    <strong>Tip:</strong> Save your screenshot as <strong>images/infrastructure-design3.png</strong> in your repo so it loads below.
+  </div>
+
+  <div class="imgwrap">
+    <img src="images/infrastructure-design3.png" alt="Infrastructure Design 3 reference diagram">
+  </div>
+
+  <h3>What this design demonstrates (portfolio-safe explanation)</h3>
+  <ul>
+    <li><strong>Hybrid connectivity:</strong> cloud services and on-prem networks connected through secured pathways (VPN / secured access patterns).</li>
+    <li><strong>Segmentation:</strong> separation of users, servers, and sensitive workloads to reduce blast radius.</li>
+    <li><strong>Service tiers:</strong> identity/services, application tiers, and data tiers represented as distinct components.</li>
+    <li><strong>Resilience:</strong> redundancy patterns and structured dependencies for core services.</li>
+    <li><strong>Monitoring readiness:</strong> environment structured to support centralized visibility (availability + logs).</li>
+  </ul>
+
+  <div class="tagrow">
+    <span class="tag">Hybrid</span>
+    <span class="tag">Segmentation</span>
+    <span class="tag">Cloud + On-Prem</span>
+    <span class="tag">Network Boundaries</span>
+  </div>
+
+  <p class="meta">
+    Note: Diagram is intentionally shared at a high level with no internal IPs, hostnames, or sensitive configuration details.
+  </p>
+</div>
 
 </body>
 </html>
