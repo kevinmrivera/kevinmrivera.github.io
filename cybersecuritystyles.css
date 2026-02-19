@@ -4,11 +4,6 @@
   --border: rgba(255,255,255,0.14);
   --text: #e6e9f2;
   --muted: rgba(230,233,242,0.72);
-
-  --blue: #4cc9ff;
-  --red: #fb7185;
-  --green: #34d399;
-  --purple: #a78bfa;
 }
 
 *{ box-sizing: border-box; }
@@ -20,6 +15,7 @@ body{
   background:
     radial-gradient(800px 400px at 10% 0%, rgba(76,201,255,0.25), transparent 60%),
     radial-gradient(800px 400px at 90% 10%, rgba(251,113,133,0.18), transparent 60%),
+    radial-gradient(800px 400px at 70% 95%, rgba(167,139,250,0.14), transparent 60%),
     linear-gradient(180deg, #050714, #060913 60%, #050714);
   min-height: 100vh;
 }
@@ -42,6 +38,7 @@ body{
   margin-right: 16px;
   padding: 8px 10px;
   border-radius: 10px;
+  display: inline-block;
 }
 
 .topnav a:hover{ background: rgba(255,255,255,0.06); }
@@ -66,7 +63,7 @@ body{
 .hero p{
   margin: 0;
   color: var(--muted);
-  max-width: 75ch;
+  max-width: 78ch;
 }
 
 /* GRID */
@@ -99,8 +96,8 @@ body{
   inset: -2px;
   background: linear-gradient(90deg,
     rgba(76,201,255,0.30),
-    rgba(251,113,133,0.25),
-    rgba(167,139,250,0.20)
+    rgba(251,113,133,0.22),
+    rgba(167,139,250,0.18)
   );
   filter: blur(20px);
   opacity: 0.35;
@@ -109,8 +106,17 @@ body{
 
 .card > *{ position: relative; z-index: 1; }
 
+/* Card heading + tags */
+.card-head{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
 .card h2{
-  margin-top: 0;
+  margin: 0;
   font-size: 18px;
 }
 
@@ -119,24 +125,59 @@ body{
 }
 
 .card ul{
-  margin-left: 18px;
+  margin: 10px 0 0 18px;
 }
 
-/* TAGS */
-.tags{
-  margin-top: 12px;
+.card li{
+  margin: 6px 0;
 }
 
-.tags span{
+/* TAGS (colorful pills like Home Labs) */
+.tagrow{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.tag{
   display: inline-block;
   font-size: 12px;
   padding: 6px 10px;
   border-radius: 999px;
-  margin-right: 8px;
-  margin-top: 6px;
   border: 1px solid rgba(255,255,255,0.16);
-  background: rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.04);
+  white-space: nowrap;
 }
+
+/* Tag color variants */
+.tag-siem    { border-color: rgba(250,204,21,0.45); background: rgba(250,204,21,0.12); color: rgba(250,204,21,0.95); }
+.tag-logs    { border-color: rgba(34,211,238,0.45); background: rgba(34,211,238,0.12); color: rgba(34,211,238,0.95); }
+.tag-detect  { border-color: rgba(76,201,255,0.45); background: rgba(76,201,255,0.12); color: rgba(76,201,255,0.95); }
+
+.tag-soar    { border-color: rgba(244,63,94,0.45);  background: rgba(244,63,94,0.12);  color: rgba(251,113,133,1); }
+.tag-auto    { border-color: rgba(52,211,153,0.45); background: rgba(52,211,153,0.12); color: rgba(52,211,153,0.95); }
+.tag-response{ border-color: rgba(167,139,250,0.45);background: rgba(167,139,250,0.12);color: rgba(167,139,250,0.95); }
+
+.tag-edr     { border-color: rgba(59,130,246,0.45); background: rgba(59,130,246,0.12); color: rgba(147,197,253,1); }
+.tag-mdr     { border-color: rgba(34,197,94,0.45);  background: rgba(34,197,94,0.12);  color: rgba(34,197,94,0.95); }
+.tag-contain { border-color: rgba(251,191,36,0.45); background: rgba(251,191,36,0.12); color: rgba(251,191,36,0.95); }
+
+.tag-mail    { border-color: rgba(76,201,255,0.45); background: rgba(76,201,255,0.12); color: rgba(76,201,255,0.95); }
+.tag-phish   { border-color: rgba(244,63,94,0.45);  background: rgba(244,63,94,0.12);  color: rgba(251,113,133,1); }
+.tag-dmarc   { border-color: rgba(167,139,250,0.45);background: rgba(167,139,250,0.12);color: rgba(167,139,250,0.95); }
+
+.tag-gov     { border-color: rgba(250,204,21,0.45); background: rgba(250,204,21,0.12); color: rgba(250,204,21,0.95); }
+.tag-risk    { border-color: rgba(34,211,238,0.45); background: rgba(34,211,238,0.12); color: rgba(34,211,238,0.95); }
+.tag-audit   { border-color: rgba(52,211,153,0.45); background: rgba(52,211,153,0.12); color: rgba(52,211,153,0.95); }
+
+.tag-threat  { border-color: rgba(244,63,94,0.45);  background: rgba(244,63,94,0.12);  color: rgba(251,113,133,1); }
+.tag-mfa     { border-color: rgba(76,201,255,0.45); background: rgba(76,201,255,0.12); color: rgba(76,201,255,0.95); }
+.tag-lp      { border-color: rgba(52,211,153,0.45); background: rgba(52,211,153,0.12); color: rgba(52,211,153,0.95); }
+
+.tag-train   { border-color: rgba(250,204,21,0.45); background: rgba(250,204,21,0.12); color: rgba(250,204,21,0.95); }
+.tag-policy  { border-color: rgba(34,211,238,0.45); background: rgba(34,211,238,0.12); color: rgba(34,211,238,0.95); }
+.tag-culture { border-color: rgba(167,139,250,0.45);background: rgba(167,139,250,0.12);color: rgba(167,139,250,0.95); }
 
 /* FOOTER */
 .footer{
