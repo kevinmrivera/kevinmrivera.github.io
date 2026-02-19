@@ -1,247 +1,229 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Projects | Infrastructure</title>
-  <link rel="stylesheet" href="projectstyles.css" />
+  <title>Projects | Kevin Rivera</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="projectstyles.css">
 </head>
+
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <div class="brand">
-        <div class="brand-mark" aria-hidden="true">⚙️</div>
-        <div class="brand-text">
-          <h1>Projects</h1>
-          <p>Implementation plans, checklists, and post-change validation</p>
-        </div>
-      </div>
 
-      <nav class="nav">
-        <a href="index.html">Home</a>
-        <a href="infrastructure.html">Infrastructure</a>
-        <a class="active" href="projects.html">Projects</a>
-      </nav>
-    </div>
-  </header>
+<nav class="topnav">
+  <a href="index.html">Home</a>
+  <a class="active" href="projects.html">Projects</a>
+  <a href="infrastructure.html">Infrastructure</a>
+  <a href="cybersecurity.html">Cybersecurity</a>
+  <a href="automation.html">Automation</a>
+  <a href="homelab.html">Home Labs</a>
+</nav>
 
-  <main class="container">
-    <section class="page-intro card">
-      <h2>Active / Reference Projects</h2>
-      <p>
-        Use these as repeatable runbooks. Each project includes prep, execution guidance,
-        known issues, and post-migration validation.
-      </p>
-      <div class="pill-row" aria-label="tags">
-        <span class="pill">DNS</span>
-        <span class="pill">Cloudflare</span>
-        <span class="pill">SSL/TLS</span>
-        <span class="pill">Google Workspace</span>
-        <span class="pill">Microsoft 365</span>
-        <span class="pill">Interop</span>
-      </div>
-    </section>
+<header class="hero">
+  <h1>Infrastructure, Cloud & Security Projects</h1>
+  <p>
+    Selected projects demonstrating hands-on delivery across DNS, identity, email migration,
+    and hybrid infrastructure modernization. Details are shared at a high level and are portfolio-safe.
+  </p>
+</header>
 
-    <!-- Project 1 -->
-    <section class="project card">
-      <div class="project-head">
-        <div>
-          <h3>GoDaddy → Cloudflare DNS Migration</h3>
-          <p class="sub">
-            Move authoritative DNS to Cloudflare, preserve service continuity (web, email, SaaS), and enable Cloudflare SSL/WAF.
-          </p>
-        </div>
-        <div class="status">
-          <span class="badge">Runbook</span>
-          <span class="badge badge-muted">DNS Cutover</span>
-        </div>
-      </div>
+<section class="projects-grid">
 
-      <div class="grid">
-        <div class="grid-col">
-          <h4>Preparation</h4>
-          <ul>
-            <li><strong>Lower TTL</strong> on key records (A/CNAME/MX) to ~300–600 seconds at least a few hours before cutover.</li>
-            <li><strong>Screenshot / export</strong> all DNS records (zone snapshot). Keep a rollback reference.</li>
-            <li>Identify records that typically stay <strong>DNS only</strong>: MX, SPF/DKIM/DMARC, autodiscover, sip, etc.</li>
-            <li>Confirm what hosts the website (e.g., Webflow/Netlify/WordPress) and how it expects DNS to be set.</li>
-            <li>Check if <strong>DNSSEC</strong> is enabled at GoDaddy (you’ll need to disable it before changing nameservers).</li>
-            <li>List “special” DNS records that should not be proxied: mail, verification TXT, DKIM selectors, MTA-STS, etc.</li>
-          </ul>
-        </div>
+  <!-- ============================= -->
+  <!-- PROJECT: GODADDY → CLOUDFLARE -->
+  <!-- ============================= -->
+  <article class="project-card">
+    <h2>GoDaddy to Cloudflare DNS Migration</h2>
+    <p><strong>Objective:</strong> Migrate authoritative DNS from GoDaddy to Cloudflare to centralize DNS management, improve security, and enable Cloudflare protections where appropriate.</p>
 
-        <div class="grid-col">
-          <h4>Migration Steps</h4>
-          <ol>
-            <li>Add the domain to Cloudflare and choose a plan.</li>
-            <li>Use Cloudflare to <strong>import/copy DNS records</strong>.</li>
-            <li>Verify: all records copied over <strong>except NS records</strong> (NS is controlled by the registrar after cutover).</li>
-            <li>Set correct <strong>proxy status</strong>:
-              <ul>
-                <li><strong>Proxied</strong>: web records (usually <code>www</code> and/or root if allowed)</li>
-                <li><strong>DNS only</strong>: MX/TXT/mail-related records and many SaaS verifications</li>
-              </ul>
-            </li>
-            <li>At GoDaddy: update nameservers to Cloudflare nameservers.</li>
-            <li>Wait for nameserver propagation (can be quick, can take some time depending on caching).</li>
-          </ol>
-        </div>
+    <h3>Preparation</h3>
+    <ul>
+      <li>Captured screenshots/exports of all existing DNS records for rollback reference.</li>
+      <li>Documented A, CNAME, MX, TXT (SPF/DKIM/DMARC), and verification records.</li>
+      <li>Identified records requiring <strong>DNS-only</strong> (mail, SaaS validation, third-party SSL/origin requirements).</li>
+      <li>Reduced TTL values ahead of cutover to minimize propagation delays.</li>
+    </ul>
 
-        <div class="grid-col">
-          <h4>Issues That May Arise</h4>
-          <ul>
-            <li><strong>Error 1000 / Prohibited IP</strong>: Cloudflare proxying to an IP that Cloudflare blocks (common when origin is another Cloudflare / restricted range).</li>
-            <li><strong>Webflow SSL nuance</strong>: Webflow expects <code>www</code> CNAME to their host; root may be A records or CNAME flattening depending on setup.</li>
-            <li><strong>Wrong proxy setting</strong> on mail records can break email delivery.</li>
-            <li><strong>DNSSEC mismatch</strong> can cause resolution failures after nameserver change.</li>
-            <li><strong>Split hosting</strong>: multiple A records (load balancing) or mixed providers need careful parity.</li>
-            <li><strong>Verification failures</strong>: Google/Microsoft/Salesforce DKIM TXT/CNAME entries must match exactly.</li>
-          </ul>
-        </div>
+    <h3>Migration Execution</h3>
+    <ul>
+      <li>Used Cloudflare DNS scan/copy and manually validated record accuracy.</li>
+      <li>Confirmed all records copied correctly <em>except NS</em> records (replaced by Cloudflare nameservers).</li>
+      <li>Configured proxying selectively for public web services while keeping sensitive services DNS-only.</li>
+      <li>Updated nameservers at registrar and confirmed authoritative DNS cutover.</li>
+    </ul>
 
-        <div class="grid-col">
-          <h4>Post-Migration Validation</h4>
-          <ul>
-            <li>Confirm site loads for:
-              <ul>
-                <li><code>https://domain.com</code></li>
-                <li><code>https://www.domain.com</code></li>
-                <li>Any app subdomains (e.g., <code>start</code>, <code>portal</code>, <code>mail</code>)</li>
-              </ul>
-            </li>
-            <li>Verify email: MX resolves correctly; SPF/DKIM/DMARC present; send/receive test.</li>
-            <li>Cloudflare SSL/TLS:
-              <ul>
-                <li>Set SSL mode to <strong>Full (Strict)</strong> if origin cert is valid (recommended).</li>
-                <li>Use Cloudflare <strong>Universal SSL</strong> for edge coverage (free).</li>
-              </ul>
-            </li>
-            <li>Security / performance quick checks: caching off/on as needed, WAF rules baseline, redirects, HSTS (only after stable).</li>
-            <li>Rollback plan: keep GoDaddy DNS snapshot; if needed, revert nameservers back to GoDaddy temporarily.</li>
-          </ul>
-        </div>
-      </div>
+    <h3>Issues & Mitigation</h3>
+    <ul>
+      <li>SSL conflicts when origin hosting managed certificates (e.g., Webflow or other platforms).</li>
+      <li>Incorrect proxy settings causing validation failures (resolved by switching impacted records to DNS-only).</li>
+      <li>Propagation timing differences across regions during cutover.</li>
+    </ul>
 
-      <details class="accordion">
-        <summary>Extra checklist (often missed)</summary>
-        <div class="accordion-body">
-          <ul>
-            <li>Ensure there are no duplicate/conflicting records for the same host (e.g., <code>www</code> A + CNAME).</li>
-            <li>If using root CNAME flattening, confirm Cloudflare is set to allow it (it does).</li>
-            <li>Confirm any <strong>ACM/CAA</strong> records if you have them (certificate authority restrictions).</li>
-            <li>Confirm any <strong>_acme-challenge</strong> TXT records if using Let’s Encrypt validation elsewhere.</li>
-            <li>Don’t proxy: <code>autodiscover</code>, <code>_sip</code>, <code>_sips</code>, <code>enterpriseenrollment</code> unless you know the service supports proxying.</li>
-          </ul>
-        </div>
-      </details>
-    </section>
+    <h3>Post-Migration Validation</h3>
+    <ul>
+      <li>Validated all websites/subdomains and confirmed mail flow remained stable.</li>
+      <li>Enabled Cloudflare Universal SSL (where appropriate) and confirmed HTTPS behavior.</li>
+      <li>Verified DMARC/SPF/DKIM alignment and rechecked TXT-based verifications.</li>
+    </ul>
 
-    <!-- Project 2 -->
-    <section class="project card">
-      <div class="project-head">
-        <div>
-          <h3>Microsoft 365 ↔ Google Workspace Calendar Interop (Free/Busy)</h3>
-          <p class="sub">
-            Enable cross-platform free/busy visibility between Exchange Online and Google Calendar using Calendar Interop.
-          </p>
-        </div>
-        <div class="status">
-          <span class="badge">Runbook</span>
-          <span class="badge badge-muted">Calendar</span>
-        </div>
-      </div>
+    <p class="tech"><strong>Technologies:</strong> Cloudflare, GoDaddy, DNS, SSL/TLS, DMARC/SPF/DKIM, Proxy vs DNS-only</p>
+  </article>
 
-      <div class="grid">
-        <div class="grid-col">
-          <h4>Preparation</h4>
-          <ul>
-            <li>Confirm which tenants/domains are participating and identify the <strong>interop alias domain</strong> strategy (if used).</li>
-            <li>Verify both environments are healthy:
-              <ul>
-                <li>Google Workspace domain + Calendar services operational</li>
-                <li>Exchange Online / Microsoft 365 mailboxes operational</li>
-              </ul>
-            </li>
-            <li>Gather requirements + reference:
-              <ul>
-                <li><a href="https://support.google.com/a/answer/7441020?hl=en" target="_blank" rel="noreferrer">Google Admin: Calendar interop reference</a></li>
-              </ul>
-            </li>
-            <li>Decide scope: free/busy only vs richer cross-scheduling capabilities.</li>
-            <li>Create <strong>test accounts</strong> in both platforms for validation (non-admin if possible).</li>
-          </ul>
-        </div>
+  <!-- ============================= -->
+  <!-- PROJECT: MICROSOFT ↔ GOOGLE INTEROP -->
+  <!-- ============================= -->
+  <article class="project-card">
+    <h2>Microsoft 365 ↔ Google Workspace Calendar Interop (Free/Busy)</h2>
+    <p><strong>Objective:</strong> Enable cross-platform Free/Busy availability between Microsoft 365 and Google Workspace tenants to improve scheduling and cross-org collaboration.</p>
 
-        <div class="grid-col">
-          <h4>Implementation Steps</h4>
-          <ol>
-            <li>Configure Google Calendar Interop settings in Google Admin (Exchange environment details, routing, etc.).</li>
-            <li>Configure Exchange Online side (availability / federation / org relationship as required by your chosen interop method).</li>
-            <li>Ensure DNS dependencies are correct (as required):
-              <ul>
-                <li>Autodiscover and Exchange endpoints reachable</li>
-                <li>Any required validation TXT/CNAME records</li>
-              </ul>
-            </li>
-            <li>Confirm firewall/proxy rules allow required outbound/inbound connectivity (if restricted).</li>
-            <li>Document final configuration, endpoints, and troubleshooting steps.</li>
-          </ol>
-        </div>
+    <h3>Preparation</h3>
+    <ul>
+      <li>Reviewed Google Workspace Interop requirements and configuration guidance.</li>
+      <li>Verified domain ownership and sharing policies in both tenants.</li>
+      <li>Configured service account / delegated access requirements in Google Workspace.</li>
+      <li>Validated Exchange Online org relationship settings and external availability configuration.</li>
+    </ul>
 
-        <div class="grid-col">
-          <h4>Issues That May Arise</h4>
-          <ul>
-            <li>Free/busy works in one direction but not the other (common: routing/auth mismatch).</li>
-            <li>Domain/alias mismatch between what users type and what the interop expects.</li>
-            <li>Calendar permission defaults too restrictive to expose free/busy.</li>
-            <li>Autodiscover or Exchange availability endpoint not reachable externally (DNS/proxy restrictions).</li>
-            <li>Cached results: it may take time for changes to fully apply.</li>
-          </ul>
-        </div>
+    <h3>Implementation</h3>
+    <ul>
+      <li>Configured calendar interoperability settings between Microsoft 365 and Google Workspace.</li>
+      <li>Implemented authentication requirements (OAuth/service account model) and required API permissions.</li>
+      <li>Mapped domains correctly to ensure Free/Busy queries routed to the right tenant.</li>
+    </ul>
 
-        <div class="grid-col">
-          <h4>Post-Implementation Validation</h4>
-          <ul>
-            <li>Use <strong>test accounts</strong> to validate free/busy in both directions:
-              <ul>
-                <li>Google user invites Microsoft user → can see free/busy</li>
-                <li>Microsoft user invites Google user → can see free/busy</li>
-              </ul>
-            </li>
-            <li>Validate multiple scenarios:
-              <ul>
-                <li>Same domain vs alias domain (if used)</li>
-                <li>Internal vs external scheduling behaviors</li>
-                <li>Mobile vs desktop clients (Outlook, OWA, Google Calendar)</li>
-              </ul>
-            </li>
-            <li>Record outcomes + troubleshooting notes (what fixed what).</li>
-          </ul>
-        </div>
-      </div>
+    <h3>Issues & Mitigation</h3>
+    <ul>
+      <li>Free/Busy failures caused by policy restrictions or incorrect sharing scope.</li>
+      <li>Permission scope mismatches for API access.</li>
+      <li>Propagation delays after configuration changes.</li>
+    </ul>
 
-      <details class="accordion">
-        <summary>Extra checklist (often missed)</summary>
-        <div class="accordion-body">
-          <ul>
-            <li>Confirm calendar sharing defaults allow free/busy visibility where intended.</li>
-            <li>Ensure “external sharing” settings aren’t blocking the organization relationship.</li>
-            <li>Keep an interop “known-good” test meeting for quick regression testing later.</li>
-            <li>Document how users should search addresses (primary vs alias format).</li>
-          </ul>
-        </div>
-      </details>
-    </section>
+    <h3>Post-Implementation Testing</h3>
+    <ul>
+      <li>Used test accounts in both environments to validate Free/Busy lookups.</li>
+      <li>Confirmed external visibility restrictions behaved as intended.</li>
+      <li>Validated scheduling experience across desktop and mobile clients.</li>
+    </ul>
 
-    <footer class="site-footer">
-      <p>Last updated: <span id="lastUpdated"></span></p>
-    </footer>
-  </main>
+    <p class="tech"><strong>Technologies:</strong> Microsoft 365, Exchange Online, Google Workspace, Calendar Interop, OAuth/API Permissions</p>
+  </article>
 
-  <script>
-    // Small quality-of-life detail for your documentation pages
-    const el = document.getElementById("lastUpdated");
-    if (el) el.textContent = new Date().toLocaleDateString();
-  </script>
+  <!-- ============================= -->
+  <!-- PROJECT: OKTA → ENTRA SSO -->
+  <!-- ============================= -->
+  <article class="project-card">
+    <h2>Okta to Microsoft Entra ID SSO Migration</h2>
+    <p><strong>Objective:</strong> Migrate SSO and identity provisioning from Okta to Microsoft Entra ID to centralize authentication, streamline access management, and align identity with Microsoft 365 infrastructure.</p>
+
+    <h3>Planning & Preparation</h3>
+    <ul>
+      <li>Captured and documented the complete Okta tenant configuration (apps, groups, provisioning rules, and license mappings).</li>
+      <li>Reviewed application dependencies and authentication methods prior to cutover.</li>
+      <li>Performed sandbox testing using dedicated test accounts to validate authentication and provisioning behavior.</li>
+      <li>Scheduled implementation during off-hours to minimize production impact.</li>
+      <li>Created step-by-step documentation and internal tutorials for administrators and end users.</li>
+    </ul>
+
+    <h3>Implementation</h3>
+    <ul>
+      <li>Recreated enterprise applications in Entra ID using prebuilt gallery apps and custom SAML configurations.</li>
+      <li>Configured SAML trust relationships, exchanged IdP metadata, and validated signing certificates.</li>
+      <li>Created security groups and assigned them to applications and license bundles.</li>
+      <li>Configured provisioning, attribute mappings, and group-based access where supported.</li>
+    </ul>
+
+    <h3>Challenges & Mitigation</h3>
+    <ul>
+      <li>Investigated SAML errors related to metadata mismatch, endpoints, and certificate configuration.</li>
+      <li>Resolved provisioning failures caused by permission scopes and attribute mapping issues.</li>
+      <li>Identified limitations with password transfer functionality and planned user communication accordingly.</li>
+      <li>Remediated access issues (e.g., 404s, permissions) through app configuration and role review.</li>
+    </ul>
+
+    <h3>Post-Migration Validation</h3>
+    <ul>
+      <li>Verified successful login access across all migrated applications using Entra ID as the IdP.</li>
+      <li>Confirmed all user accounts were correctly federated and pointing to the new IdP.</li>
+      <li>Validated group-based access and license assignments post-migration.</li>
+      <li>Monitored sign-in and provisioning logs to identify and remediate residual issues.</li>
+    </ul>
+
+    <p class="tech"><strong>Technologies:</strong> Okta, Microsoft Entra ID (Azure AD), SAML 2.0, RBAC, Microsoft 365, Provisioning</p>
+  </article>
+
+  <!-- ============================= -->
+  <!-- PROJECT: INTERMEDIA → M365 -->
+  <!-- ============================= -->
+  <article class="project-card">
+    <h2>Intermedia to Microsoft 365 Email Migration</h2>
+    <p><strong>Objective:</strong> Migrate organizational email from Intermedia to Microsoft 365 to consolidate collaboration tools, improve security controls, and centralize administration.</p>
+
+    <h3>Planning & Preparation</h3>
+    <ul>
+      <li>Documented the Intermedia tenant configuration: mailboxes, groups, licenses, rules, forwarding, and signatures.</li>
+      <li>Backed up mailboxes using a disaster recovery solution prior to migration.</li>
+      <li>Identified dependencies such as shared mailboxes, distribution groups, and delegated permissions.</li>
+      <li>Scheduled migration during off-hours and planned staged cutover to reduce risk.</li>
+      <li>Selected BitTitan MigrationWiz as the migration tool.</li>
+    </ul>
+
+    <h3>Migration Execution</h3>
+    <ul>
+      <li>Configured MigrationWiz projects and validated source/destination connectivity.</li>
+      <li>Enabled the “Do Not Duplicate Emails” feature to prevent mailbox inflation.</li>
+      <li>Performed staged migrations to reduce cutover impact.</li>
+      <li>Recreated groups, rules, forwarding, and permissions in Microsoft 365.</li>
+      <li>Updated DNS records (MX, SPF, Autodiscover) to route mail flow to Microsoft 365.</li>
+    </ul>
+
+    <h3>Post-Migration Validation</h3>
+    <ul>
+      <li>Validated inbound/outbound email functionality and mailbox data integrity.</li>
+      <li>Confirmed folder structure consistency and access to shared resources.</li>
+      <li>Monitored message trace/delivery reports to ensure stable mail flow.</li>
+      <li>Provided user support during the transition and updated documentation.</li>
+    </ul>
+
+    <p class="tech"><strong>Technologies:</strong> Intermedia, Microsoft 365, Exchange Online, BitTitan MigrationWiz, DNS (MX/SPF/Autodiscover)</p>
+  </article>
+
+  <!-- ============================= -->
+  <!-- PROJECT: VMWARE → AZURE -->
+  <!-- ============================= -->
+  <article class="project-card">
+    <h2>VMware to Microsoft Azure Infrastructure Migration</h2>
+    <p><strong>Objective:</strong> Migrate on-prem VMware workloads to Microsoft Azure to modernize infrastructure, improve scalability, and enhance disaster recovery capabilities.</p>
+
+    <h3>Planning & Preparation</h3>
+    <ul>
+      <li>Audited VMware environment and documented VM inventory and dependencies.</li>
+      <li>Recorded OS versions, resource utilization, storage dependencies, and application requirements.</li>
+      <li>Outlined Azure services required: VMs, database services, Azure Backup, VNet, NSGs, monitoring, and secure admin access.</li>
+      <li>Used Azure Pricing Calculator to estimate costs and right-size workloads.</li>
+      <li>Reviewed licensing needs including Windows Server licensing and CAL requirements.</li>
+    </ul>
+
+    <h3>Migration Strategy & Execution</h3>
+    <ul>
+      <li>Evaluated migration methods (PowerShell-based recreation vs snapshot/backup restore workflows).</li>
+      <li>Provisioned Azure Virtual Machines aligned with workload specifications.</li>
+      <li>Designed VNet architecture to support segmentation and secure routing.</li>
+      <li>Implemented NSGs to restrict RDP access and enforce least-privilege network controls.</li>
+      <li>Migrated SQL workloads and validated app/database connectivity.</li>
+      <li>Configured Azure Backup policies for workload protection.</li>
+    </ul>
+
+    <h3>Post-Migration Validation</h3>
+    <ul>
+      <li>Validated RDP connectivity and remote administrative access.</li>
+      <li>Confirmed SQL database accessibility and application functionality.</li>
+      <li>Verified RBAC role assignments were correctly scoped.</li>
+      <li>Tested backups and reviewed recovery procedures.</li>
+    </ul>
+
+    <p class="tech"><strong>Technologies:</strong> VMware ESXi/vSphere, Microsoft Azure, Azure VMs, VNet, NSG, Azure Backup, RBAC, PowerShell</p>
+  </article>
+
+</section>
+
 </body>
 </html>
