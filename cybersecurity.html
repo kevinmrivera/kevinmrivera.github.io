@@ -4,258 +4,158 @@
   <title>Cybersecurity | Kevin Rivera</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      max-width: 980px;
-      margin: 60px auto;
-      padding: 0 20px;
-      line-height: 1.7;
-      color: #111827;
-      background: #f9fafb;
-    }
-
-    nav { margin-bottom: 40px; }
-    nav a {
-      margin-right: 20px;
-      text-decoration: none;
-      color: #2563eb;
-      font-weight: 700;
-    }
-    nav a:hover { text-decoration: underline; }
-
-    h1 { font-size: 34px; margin-bottom: 8px; }
-    .subtitle { color: #6b7280; margin-bottom: 28px; }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 18px;
-    }
-
-    @media (min-width: 900px) {
-      .grid { grid-template-columns: 1fr 1fr; }
-    }
-
-    .card {
-      background: #ffffff;
-      padding: 22px;
-      border-radius: 12px;
-      border: 1px solid #e5e7eb;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.05);
-    }
-
-    .card h2 { margin: 0 0 10px; font-size: 20px; }
-    .card p { margin: 10px 0; color: #374151; }
-    .meta { color: #6b7280; font-size: 14px; margin-top: 10px; }
-
-    ul { margin: 10px 0 0; padding-left: 18px; color: #374151; }
-
-    .tagrow { margin-top: 12px; }
-    .tag {
-      display: inline-block;
-      font-size: 12px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid #e5e7eb;
-      background: #f9fafb;
-      color: #374151;
-      margin-right: 8px;
-      margin-top: 6px;
-      font-weight: 600;
-    }
-
-    .callout {
-      margin-top: 20px;
-      padding: 18px;
-      border-radius: 12px;
-      border: 1px solid #dbeafe;
-      background: #eff6ff;
-      color: #1f2937;
-    }
-
-    .callout strong { color: #1d4ed8; }
-  </style>
+  <link rel="stylesheet" href="cybersecuritystyles.css">
 </head>
 
 <body>
 
-<nav>
+<nav class="topnav">
   <a href="index.html">Home</a>
   <a href="projects.html">Projects</a>
   <a href="infrastructure.html">Infrastructure</a>
-  <a href="cybersecurity.html">Cybersecurity</a>
+  <a class="active" href="cybersecurity.html">Cybersecurity</a>
   <a href="automation.html">Automation</a>
   <a href="homelab.html">Home Labs</a>
 </nav>
 
-<h1>Cybersecurity</h1>
-<p class="subtitle">
-Security operations, detection engineering, compliance alignment, and practical risk reduction across hybrid environments.
-</p>
+<header class="hero">
+  <h1>Cybersecurity</h1>
+  <p>
+    Security operations, detection engineering, compliance alignment, and practical
+    risk reduction across hybrid cloud and on-premise environments.
+  </p>
+</header>
 
-<div class="callout">
-  <strong>Approach:</strong> Build secure-by-default environments, centralize visibility with SIEM, reduce dwell time with EDR/MDR,
-  and scale response through documented processes and SOAR automation—while aligning controls to compliance frameworks.
-</div>
+<section class="grid">
 
-<div class="grid">
-
-  <div class="card">
+  <article class="card">
     <h2>SIEM</h2>
     <p>
-      Centralized log collection and correlation to improve detection, investigation, and audit visibility across endpoints,
-      identity, and network sources.
+      Centralized log collection and correlation to improve detection, investigation,
+      and audit visibility across endpoints, identity, and network sources.
     </p>
     <ul>
-      <li>Collects endpoint, authentication, and infrastructure logs into a single view.</li>
-      <li>Builds correlation rules and dashboards to identify suspicious patterns.</li>
-      <li>Supports investigations with timeline reconstruction and evidence preservation.</li>
+      <li>Aggregates endpoint, identity, firewall, and infrastructure logs.</li>
+      <li>Builds detection rules and alert thresholds.</li>
+      <li>Supports investigation workflows and forensic review.</li>
     </ul>
-    <div class="tagrow">
-      <span class="tag">Log Management</span>
-      <span class="tag">Detection</span>
-      <span class="tag">Dashboards</span>
-      <span class="tag">Incident Support</span>
+    <div class="tags">
+      <span>Log Management</span>
+      <span>Detection</span>
+      <span>Correlation</span>
     </div>
-    <p class="meta">Example tools: Wazuh, Elastic Stack, Microsoft Sentinel (tooling varies by environment).</p>
-  </div>
+  </article>
 
-  <div class="card">
+  <article class="card">
     <h2>SOAR</h2>
     <p>
-      Automates repeatable security workflows to reduce response time and standardize triage, enrichment, and containment steps.
+      Automates repetitive security workflows to reduce time-to-triage and
+      standardize response actions.
     </p>
     <ul>
-      <li>Ingestes alerts from SIEM/EDR and enriches with identity and asset context.</li>
-      <li>Executes playbooks: notify, open ticket, collect artifacts, or run scripts.</li>
-      <li>Supports controlled response actions (lab-safe / environment-approved).</li>
+      <li>Consumes alerts from SIEM/EDR platforms.</li>
+      <li>Enriches alerts with identity, asset, and threat intel context.</li>
+      <li>Executes controlled response playbooks.</li>
     </ul>
-    <div class="tagrow">
-      <span class="tag">Playbooks</span>
-      <span class="tag">Triage</span>
-      <span class="tag">Enrichment</span>
-      <span class="tag">Automation</span>
+    <div class="tags">
+      <span>Playbooks</span>
+      <span>Automation</span>
+      <span>Response</span>
     </div>
-    <p class="meta">Goal: reduce time-to-triage while keeping actions auditable and controlled.</p>
-  </div>
+  </article>
 
-  <div class="card">
+  <article class="card">
     <h2>EDR / MDR</h2>
     <p>
-      Endpoint visibility and response capabilities to detect suspicious activity, contain threats, and support investigations.
+      Endpoint visibility and response capabilities to detect suspicious activity,
+      lateral movement, and ransomware behavior.
     </p>
     <ul>
-      <li>Monitors endpoint behavior, suspicious process activity, and persistence attempts.</li>
-      <li>Supports containment actions such as isolation or targeted remediation (where supported).</li>
-      <li>MDR adds 24/7 monitoring and analyst-led escalation with response recommendations.</li>
+      <li>Behavior-based threat detection.</li>
+      <li>Host isolation and containment support.</li>
+      <li>Managed detection escalation workflows.</li>
     </ul>
-    <div class="tagrow">
-      <span class="tag">Endpoint Visibility</span>
-      <span class="tag">Threat Containment</span>
-      <span class="tag">Incident Response</span>
-      <span class="tag">Managed Detection</span>
+    <div class="tags">
+      <span>Endpoint</span>
+      <span>Threat Detection</span>
+      <span>Containment</span>
     </div>
-    <p class="meta">Typical outputs: investigation timeline, host indicators, containment plan, remediation steps.</p>
-  </div>
+  </article>
 
-  <div class="card">
-    <h2>Spam Filters & Email Security</h2>
+  <article class="card">
+    <h2>Email & Spam Security</h2>
     <p>
-      Email remains a primary threat vector. Layered protections reduce phishing, malware delivery, and account compromise risk.
+      Email remains a primary attack vector. Layered controls reduce phishing,
+      spoofing, and malware delivery.
     </p>
     <ul>
-      <li>Enforces SPF/DKIM/DMARC alignment to reduce spoofing.</li>
-      <li>Uses URL rewriting/scanning and attachment sandboxing (where available).</li>
-      <li>Improves user safety with warning banners and quarantines.</li>
+      <li>SPF, DKIM, DMARC enforcement.</li>
+      <li>Attachment and URL scanning.</li>
+      <li>Quarantine and policy controls.</li>
     </ul>
-    <div class="tagrow">
-      <span class="tag">DMARC</span>
-      <span class="tag">Phishing Defense</span>
-      <span class="tag">Quarantine</span>
-      <span class="tag">Email Hygiene</span>
+    <div class="tags">
+      <span>DMARC</span>
+      <span>Phishing Defense</span>
+      <span>Email Hygiene</span>
     </div>
-    <p class="meta">Focus: prevent business email compromise and credential theft.</p>
-  </div>
+  </article>
 
-  <div class="card">
-    <h2>Security Frameworks & Compliance Alignment</h2>
-    <p>
-      Frameworks provide structure for controls, audit readiness, and consistent risk management across environments.
-    </p>
+  <article class="card">
+    <h2>Frameworks & Compliance</h2>
     <ul>
-      <li><strong>HIPAA:</strong> safeguards for protected health information (PHI).</li>
-      <li><strong>NIST (CSF / 800-series):</strong> control baselines and risk management guidance.</li>
-      <li><strong>ISO 27001:</strong> information security management system (ISMS) approach.</li>
-      <li><strong>PCI-DSS:</strong> cardholder data security requirements.</li>
-      <li><strong>SOC 2:</strong> trust service criteria (security, availability, confidentiality, etc.).</li>
-      <li><strong>GDPR:</strong> privacy and data protection requirements.</li>
-      <li><strong>FedRAMP / CMMC:</strong> U.S. government and defense compliance standards.</li>
+      <li><strong>HIPAA</strong> – PHI safeguards</li>
+      <li><strong>NIST</strong> – Control baselines & CSF</li>
+      <li><strong>ISO 27001</strong> – ISMS framework</li>
+      <li><strong>PCI-DSS</strong> – Payment security</li>
+      <li><strong>SOC 2</strong> – Trust principles</li>
+      <li><strong>GDPR</strong> – Data protection</li>
+      <li><strong>FedRAMP / CMMC</strong> – Government & defense</li>
     </ul>
-    <div class="tagrow">
-      <span class="tag">Risk Management</span>
-      <span class="tag">Audit Readiness</span>
-      <span class="tag">Control Baselines</span>
-      <span class="tag">Governance</span>
+    <div class="tags">
+      <span>Governance</span>
+      <span>Audit</span>
+      <span>Risk Management</span>
     </div>
-  </div>
+  </article>
 
-  <div class="card">
-    <h2>SOC Operations</h2>
-    <p>
-      Practical SOC workflows focus on detection, triage, escalation, and measurable reduction of incident impact.
-    </p>
+  <article class="card">
+    <h2>Current Threat Landscape</h2>
     <ul>
-      <li>Alert triage with severity criteria and documented response procedures.</li>
-      <li>Escalation paths, evidence collection, and incident documentation.</li>
-      <li>Post-incident improvements: tuning rules, closing gaps, updating playbooks.</li>
+      <li>Credential phishing & token theft</li>
+      <li>Business Email Compromise (BEC)</li>
+      <li>Ransomware with data exfiltration</li>
+      <li>Supply chain vulnerabilities</li>
     </ul>
-    <div class="tagrow">
-      <span class="tag">Triage</span>
-      <span class="tag">Escalation</span>
-      <span class="tag">IR Support</span>
-      <span class="tag">Continuous Improvement</span>
+    <div class="tags">
+      <span>Ransomware</span>
+      <span>MFA</span>
+      <span>Least Privilege</span>
     </div>
-  </div>
+  </article>
 
-  <div class="card">
-    <h2>Threats: Malware & Ransomware</h2>
-    <p>
-      Today’s major threats commonly involve credential theft, phishing, remote access abuse, and ransomware deployment.
-    </p>
-    <ul>
-      <li><strong>Phishing & credential theft:</strong> drives account compromise and lateral movement.</li>
-      <li><strong>Malware:</strong> payload delivery via attachments, drive-by links, or compromised software.</li>
-      <li><strong>Ransomware:</strong> data encryption + exfiltration, often paired with extortion tactics.</li>
-      <li><strong>Key mitigations:</strong> MFA, least privilege, patching, EDR, segmentation, tested backups.</li>
-    </ul>
-    <div class="tagrow">
-      <span class="tag">Defense-in-Depth</span>
-      <span class="tag">Backups</span>
-      <span class="tag">MFA</span>
-      <span class="tag">Least Privilege</span>
-    </div>
-  </div>
-
-  <div class="card">
+  <article class="card">
     <h2>Security Awareness</h2>
     <p>
-      Human factors matter. Security awareness reduces preventable incidents and improves reporting and response.
+      Strengthening human-layer defense through training, simulations,
+      and clear reporting channels.
     </p>
     <ul>
-      <li>Phishing simulations and short, recurring training.</li>
-      <li>Clear reporting mechanisms and “see something, say something” culture.</li>
-      <li>Role-based training for high-risk users (finance, executives, admins).</li>
+      <li>Phishing simulation programs.</li>
+      <li>Role-based security training.</li>
+      <li>Incident reporting workflows.</li>
     </ul>
-    <div class="tagrow">
-      <span class="tag">Training</span>
-      <span class="tag">Phishing</span>
-      <span class="tag">Policy</span>
-      <span class="tag">Culture</span>
+    <div class="tags">
+      <span>Training</span>
+      <span>Policy</span>
+      <span>Culture</span>
     </div>
-  </div>
+  </article>
 
-</div>
+</section>
+
+<footer class="footer">
+  <p>All content shared at a high level. No internal configurations or sensitive identifiers are exposed.</p>
+</footer>
 
 </body>
 </html>
