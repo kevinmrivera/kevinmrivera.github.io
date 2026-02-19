@@ -58,7 +58,7 @@ Power: Back-UPS for network + monitoring stack</code></pre>
       <li><strong>Firewall:</strong> security boundary (NAT, inspection, threat filtering, VPN, logging).</li>
       <li><strong>Router:</strong> internal routing / subnet design (sometimes combined into firewall).</li>
       <li><strong>Primary + Backup switch:</strong> access-layer connectivity and fast recovery from switch failure.</li>
-      <li><strong>KVM switch:</strong> operational control of multiple endpoints from one console (useful for lab workflows).</li>
+      <li><strong>KVM switch:</strong> operational control of multiple endpoints from one console.</li>
       <li><strong>SIEM:</strong> central telemetry for detection, investigation, and reporting.</li>
       <li><strong>SOAR:</strong> playbooks for triage, enrichment, notifications, and controlled response actions.</li>
       <li><strong>Back-UPS:</strong> prevents monitoring and routing interruption during brief power events.</li>
@@ -148,7 +148,7 @@ Power: Back-UPS for network + monitoring stack</code></pre>
   <!-- DESIGN 3 -->
   <article class="card wide">
     <div class="card-top">
-      <h2>Design 3 — Reference Diagram (Hybrid / Multi-Environment)</h2>
+      <h2>Design 3 — Hybrid Network Topology Diagram</h2>
       <div class="badges">
         <span class="badge cloud">Hybrid</span>
         <span class="badge sec">Segmentation</span>
@@ -157,27 +157,30 @@ Power: Back-UPS for network + monitoring stack</code></pre>
     </div>
 
     <p>
-      A high-level reference diagram illustrating how infrastructure components flow across
-      segmented network tiers and hybrid environments. Shared at a safe level for portfolio use.
+      This reference diagram shows a high-level hybrid topology: segmented networks, on-prem services,
+      and cloud components connected through secure pathways. Shared at a portfolio-safe level.
     </p>
 
-    <div class="note">
-      <strong>Setup note:</strong> Save your screenshot into your repo as:
-      <code>images/infrastructure-design3.png</code>
-      (or update the filename below).
+    <div class="actions">
+      <a class="btn" href="assets/Network-Topology.pdf" target="_blank" rel="noopener">Download PDF</a>
+      <a class="btn ghost" href="images/infrastructure-topology.png" target="_blank" rel="noopener">Open Image</a>
     </div>
 
     <div class="imgwrap">
-      <img src="images/infrastructure-design3.png" alt="Infrastructure Design 3 reference diagram">
+      <img src="images/infrastructure-topology.png" alt="Hybrid Network Topology Diagram">
     </div>
+
+    <p class="meta">
+      Tip: Click “Open Image” to view full resolution. Diagram is intentionally abstracted to avoid internal identifiers.
+    </p>
 
     <h3>What This Design Demonstrates</h3>
     <ul>
-      <li><strong>Hybrid connectivity:</strong> secured connectivity patterns between on-prem and cloud services.</li>
+      <li><strong>Hybrid connectivity:</strong> secure connectivity patterns between on-prem and cloud services.</li>
       <li><strong>Segmentation:</strong> separation of user, server, and sensitive tiers to reduce blast radius.</li>
-      <li><strong>Service tiers:</strong> identity/services, application tier, and data tier separation.</li>
+      <li><strong>Tiered services:</strong> identity/services, application tier, and data tier separation.</li>
       <li><strong>Resilience:</strong> redundancy patterns for core services and connectivity.</li>
-      <li><strong>Monitoring readiness:</strong> structured for centralized visibility (availability + logs).</li>
+      <li><strong>Monitoring readiness:</strong> structured to support centralized visibility (availability + logs).</li>
     </ul>
 
     <div class="tags">
