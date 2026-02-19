@@ -29,10 +29,20 @@
 <section class="projects-grid">
 
   <!-- ============================= -->
-  <!-- PROJECT: GODADDY → CLOUDFLARE -->
+  <!-- 1) GODADDY → CLOUDFLARE -->
   <!-- ============================= -->
   <article class="project-card">
-    <h2>GoDaddy to Cloudflare DNS Migration</h2>
+    <div class="project-head">
+      <h2>GoDaddy to Cloudflare DNS Migration</h2>
+      <div class="tagrow">
+        <span class="tag tag-cloud">Cloudflare</span>
+        <span class="tag tag-net">DNS</span>
+        <span class="tag tag-sec">SSL/TLS</span>
+        <span class="tag tag-ops">Cutover</span>
+        <span class="tag tag-id">DMARC/SPF/DKIM</span>
+      </div>
+    </div>
+
     <p><strong>Objective:</strong> Migrate authoritative DNS from GoDaddy to Cloudflare to centralize DNS management, improve security, and enable Cloudflare protections where appropriate.</p>
 
     <h3>Preparation</h3>
@@ -65,34 +75,43 @@
       <li>Verified DMARC/SPF/DKIM alignment and rechecked TXT-based verifications.</li>
     </ul>
 
-    <p class="tech"><strong>Technologies:</strong> Cloudflare, GoDaddy, DNS, SSL/TLS, DMARC/SPF/DKIM, Proxy vs DNS-only</p>
+    <p class="techline"><strong>Technologies:</strong> Cloudflare, GoDaddy, DNS, SSL/TLS, DMARC/SPF/DKIM, Proxy vs DNS-only</p>
   </article>
 
   <!-- ============================= -->
-  <!-- PROJECT: MICROSOFT ↔ GOOGLE INTEROP -->
+  <!-- 2) MICROSOFT ↔ GOOGLE INTEROP -->
   <!-- ============================= -->
   <article class="project-card">
-    <h2>Microsoft 365 ↔ Google Workspace Calendar Interop (Free/Busy)</h2>
+    <div class="project-head">
+      <h2>Microsoft 365 ↔ Google Workspace Calendar Interop (Free/Busy)</h2>
+      <div class="tagrow">
+        <span class="tag tag-ms">Microsoft 365</span>
+        <span class="tag tag-id">Identity</span>
+        <span class="tag tag-api">OAuth/API</span>
+        <span class="tag tag-ops">Integration</span>
+        <span class="tag tag-net">Interop</span>
+      </div>
+    </div>
+
     <p><strong>Objective:</strong> Enable cross-platform Free/Busy availability between Microsoft 365 and Google Workspace tenants to improve scheduling and cross-org collaboration.</p>
 
     <h3>Preparation</h3>
     <ul>
-      <li>Reviewed Google Workspace Interop requirements and configuration guidance.</li>
       <li>Verified domain ownership and sharing policies in both tenants.</li>
-      <li>Configured service account / delegated access requirements in Google Workspace.</li>
-      <li>Validated Exchange Online org relationship settings and external availability configuration.</li>
+      <li>Configured service account/delegated access requirements in Google Workspace.</li>
+      <li>Validated Exchange Online org relationship and external availability settings.</li>
     </ul>
 
     <h3>Implementation</h3>
     <ul>
-      <li>Configured calendar interoperability settings between Microsoft 365 and Google Workspace.</li>
-      <li>Implemented authentication requirements (OAuth/service account model) and required API permissions.</li>
-      <li>Mapped domains correctly to ensure Free/Busy queries routed to the right tenant.</li>
+      <li>Configured interoperability between Microsoft 365 and Google Workspace.</li>
+      <li>Implemented authentication requirements and required API permissions/scopes.</li>
+      <li>Mapped domains correctly to ensure Free/Busy queries routed to the correct tenant.</li>
     </ul>
 
     <h3>Issues & Mitigation</h3>
     <ul>
-      <li>Free/Busy failures caused by policy restrictions or incorrect sharing scope.</li>
+      <li>Free/Busy failures due to policy restrictions or incorrect sharing scope.</li>
       <li>Permission scope mismatches for API access.</li>
       <li>Propagation delays after configuration changes.</li>
     </ul>
@@ -101,112 +120,134 @@
     <ul>
       <li>Used test accounts in both environments to validate Free/Busy lookups.</li>
       <li>Confirmed external visibility restrictions behaved as intended.</li>
-      <li>Validated scheduling experience across desktop and mobile clients.</li>
+      <li>Validated scheduling experience across client types where applicable.</li>
     </ul>
 
-    <p class="tech"><strong>Technologies:</strong> Microsoft 365, Exchange Online, Google Workspace, Calendar Interop, OAuth/API Permissions</p>
+    <p class="techline"><strong>Technologies:</strong> Microsoft 365, Exchange Online, Google Workspace, Calendar Interop, OAuth/API Permissions</p>
   </article>
 
   <!-- ============================= -->
-  <!-- PROJECT: OKTA → ENTRA SSO -->
+  <!-- 3) OKTA → ENTRA -->
   <!-- ============================= -->
   <article class="project-card">
-    <h2>Okta to Microsoft Entra ID SSO Migration</h2>
+    <div class="project-head">
+      <h2>Okta to Microsoft Entra ID SSO Migration</h2>
+      <div class="tagrow">
+        <span class="tag tag-id">SSO</span>
+        <span class="tag tag-api">SAML 2.0</span>
+        <span class="tag tag-ms">Entra ID</span>
+        <span class="tag tag-sec">RBAC</span>
+        <span class="tag tag-ops">Off-hours</span>
+      </div>
+    </div>
+
     <p><strong>Objective:</strong> Migrate SSO and identity provisioning from Okta to Microsoft Entra ID to centralize authentication, streamline access management, and align identity with Microsoft 365 infrastructure.</p>
 
     <h3>Planning & Preparation</h3>
     <ul>
-      <li>Captured and documented the complete Okta tenant configuration (apps, groups, provisioning rules, and license mappings).</li>
-      <li>Reviewed application dependencies and authentication methods prior to cutover.</li>
-      <li>Performed sandbox testing using dedicated test accounts to validate authentication and provisioning behavior.</li>
+      <li>Captured and documented complete Okta configuration (apps, groups, provisioning rules, license mappings).</li>
+      <li>Performed sandbox testing using dedicated test accounts to validate authentication/provisioning.</li>
       <li>Scheduled implementation during off-hours to minimize production impact.</li>
-      <li>Created step-by-step documentation and internal tutorials for administrators and end users.</li>
+      <li>Created internal admin/user tutorials and documented the full migration plan.</li>
     </ul>
 
     <h3>Implementation</h3>
     <ul>
-      <li>Recreated enterprise applications in Entra ID using prebuilt gallery apps and custom SAML configurations.</li>
-      <li>Configured SAML trust relationships, exchanged IdP metadata, and validated signing certificates.</li>
-      <li>Created security groups and assigned them to applications and license bundles.</li>
-      <li>Configured provisioning, attribute mappings, and group-based access where supported.</li>
+      <li>Recreated enterprise apps in Entra ID using gallery apps and custom SAML configurations.</li>
+      <li>Configured SAML trust, exchanged IdP metadata, and validated signing certificates.</li>
+      <li>Created security groups and assigned apps + license bundles.</li>
+      <li>Configured provisioning and attribute mappings where supported.</li>
     </ul>
 
     <h3>Challenges & Mitigation</h3>
     <ul>
-      <li>Investigated SAML errors related to metadata mismatch, endpoints, and certificate configuration.</li>
+      <li>Troubleshot SAML errors related to metadata mismatch, endpoints, and certificate configuration.</li>
       <li>Resolved provisioning failures caused by permission scopes and attribute mapping issues.</li>
-      <li>Identified limitations with password transfer functionality and planned user communication accordingly.</li>
-      <li>Remediated access issues (e.g., 404s, permissions) through app configuration and role review.</li>
+      <li>Identified limitations with password transfer functionality and planned communications accordingly.</li>
+      <li>Remediated access issues (e.g., 404s/permissions) through app configuration and role review.</li>
     </ul>
 
     <h3>Post-Migration Validation</h3>
     <ul>
-      <li>Verified successful login access across all migrated applications using Entra ID as the IdP.</li>
-      <li>Confirmed all user accounts were correctly federated and pointing to the new IdP.</li>
-      <li>Validated group-based access and license assignments post-migration.</li>
-      <li>Monitored sign-in and provisioning logs to identify and remediate residual issues.</li>
+      <li>Verified login access across all migrated apps using Entra ID as the IdP.</li>
+      <li>Confirmed user accounts were correctly federated and pointing to the new IdP.</li>
+      <li>Validated group-based access and license assignments and monitored sign-in/provisioning logs.</li>
     </ul>
 
-    <p class="tech"><strong>Technologies:</strong> Okta, Microsoft Entra ID (Azure AD), SAML 2.0, RBAC, Microsoft 365, Provisioning</p>
+    <p class="techline"><strong>Technologies:</strong> Okta, Microsoft Entra ID (Azure AD), SAML 2.0, RBAC, Microsoft 365, Provisioning</p>
   </article>
 
   <!-- ============================= -->
-  <!-- PROJECT: INTERMEDIA → M365 -->
+  <!-- 4) INTERMEDIA → M365 -->
   <!-- ============================= -->
   <article class="project-card">
-    <h2>Intermedia to Microsoft 365 Email Migration</h2>
+    <div class="project-head">
+      <h2>Intermedia to Microsoft 365 Email Migration</h2>
+      <div class="tagrow">
+        <span class="tag tag-ms">Microsoft 365</span>
+        <span class="tag tag-net">DNS</span>
+        <span class="tag tag-ops">Staged Cutover</span>
+        <span class="tag tag-sec">DR Backup</span>
+        <span class="tag tag-cloud">MigrationWiz</span>
+      </div>
+    </div>
+
     <p><strong>Objective:</strong> Migrate organizational email from Intermedia to Microsoft 365 to consolidate collaboration tools, improve security controls, and centralize administration.</p>
 
     <h3>Planning & Preparation</h3>
     <ul>
-      <li>Documented the Intermedia tenant configuration: mailboxes, groups, licenses, rules, forwarding, and signatures.</li>
+      <li>Documented mailboxes, groups, licenses, rules, forwarding, signatures, and delegated access.</li>
       <li>Backed up mailboxes using a disaster recovery solution prior to migration.</li>
-      <li>Identified dependencies such as shared mailboxes, distribution groups, and delegated permissions.</li>
       <li>Scheduled migration during off-hours and planned staged cutover to reduce risk.</li>
-      <li>Selected BitTitan MigrationWiz as the migration tool.</li>
+      <li>Selected BitTitan MigrationWiz and validated source/destination readiness.</li>
     </ul>
 
     <h3>Migration Execution</h3>
     <ul>
-      <li>Configured MigrationWiz projects and validated source/destination connectivity.</li>
-      <li>Enabled the “Do Not Duplicate Emails” feature to prevent mailbox inflation.</li>
-      <li>Performed staged migrations to reduce cutover impact.</li>
-      <li>Recreated groups, rules, forwarding, and permissions in Microsoft 365.</li>
+      <li>Configured MigrationWiz projects and enabled “Do Not Duplicate Emails” to prevent mailbox inflation.</li>
+      <li>Performed staged migrations and recreated rules/forwarding/permissions in Microsoft 365.</li>
       <li>Updated DNS records (MX, SPF, Autodiscover) to route mail flow to Microsoft 365.</li>
     </ul>
 
     <h3>Post-Migration Validation</h3>
     <ul>
       <li>Validated inbound/outbound email functionality and mailbox data integrity.</li>
-      <li>Confirmed folder structure consistency and access to shared resources.</li>
-      <li>Monitored message trace/delivery reports to ensure stable mail flow.</li>
-      <li>Provided user support during the transition and updated documentation.</li>
+      <li>Confirmed shared mailbox access, group membership, and forwarding behavior.</li>
+      <li>Monitored message trace/delivery reports and provided user support during transition.</li>
     </ul>
 
-    <p class="tech"><strong>Technologies:</strong> Intermedia, Microsoft 365, Exchange Online, BitTitan MigrationWiz, DNS (MX/SPF/Autodiscover)</p>
+    <p class="techline"><strong>Technologies:</strong> Intermedia, Microsoft 365, Exchange Online, BitTitan MigrationWiz, DNS (MX/SPF/Autodiscover)</p>
   </article>
 
   <!-- ============================= -->
-  <!-- PROJECT: VMWARE → AZURE -->
+  <!-- 5) VMWARE → AZURE -->
   <!-- ============================= -->
   <article class="project-card">
-    <h2>VMware to Microsoft Azure Infrastructure Migration</h2>
-    <p><strong>Objective:</strong> Migrate on-prem VMware workloads to Microsoft Azure to modernize infrastructure, improve scalability, and enhance disaster recovery capabilities.</p>
+    <div class="project-head">
+      <h2>VMware to Microsoft Azure Infrastructure Migration</h2>
+      <div class="tagrow">
+        <span class="tag tag-vm">VMware</span>
+        <span class="tag tag-cloud">Azure</span>
+        <span class="tag tag-net">VNet/NSG</span>
+        <span class="tag tag-sec">RBAC</span>
+        <span class="tag tag-ops">Cost Estimation</span>
+      </div>
+    </div>
+
+    <p><strong>Objective:</strong> Migrate on-prem VMware workloads to Microsoft Azure to modernize infrastructure, improve scalability, and strengthen disaster recovery readiness.</p>
 
     <h3>Planning & Preparation</h3>
     <ul>
-      <li>Audited VMware environment and documented VM inventory and dependencies.</li>
-      <li>Recorded OS versions, resource utilization, storage dependencies, and application requirements.</li>
-      <li>Outlined Azure services required: VMs, database services, Azure Backup, VNet, NSGs, monitoring, and secure admin access.</li>
+      <li>Audited VMware VM inventory, dependencies, OS versions, and workload requirements.</li>
+      <li>Outlined Azure services required: VMs, database services, Azure Backup, VNet, NSGs, monitoring, secure admin access.</li>
       <li>Used Azure Pricing Calculator to estimate costs and right-size workloads.</li>
-      <li>Reviewed licensing needs including Windows Server licensing and CAL requirements.</li>
+      <li>Reviewed licensing requirements including Windows Server licensing and CAL needs.</li>
     </ul>
 
     <h3>Migration Strategy & Execution</h3>
     <ul>
       <li>Evaluated migration methods (PowerShell-based recreation vs snapshot/backup restore workflows).</li>
-      <li>Provisioned Azure Virtual Machines aligned with workload specifications.</li>
-      <li>Designed VNet architecture to support segmentation and secure routing.</li>
+      <li>Provisioned Azure VMs aligned with workload requirements and segmented networking design.</li>
       <li>Implemented NSGs to restrict RDP access and enforce least-privilege network controls.</li>
       <li>Migrated SQL workloads and validated app/database connectivity.</li>
       <li>Configured Azure Backup policies for workload protection.</li>
@@ -216,11 +257,10 @@
     <ul>
       <li>Validated RDP connectivity and remote administrative access.</li>
       <li>Confirmed SQL database accessibility and application functionality.</li>
-      <li>Verified RBAC role assignments were correctly scoped.</li>
-      <li>Tested backups and reviewed recovery procedures.</li>
+      <li>Verified RBAC assignments were correctly scoped and tested backups/recovery workflows.</li>
     </ul>
 
-    <p class="tech"><strong>Technologies:</strong> VMware ESXi/vSphere, Microsoft Azure, Azure VMs, VNet, NSG, Azure Backup, RBAC, PowerShell</p>
+    <p class="techline"><strong>Technologies:</strong> VMware ESXi/vSphere, Microsoft Azure, Azure VMs, VNet, NSG, Azure Backup, RBAC, PowerShell</p>
   </article>
 
 </section>
