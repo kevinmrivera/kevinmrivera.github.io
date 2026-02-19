@@ -4,10 +4,6 @@
   --border: rgba(255,255,255,0.14);
   --text: #e6e9f2;
   --muted: rgba(230,233,242,0.7);
-
-  --blue: #4cc9ff;
-  --green: #34d399;
-  --purple: #a78bfa;
 }
 
 *{ box-sizing: border-box; }
@@ -18,7 +14,7 @@ body{
   color: var(--text);
   background:
     radial-gradient(900px 500px at 15% 0%, rgba(76,201,255,0.25), transparent 60%),
-    radial-gradient(700px 500px at 85% 10%, rgba(52,211,153,0.2), transparent 60%),
+    radial-gradient(700px 500px at 85% 10%, rgba(52,211,153,0.20), transparent 60%),
     radial-gradient(700px 500px at 70% 95%, rgba(167,139,250,0.14), transparent 60%),
     linear-gradient(180deg, #04060f, #050814);
   min-height: 100vh;
@@ -69,7 +65,7 @@ body{
 .hero p{
   margin: 0;
   color: var(--muted);
-  max-width: 90ch;
+  max-width: 92ch;
 }
 
 /* GRID */
@@ -96,9 +92,9 @@ body{
   position: absolute;
   inset: -2px;
   background: linear-gradient(90deg,
-    rgba(76,201,255,0.32),
-    rgba(52,211,153,0.20),
-    rgba(167,139,250,0.20)
+    rgba(76,201,255,0.30),
+    rgba(52,211,153,0.18),
+    rgba(167,139,250,0.18)
   );
   filter: blur(20px);
   opacity: 0.30;
@@ -110,16 +106,24 @@ body{
   z-index: 1;
 }
 
+.project-head{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
 .project-card h2{
-  margin: 0 0 10px;
+  margin: 0;
   font-size: 20px;
 }
 
 .project-card h3{
   margin: 18px 0 8px;
   font-size: 14px;
-  color: rgba(76,201,255,0.95);
   letter-spacing: 0.2px;
+  color: rgba(76,201,255,0.95);
 }
 
 .project-card p{
@@ -135,10 +139,38 @@ body{
   margin: 6px 0;
 }
 
-.tech{
+.techline{
   margin-top: 16px;
   padding-top: 12px;
   border-top: 1px solid rgba(255,255,255,0.10);
   font-size: 13px;
   color: rgba(52,211,153,0.95);
 }
+
+/* TAGS (like Home Labs) */
+.tagrow{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.tag{
+  display: inline-block;
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.04);
+  white-space: nowrap;
+}
+
+/* Tag color variants */
+.tag-cloud { border-color: rgba(76,201,255,0.40); background: rgba(76,201,255,0.14); color: rgba(76,201,255,0.95); }
+.tag-net   { border-color: rgba(34,211,238,0.40); background: rgba(34,211,238,0.12); color: rgba(34,211,238,0.95); }
+.tag-sec   { border-color: rgba(52,211,153,0.40); background: rgba(52,211,153,0.12); color: rgba(52,211,153,0.95); }
+.tag-ops   { border-color: rgba(251,191,36,0.45); background: rgba(251,191,36,0.12); color: rgba(251,191,36,0.95); }
+.tag-id    { border-color: rgba(167,139,250,0.45); background: rgba(167,139,250,0.12); color: rgba(167,139,250,0.95); }
+.tag-ms    { border-color: rgba(59,130,246,0.45); background: rgba(59,130,246,0.12); color: rgba(147,197,253,1); }
+.tag-api   { border-color: rgba(244,63,94,0.45);  background: rgba(244,63,94,0.12);  color: rgba(251,113,133,1); }
+.tag-vm    { border-color: rgba(250,204,21,0.45); background: rgba(250,204,21,0.10); color: rgba(250,204,21,0.95); }
