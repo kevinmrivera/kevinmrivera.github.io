@@ -1,33 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Kevin Rivera | IT Infrastructure & Cybersecurity</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 900px;
-            margin: 60px auto;
-            line-height: 1.6;
-        }
-        nav a {
-            margin-right: 20px;
-            text-decoration: none;
-            color: #007acc;
-            font-weight: bold;
-        }
-        h1 { color: #222; }
-        h2 { margin-top: 40px; }
-        .project {
-            margin-bottom: 40px;
-        }
-    </style>
+  <title>Kevin Rivera | IT Infrastructure & Cybersecurity</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="indexstyles.css">
 </head>
+
 <body>
 
-<nav>
-  <a href="index.html">Home</a>
+<nav class="topnav">
+  <a class="active" href="index.html">Home</a>
   <a href="projects.html">Projects</a>
   <a href="infrastructure.html">Infrastructure</a>
   <a href="cybersecurity.html">Cybersecurity</a>
@@ -35,40 +18,89 @@
   <a href="homelab.html">Home Labs</a>
 </nav>
 
-<h1>Kevin Rivera</h1>
-<p><strong>IT Infrastructure & Cybersecurity Leader</strong></p>
+<header class="hero">
+  <div class="hero-left">
+    <p class="kicker">IT Infrastructure & Cybersecurity</p>
+    <h1>Kevin Rivera</h1>
+    <p class="headline">
+      Hybrid Cloud • Identity • Endpoint Management • Compliance • Automation
+    </p>
 
-<p>
- Cloud & On-premise | Endpoint Management | Compliance & Automation | Azure Certified Architect
-</p>
+    <div class="chips">
+      <span class="chip azure">Azure</span>
+      <span class="chip id">Entra ID</span>
+      <span class="chip sec">Security</span>
+      <span class="chip ops">Operations</span>
+    </div>
 
-<h2>About</h2>
-<p>
-I am an IT Infrastructure and Cybersecurity professional with over seven years of experience 
-designing, managing, and securing hybrid enterprise environments. My expertise spans on-premise 
-Windows Server infrastructure, Active Directory architecture, Azure cloud services, WMware, Google Workspace, Microsoft 365, Mac and Windows environment,
-endpoint management, and security-focused operational practices.
-</p>
+    <div class="cta">
+      <a class="btn primary" href="projects.html">View Projects</a>
+      <a class="btn ghost" href="automation.html">View Automations</a>
+    </div>
+  </div>
 
-<p>
-My experience includes supporting organizations across global nonprofit, legal and professional 
-services, executive search and financial recruiting, consumer goods, and marketing environments. 
-Working across diverse operational models has strengthened my ability to design secure, scalable 
-infrastructure solutions aligned to regulatory, performance, and business growth objectives.
-</p>
+  <div class="hero-right">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="term-title">portfolio://kevin-rivera</span>
+      </div>
+      <pre><code>$ whoami
+Kevin Rivera
 
-<p>
-I specialize in hybrid infrastructure architecture integrating on-premise systems with cloud identity 
-and access controls. My work has supported initiatives aligned with HIPAA and NIST frameworks, 
-including hybrid identity management, endpoint automation, audit readiness, and vulnerability remediation.
-</p>
+$ focus
+Hybrid infrastructure, security operations, and cloud modernization
 
-<p>
-I hold Microsoft Azure certifications at both the Administrator and Solutions Architect levels, 
-along with multiple cybersecurity certifications including Security+, CySA+, PenTest+, and 
-ISC2 Certified in Cybersecurity. I focus on building resilient, scalable environments that balance 
-operational efficiency with risk reduction and long-term sustainability.
-</p>
+$ core
+Windows Server | AD/Entra | Azure | M365 | VMware | Automation
+
+$ status
+Building resilient, scalable environments with measurable risk reduction</code></pre>
+    </div>
+  </div>
+</header>
+
+<section class="content">
+  <h2>About</h2>
+
+  <p>
+    I am an IT Infrastructure and Cybersecurity professional with over seven years of experience
+    designing, managing, and securing hybrid enterprise environments. My expertise spans on-premise
+    Windows Server infrastructure, Active Directory architecture, Azure cloud services, VMware,
+    Google Workspace, Microsoft 365, macOS and Windows environments, endpoint management, and
+    security-focused operational practices.
+  </p>
+
+  <p>
+    My experience includes supporting organizations across global nonprofit, legal and professional
+    services, executive search and financial recruiting, consumer goods, and marketing environments.
+    Working across diverse operational models has strengthened my ability to design secure, scalable
+    infrastructure solutions aligned to regulatory, performance, and business growth objectives.
+  </p>
+
+  <p>
+    I specialize in hybrid infrastructure architecture integrating on-premise systems with cloud identity
+    and access controls. My work has supported initiatives aligned with HIPAA and NIST frameworks,
+    including hybrid identity management, endpoint automation, audit readiness, and vulnerability remediation.
+  </p>
+
+  <p>
+    I hold Microsoft Azure certifications at both the Administrator and Solutions Architect levels,
+    along with multiple cybersecurity certifications including Security+, CySA+, PenTest+, and
+    ISC2 Certified in Cybersecurity. I focus on building resilient, scalable environments that balance
+    operational efficiency with risk reduction and long-term sustainability.
+  </p>
+</section>
+
+<footer class="footer">
+  <p>© <span id="year"></span> Kevin Rivera</p>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 
 </body>
 </html>
