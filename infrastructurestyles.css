@@ -199,59 +199,40 @@ body{
   white-space: pre;
 }
 
-/* Actions (buttons above image) */
-.actions{
+/* Toggle Button */
+.toggle-btn{
   margin-top: 14px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.btn{
-  display: inline-block;
-  padding: 10px 12px;
-  border-radius: 12px;
-  text-decoration: none;
+  padding: 10px 16px;
   font-weight: 700;
-  font-size: 14px;
-  border: 1px solid rgba(255,255,255,0.14);
-  color: var(--text);
+  border-radius: 12px;
+  border: 1px solid rgba(76,201,255,0.35);
   background: rgba(76,201,255,0.14);
-  border-color: rgba(76,201,255,0.28);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
 
-.btn:hover{
-  background: rgba(76,201,255,0.20);
+.toggle-btn:hover{
+  background: rgba(76,201,255,0.22);
+  transform: translateY(-1px);
 }
 
-.btn.ghost{
-  background: rgba(255,255,255,0.04);
-  border-color: rgba(255,255,255,0.14);
-}
-
-.btn.ghost:hover{
-  background: rgba(255,255,255,0.07);
-}
-
-/* Image wrapper */
-.imgwrap{
+/* Hidden image container (expand/collapse) */
+.hidden-image{
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.45s ease, opacity 0.35s ease;
   margin-top: 14px;
   border-radius: 14px;
-  overflow: hidden;
   border: 1px solid rgba(255,255,255,0.14);
   background: rgba(255,255,255,0.03);
 }
 
-.imgwrap img{
+.hidden-image img{
   width: 100%;
   height: auto;
   display: block;
-  cursor: zoom-in;
-  transition: transform 0.3s ease;
-}
-
-.imgwrap img:hover{
-  transform: scale(1.02);
 }
 
 /* Meta + Footer */
