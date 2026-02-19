@@ -157,30 +157,30 @@ Power: Back-UPS for network + monitoring stack</code></pre>
     </div>
 
     <p>
-      This reference diagram shows a high-level hybrid topology: segmented networks, on-prem services,
-      and cloud components connected through secure pathways. Shared at a portfolio-safe level.
+      This reference diagram illustrates hybrid connectivity between on-prem infrastructure
+      and Azure cloud components, including segmented VLANs, firewall boundaries,
+      site-to-site VPN, and tiered server architecture.
     </p>
 
-    <div class="actions">
-      <a class="btn" href="assets/Network-Topology.pdf" target="_blank" rel="noopener">Download PDF</a>
-      <a class="btn ghost" href="images/infrastructure-topology.png" target="_blank" rel="noopener">Open Image</a>
-    </div>
+    <button class="toggle-btn" type="button" onclick="toggleTopology()">
+      Show Image
+    </button>
 
-    <div class="imgwrap">
+    <div id="topologyContainer" class="hidden-image" aria-hidden="true">
       <img src="images/infrastructure-topology.png" alt="Hybrid Network Topology Diagram">
     </div>
 
     <p class="meta">
-      Tip: Click “Open Image” to view full resolution. Diagram is intentionally abstracted to avoid internal identifiers.
+      Diagram is intentionally abstracted to avoid internal identifiers.
     </p>
 
-    <h3>What This Design Demonstrates</h3>
+    <h3>Architecture Highlights</h3>
     <ul>
-      <li><strong>Hybrid connectivity:</strong> secure connectivity patterns between on-prem and cloud services.</li>
-      <li><strong>Segmentation:</strong> separation of user, server, and sensitive tiers to reduce blast radius.</li>
-      <li><strong>Tiered services:</strong> identity/services, application tier, and data tier separation.</li>
-      <li><strong>Resilience:</strong> redundancy patterns for core services and connectivity.</li>
-      <li><strong>Monitoring readiness:</strong> structured to support centralized visibility (availability + logs).</li>
+      <li><strong>Azure segmentation:</strong> separate tiers for app, web, admin access, and data services.</li>
+      <li><strong>Site-to-Site VPN:</strong> secure connectivity between on-prem and cloud networks.</li>
+      <li><strong>Firewall boundary:</strong> enforced policies for inbound/outbound traffic and inter-zone traffic.</li>
+      <li><strong>Core services:</strong> identity services, remote access, and application/database tiers.</li>
+      <li><strong>VLAN design:</strong> segmentation for user, server, and specialized device networks.</li>
     </ul>
 
     <div class="tags">
@@ -191,7 +191,7 @@ Power: Back-UPS for network + monitoring stack</code></pre>
     </div>
 
     <p class="meta">
-      All details are intentionally shared at a high level with no internal IPs, hostnames, or sensitive configuration data.
+      All details are shared at a high level with no internal IPs, hostnames, or sensitive configuration data.
     </p>
   </article>
 
@@ -200,6 +200,29 @@ Power: Back-UPS for network + monitoring stack</code></pre>
 <footer class="footer">
   <p>All diagrams and descriptions are portfolio-safe and intentionally abstracted.</p>
 </footer>
+
+<script>
+  function toggleTopology() {
+    const container = document.getElementById("topologyContainer");
+    const btn = document.querySelector(".toggle-btn");
+
+    const isOpen = container.classList.contains("open");
+
+    if (isOpen) {
+      container.style.maxHeight = "0px";
+      container.style.opacity = "0";
+      container.classList.remove("open");
+      container.setAttribute("aria-hidden", "true");
+      btn.textContent = "Show Image";
+    } else {
+      container.classList.add("open");
+      container.style.maxHeight = container.scrollHeight + "px";
+      container.style.opacity = "1";
+      container.setAttribute("aria-hidden", "false");
+      btn.textContent = "Hide Image";
+    }
+  }
+</script>
 
 </body>
 </html>
