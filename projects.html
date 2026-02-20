@@ -22,7 +22,8 @@
   <h1>Infrastructure, Cloud & Security Projects</h1>
   <p>
     Selected projects demonstrating hands-on delivery across DNS, identity, email migration,
-    and hybrid infrastructure modernization. Details are shared at a high level and are portfolio-safe.
+    collaboration modernization, and hybrid infrastructure. Details are shared at a high level
+    and are portfolio-safe.
   </p>
 </header>
 
@@ -43,29 +44,29 @@
       </div>
     </div>
 
-    <p><strong>Objective:</strong> Migrate authoritative DNS from GoDaddy to Cloudflare to centralize DNS management, improve security, and enable Cloudflare protections where appropriate.</p>
+    <p><strong>Objective:</strong> Migrate authoritative DNS from GoDaddy to Cloudflare to centralize DNS management, improve security posture, and simplify ongoing maintenance.</p>
 
     <h3>Preparation</h3>
     <ul>
       <li>Captured screenshots/exports of all existing DNS records for rollback reference.</li>
-      <li>Documented A, CNAME, MX, TXT (SPF/DKIM/DMARC), and verification records.</li>
-      <li>Identified records requiring <strong>DNS-only</strong> (mail, SaaS validation, third-party SSL/origin requirements).</li>
+      <li>Documented A, CNAME, MX, TXT (SPF/DKIM/DMARC), and vendor verification records.</li>
+      <li>Identified records requiring <strong>DNS-only</strong> (mail, SaaS validation, third-party SSL/origin requirements such as Webflow).</li>
       <li>Reduced TTL values ahead of cutover to minimize propagation delays.</li>
     </ul>
 
     <h3>Migration Execution</h3>
     <ul>
-      <li>Used Cloudflare DNS scan/copy and manually validated record accuracy.</li>
+      <li>Imported records using Cloudflare DNS scan/copy and manually validated accuracy.</li>
       <li>Confirmed all records copied correctly <em>except NS</em> records (replaced by Cloudflare nameservers).</li>
-      <li>Configured proxying selectively for public web services while keeping sensitive services DNS-only.</li>
+      <li>Applied proxying selectively for public web services while keeping sensitive services DNS-only.</li>
       <li>Updated nameservers at registrar and confirmed authoritative DNS cutover.</li>
     </ul>
 
     <h3>Issues & Mitigation</h3>
     <ul>
-      <li>SSL conflicts when origin hosting managed certificates (e.g., Webflow or other platforms).</li>
-      <li>Incorrect proxy settings causing validation failures (resolved by switching impacted records to DNS-only).</li>
-      <li>Propagation timing differences across regions during cutover.</li>
+      <li>SSL conflicts when origin hosting manages certificates (resolved via DNS-only + correct SSL mode where needed).</li>
+      <li>Incorrect proxy settings causing validation failures (fixed by switching impacted records to DNS-only).</li>
+      <li>Propagation timing differences across regions during cutover (reduced by TTL planning and staged validation).</li>
     </ul>
 
     <h3>Post-Migration Validation</h3>
@@ -93,34 +94,34 @@
       </div>
     </div>
 
-    <p><strong>Objective:</strong> Enable cross-platform Free/Busy availability between Microsoft 365 and Google Workspace tenants to improve scheduling and cross-org collaboration.</p>
+    <p><strong>Objective:</strong> Enable cross-platform Free/Busy availability between Microsoft 365 and Google Workspace tenants to improve scheduling and cross-organization collaboration.</p>
 
     <h3>Preparation</h3>
     <ul>
-      <li>Verified domain ownership and sharing policies in both tenants.</li>
-      <li>Configured service account/delegated access requirements in Google Workspace.</li>
-      <li>Validated Exchange Online org relationship and external availability settings.</li>
+      <li>Verified domain ownership and external sharing policies in both tenants.</li>
+      <li>Validated Exchange Online org relationship settings and availability configuration.</li>
+      <li>Prepared required Google Workspace service account/delegated access settings (where applicable).</li>
     </ul>
 
     <h3>Implementation</h3>
     <ul>
-      <li>Configured interoperability between Microsoft 365 and Google Workspace.</li>
-      <li>Implemented authentication requirements and required API permissions/scopes.</li>
+      <li>Configured interoperability settings between Microsoft 365 and Google Workspace.</li>
+      <li>Implemented required authentication requirements and API permissions/scopes.</li>
       <li>Mapped domains correctly to ensure Free/Busy queries routed to the correct tenant.</li>
     </ul>
 
     <h3>Issues & Mitigation</h3>
     <ul>
-      <li>Free/Busy failures due to policy restrictions or incorrect sharing scope.</li>
+      <li>Free/Busy failures caused by policy restrictions or incorrect sharing scope.</li>
       <li>Permission scope mismatches for API access.</li>
-      <li>Propagation delays after configuration changes.</li>
+      <li>Propagation delays after configuration changes (validated with staged testing).</li>
     </ul>
 
     <h3>Post-Implementation Testing</h3>
     <ul>
       <li>Used test accounts in both environments to validate Free/Busy lookups.</li>
       <li>Confirmed external visibility restrictions behaved as intended.</li>
-      <li>Validated scheduling experience across client types where applicable.</li>
+      <li>Validated client experience across web/mobile clients where applicable.</li>
     </ul>
 
     <p class="techline"><strong>Technologies:</strong> Microsoft 365, Exchange Online, Google Workspace, Calendar Interop, OAuth/API Permissions</p>
@@ -146,16 +147,16 @@
     <h3>Planning & Preparation</h3>
     <ul>
       <li>Captured and documented complete Okta configuration (apps, groups, provisioning rules, license mappings).</li>
-      <li>Performed sandbox testing using dedicated test accounts to validate authentication/provisioning.</li>
+      <li>Created pilot plan and tested with dedicated test accounts to validate authentication and provisioning behavior.</li>
       <li>Scheduled implementation during off-hours to minimize production impact.</li>
-      <li>Created internal admin/user tutorials and documented the full migration plan.</li>
+      <li>Created internal admin/end-user tutorials and documented rollback approach.</li>
     </ul>
 
     <h3>Implementation</h3>
     <ul>
-      <li>Recreated enterprise apps in Entra ID using gallery apps and custom SAML configurations.</li>
+      <li>Recreated enterprise applications in Entra ID using gallery apps and custom SAML configurations.</li>
       <li>Configured SAML trust, exchanged IdP metadata, and validated signing certificates.</li>
-      <li>Created security groups and assigned apps + license bundles.</li>
+      <li>Created security groups and assigned apps + license bundles using group-based access.</li>
       <li>Configured provisioning and attribute mappings where supported.</li>
     </ul>
 
@@ -169,9 +170,9 @@
 
     <h3>Post-Migration Validation</h3>
     <ul>
-      <li>Verified login access across all migrated apps using Entra ID as the IdP.</li>
+      <li>Verified login access across all migrated apps with Entra ID as primary IdP.</li>
       <li>Confirmed user accounts were correctly federated and pointing to the new IdP.</li>
-      <li>Validated group-based access and license assignments and monitored sign-in/provisioning logs.</li>
+      <li>Validated group-based access and license assignments; reviewed sign-in/provisioning logs for stabilization.</li>
     </ul>
 
     <p class="techline"><strong>Technologies:</strong> Okta, Microsoft Entra ID (Azure AD), SAML 2.0, RBAC, Microsoft 365, Provisioning</p>
@@ -211,7 +212,7 @@
 
     <h3>Post-Migration Validation</h3>
     <ul>
-      <li>Validated inbound/outbound email functionality and mailbox data integrity.</li>
+      <li>Validated inbound/outbound email and mailbox data integrity.</li>
       <li>Confirmed shared mailbox access, group membership, and forwarding behavior.</li>
       <li>Monitored message trace/delivery reports and provided user support during transition.</li>
     </ul>
@@ -239,9 +240,9 @@
     <h3>Planning & Preparation</h3>
     <ul>
       <li>Audited VMware VM inventory, dependencies, OS versions, and workload requirements.</li>
-      <li>Outlined Azure services required: VMs, database services, Azure Backup, VNet, NSGs, monitoring, secure admin access.</li>
+      <li>Outlined Azure services: Virtual Machines, database services, Azure Backup, VNet, NSGs, monitoring, secure admin access.</li>
       <li>Used Azure Pricing Calculator to estimate costs and right-size workloads.</li>
-      <li>Reviewed licensing requirements including Windows Server licensing and CAL needs.</li>
+      <li>Reviewed licensing requirements including Windows Server licensing and CAL considerations.</li>
     </ul>
 
     <h3>Migration Strategy & Execution</h3>
@@ -249,18 +250,120 @@
       <li>Evaluated migration methods (PowerShell-based recreation vs snapshot/backup restore workflows).</li>
       <li>Provisioned Azure VMs aligned with workload requirements and segmented networking design.</li>
       <li>Implemented NSGs to restrict RDP access and enforce least-privilege network controls.</li>
-      <li>Migrated SQL workloads and validated app/database connectivity.</li>
+      <li>Migrated SQL workloads and validated application/database connectivity.</li>
       <li>Configured Azure Backup policies for workload protection.</li>
     </ul>
 
     <h3>Post-Migration Validation</h3>
     <ul>
-      <li>Validated RDP connectivity and remote administrative access.</li>
+      <li>Validated RDP connectivity and secure remote administration.</li>
       <li>Confirmed SQL database accessibility and application functionality.</li>
       <li>Verified RBAC assignments were correctly scoped and tested backups/recovery workflows.</li>
     </ul>
 
     <p class="techline"><strong>Technologies:</strong> VMware ESXi/vSphere, Microsoft Azure, Azure VMs, VNet, NSG, Azure Backup, RBAC, PowerShell</p>
+  </article>
+
+  <!-- ============================= -->
+  <!-- 6) FILE SHARES → SHAREPOINT -->
+  <!-- ============================= -->
+  <article class="project-card">
+    <div class="project-head">
+      <h2>On-Prem File Shares to SharePoint Online Migration</h2>
+      <div class="tagrow">
+        <span class="tag tag-ms">SharePoint Online</span>
+        <span class="tag tag-cloud">Cloud Migration</span>
+        <span class="tag tag-sec">Permissions</span>
+        <span class="tag tag-ops">Cutover</span>
+        <span class="tag tag-net">Data Governance</span>
+      </div>
+    </div>
+
+    <p><strong>Objective:</strong> Modernize file storage by migrating on-prem file shares to SharePoint Online to improve collaboration, remote access, and governance.</p>
+
+    <h3>Preparation</h3>
+    <ul>
+      <li>Validated SharePoint information architecture (sites, document libraries, and folder strategy).</li>
+      <li>Cleaned up legacy data (duplicates, stale folders) and confirmed retention requirements.</li>
+      <li>Installed the SharePoint Migration Tool (SPMT) on a workstation/server with access to the file shares.</li>
+      <li>Identified permission model approach (SharePoint groups vs direct permissions) and mapped access requirements.</li>
+      <li>Reviewed SharePoint limits and constraints (path length, invalid characters, blocked file types).</li>
+    </ul>
+
+    <h3>Migration Execution</h3>
+    <ul>
+      <li>Authenticated to Microsoft 365 using a migration/admin account.</li>
+      <li>Selected source file shares/drives and targeted SharePoint destination libraries.</li>
+      <li>Copied and pasted the SharePoint destination URL for each library and validated scope.</li>
+      <li>Mapped users/groups and validated how permissions would be applied in the destination.</li>
+      <li>Executed pilot migrations first, then scaled to staged migrations before final cutover.</li>
+    </ul>
+
+    <h3>Issues & Mitigation</h3>
+    <ul>
+      <li>Permissions do not always “pass through” 1:1 (resolved by standardizing SharePoint groups and inheritance strategy).</li>
+      <li>Filename/path constraints and unsupported file types (resolved via pre-scan and remediation of invalid items).</li>
+      <li>Large library performance considerations (mitigated with staged migrations and library structure planning).</li>
+    </ul>
+
+    <h3>Post-Migration Validation</h3>
+    <ul>
+      <li>Validated user access and confirmed key folders/files were accessible by the correct roles.</li>
+      <li>Confirmed sync experience and collaboration (versioning, co-authoring) where applicable.</li>
+      <li>Documented new access model and provided user guidance for SharePoint/OneDrive usage.</li>
+    </ul>
+
+    <p class="techline"><strong>Technologies:</strong> SharePoint Online, SPMT, Microsoft 365, Permissions/Groups, Information Architecture</p>
+  </article>
+
+  <!-- ============================= -->
+  <!-- 7) AZURE AD CONNECT + MDM (WIN/MAC) -->
+  <!-- ============================= -->
+  <article class="project-card">
+    <div class="project-head">
+      <h2>Hybrid Identity + Endpoint Management (Azure AD Connect + Windows/macOS MDM)</h2>
+      <div class="tagrow">
+        <span class="tag tag-ms">Entra ID</span>
+        <span class="tag tag-id">Azure AD Connect</span>
+        <span class="tag tag-sec">Compliance</span>
+        <span class="tag tag-ops">Health Monitoring</span>
+        <span class="tag tag-net">Device Management</span>
+      </div>
+    </div>
+
+    <p><strong>Objective:</strong> Establish a reliable hybrid identity foundation and standardize device management for Windows and macOS endpoints using Entra ID integration and MDM policies.</p>
+
+    <h3>Preparation</h3>
+    <ul>
+      <li>Reviewed and organized Active Directory OU structure, groups, and naming conventions.</li>
+      <li>Removed/disabled stale accounts and validated duplicate/conflicting identities.</li>
+      <li>Planned sync scope (OU filtering) and identity attributes required for the environment.</li>
+      <li>Confirmed device enrollment strategy for Windows/macOS (corporate vs BYOD, enrollment restrictions, compliance baselines).</li>
+    </ul>
+
+    <h3>Integration</h3>
+    <ul>
+      <li>Installed Azure AD Connect on a designated server and authenticated with appropriate administrative roles.</li>
+      <li>Configured sign-in method and selected OUs to synchronize (scope control and least privilege).</li>
+      <li>Validated synchronization health and ensured expected users/groups appeared in Entra ID.</li>
+      <li>Aligned endpoint enrollment policies and baseline configuration profiles for Windows and macOS.</li>
+    </ul>
+
+    <h3>Common Issues & Mitigation</h3>
+    <ul>
+      <li>Sync issues caused by attribute conflicts or duplicate accounts (resolved via cleanup and attribute alignment).</li>
+      <li>Over-syncing due to broad OU selection (resolved by tighter OU filtering and staged rollout).</li>
+      <li>Enrollment failures due to device restrictions or compliance requirements (resolved by aligning policies with OS requirements).</li>
+    </ul>
+
+    <h3>Post-Integration Validation</h3>
+    <ul>
+      <li>Verified Azure AD Connect Health status and sync schedules.</li>
+      <li>Confirmed sign-in behavior for synced identities and tested conditional access/compliance where applicable.</li>
+      <li>Validated device enrollment results and reporting for Windows/macOS endpoints.</li>
+    </ul>
+
+    <p class="techline"><strong>Technologies:</strong> Active Directory, Microsoft Entra ID (Azure AD), Azure AD Connect, Intune MDM, Windows, macOS</p>
   </article>
 
 </section>
