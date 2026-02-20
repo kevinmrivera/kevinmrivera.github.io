@@ -4,9 +4,13 @@
   --border: rgba(255,255,255,0.14);
   --text: #e6e9f2;
   --muted: rgba(230,233,242,0.7);
+
+  --accent: rgba(76,201,255,0.95);
 }
 
 *{ box-sizing: border-box; }
+
+html, body { height: 100%; }
 
 body{
   margin: 0;
@@ -60,6 +64,7 @@ body{
 .hero h1{
   margin: 0 0 10px;
   font-size: 34px;
+  letter-spacing: 0.2px;
 }
 
 .hero p{
@@ -71,7 +76,7 @@ body{
 /* GRID */
 .projects-grid{
   max-width: 1100px;
-  margin: 0 auto 50px;
+  margin: 0 auto 60px;
   padding: 0 18px;
   display: grid;
   gap: 22px;
@@ -128,15 +133,21 @@ body{
 
 .project-card p{
   color: var(--muted);
+  margin-top: 12px;
 }
 
 .project-card ul{
   margin: 8px 0 0 18px;
+  padding-right: 8px;
   color: var(--muted);
 }
 
 .project-card li{
   margin: 6px 0;
+}
+
+.project-card strong{
+  color: rgba(230,233,242,0.92);
 }
 
 .techline{
@@ -147,7 +158,17 @@ body{
   color: rgba(52,211,153,0.95);
 }
 
-/* TAGS (like Home Labs) */
+/* LINKS (if you ever add any) */
+.project-card a{
+  color: rgba(76,201,255,0.95);
+  text-decoration: none;
+}
+
+.project-card a:hover{
+  text-decoration: underline;
+}
+
+/* TAGS */
 .tagrow{
   display: flex;
   flex-wrap: wrap;
@@ -165,7 +186,7 @@ body{
   white-space: nowrap;
 }
 
-/* Tag color variants */
+/* Tag color variants (match the Home Labs vibe) */
 .tag-cloud { border-color: rgba(76,201,255,0.40); background: rgba(76,201,255,0.14); color: rgba(76,201,255,0.95); }
 .tag-net   { border-color: rgba(34,211,238,0.40); background: rgba(34,211,238,0.12); color: rgba(34,211,238,0.95); }
 .tag-sec   { border-color: rgba(52,211,153,0.40); background: rgba(52,211,153,0.12); color: rgba(52,211,153,0.95); }
@@ -174,3 +195,23 @@ body{
 .tag-ms    { border-color: rgba(59,130,246,0.45); background: rgba(59,130,246,0.12); color: rgba(147,197,253,1); }
 .tag-api   { border-color: rgba(244,63,94,0.45);  background: rgba(244,63,94,0.12);  color: rgba(251,113,133,1); }
 .tag-vm    { border-color: rgba(250,204,21,0.45); background: rgba(250,204,21,0.10); color: rgba(250,204,21,0.95); }
+
+/* Mobile polish */
+@media (max-width: 720px){
+  .topnav{
+    margin-top: 18px;
+  }
+
+  .hero h1{
+    font-size: 28px;
+  }
+
+  .project-head{
+    gap: 10px;
+  }
+
+  /* On mobile, tags look better aligned left */
+  .tagrow{
+    justify-content: flex-start;
+  }
+}
