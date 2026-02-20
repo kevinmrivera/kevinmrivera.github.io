@@ -238,6 +238,85 @@ body{
   max-width: 82ch;
 }
 
+/* ===== Panels / Badges ===== */
+.split{
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+@media (min-width: 980px){
+  .split{ grid-template-columns: 1fr 1fr; }
+}
+
+.panel{
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+.panel:before{
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(90deg,
+    rgba(76,201,255,0.28),
+    rgba(167,139,250,0.22),
+    rgba(52,211,153,0.16)
+  );
+  filter: blur(20px);
+  opacity: 0.28;
+  z-index: 0;
+}
+
+.panel > *{ position: relative; z-index: 1; }
+
+.panel h2{
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.panel-sub{
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.badges{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.badge{
+  display: inline-block;
+  font-size: 12px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.04);
+  white-space: nowrap;
+}
+
+/* Badge color variants */
+.b-azure{ border-color: rgba(76,201,255,0.45); background: rgba(76,201,255,0.12); color: var(--blue); }
+.b-sec  { border-color: rgba(52,211,153,0.45); background: rgba(52,211,153,0.12); color: var(--green); }
+.b-id   { border-color: rgba(167,139,250,0.45); background: rgba(167,139,250,0.12); color: var(--purple); }
+.b-mdm  { border-color: rgba(251,191,36,0.45); background: rgba(251,191,36,0.12); color: var(--amber); }
+.b-ms   { border-color: rgba(59,130,246,0.45); background: rgba(59,130,246,0.12); color: rgba(147,197,253,1); }
+.b-vm   { border-color: rgba(250,204,21,0.45); background: rgba(250,204,21,0.10); color: rgba(250,204,21,0.95); }
+.b-ops  { border-color: rgba(251,113,133,0.45); background: rgba(251,113,133,0.10); color: var(--pink); }
+
+.fineprint{
+  margin: 12px 0 0;
+  color: rgba(230,233,242,0.60);
+  font-size: 12px;
+}
+
 /* FOOTER */
 .footer{
   max-width: 1100px;
