@@ -120,16 +120,38 @@ body{
   font-size: 18px;
 }
 
-.card p, .card ul{
+.card h3{
+  margin: 16px 0 8px;
+  font-size: 13px;
+  letter-spacing: 0.2px;
+  color: rgba(76,201,255,0.95);
+}
+
+.card p{
   color: var(--muted);
 }
 
 .card ul{
   margin: 10px 0 0 18px;
+  color: var(--muted);
 }
 
 .card li{
   margin: 6px 0;
+}
+
+/* Nice internal section spacing for compliance card */
+.mini h3{
+  margin-top: 14px;
+}
+
+/* Callout line inside cards */
+.callout{
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.10);
+  color: rgba(52,211,153,0.95);
+  font-size: 13px;
 }
 
 /* TAGS (colorful pills like Home Labs) */
