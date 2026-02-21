@@ -4,8 +4,6 @@
   --border: rgba(255,255,255,0.14);
   --text: #e6e9f2;
   --muted: rgba(230,233,242,0.7);
-
-  --accent: rgba(76,201,255,0.95);
 }
 
 *{ box-sizing: border-box; }
@@ -134,9 +132,9 @@ body{
 .project-card p{
   color: var(--muted);
   margin-top: 12px;
-  line-height: 1.7;
 }
 
+/* Lists */
 .project-card ul{
   margin: 8px 0 0 18px;
   padding-right: 8px;
@@ -145,13 +143,16 @@ body{
 
 .project-card li{
   margin: 6px 0;
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
+/* Keep Objective label bold, but do NOT bold issue labels */
 .project-card strong{
   color: rgba(230,233,242,0.92);
+  font-weight: 700;
 }
 
+/* Techline */
 .techline{
   margin-top: 16px;
   padding-top: 12px;
@@ -160,7 +161,7 @@ body{
   color: rgba(52,211,153,0.95);
 }
 
-/* LINKS (if you ever add any) */
+/* LINKS */
 .project-card a{
   color: rgba(76,201,255,0.95);
   text-decoration: none;
@@ -188,7 +189,7 @@ body{
   white-space: nowrap;
 }
 
-/* Tag color variants (match the Home Labs vibe) */
+/* Tag color variants */
 .tag-cloud { border-color: rgba(76,201,255,0.40); background: rgba(76,201,255,0.14); color: rgba(76,201,255,0.95); }
 .tag-net   { border-color: rgba(34,211,238,0.40); background: rgba(34,211,238,0.12); color: rgba(34,211,238,0.95); }
 .tag-sec   { border-color: rgba(52,211,153,0.40); background: rgba(52,211,153,0.12); color: rgba(52,211,153,0.95); }
@@ -212,7 +213,6 @@ body{
     gap: 10px;
   }
 
-  /* On mobile, tags look better aligned left */
   .tagrow{
     justify-content: flex-start;
   }
