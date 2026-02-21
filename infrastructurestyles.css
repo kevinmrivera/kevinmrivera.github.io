@@ -199,6 +199,52 @@ body{
   white-space: pre;
 }
 
+/* ========================= */
+/* ✅ View description (details/summary) */
+/* ========================= */
+.more{
+  margin-top: 12px;
+}
+
+.more-summary{
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(76,201,255,0.35);
+  background: rgba(76,201,255,0.14);
+  color: rgba(230,233,242,0.92);
+  font-weight: 800;
+  font-size: 13px;
+  transition: transform 0.18s ease, background 0.18s ease;
+}
+
+.more-summary:hover{
+  background: rgba(76,201,255,0.22);
+  transform: translateY(-1px);
+}
+
+.more summary::-webkit-details-marker{ display: none; }
+
+.chev{
+  color: rgba(230,233,242,0.75);
+  transition: transform 0.18s ease;
+  font-size: 14px;
+}
+
+.more[open] .chev{
+  transform: rotate(180deg);
+}
+
+.more-body{
+  margin-top: 12px;
+  padding-top: 2px;
+}
+
 /* Toggle + hint row */
 .viewer-actions{
   margin-top: 14px;
