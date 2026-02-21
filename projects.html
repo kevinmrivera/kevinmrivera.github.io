@@ -32,7 +32,7 @@
 <section class="page">
 
   <!-- Sticky TOC -->
-  <aside class="toc" aria-label="Project table of contents">
+  <aside class="toc" id="toc" aria-label="Project table of contents">
     <div class="toc-card">
       <h2 class="toc-title">Contents</h2>
 
@@ -47,15 +47,15 @@
       </nav>
 
       <p class="toc-tip">Tip: click a project to jump — the list stays with you.</p>
+
+      <a class="toc-top" href="#top">Back to top</a>
     </div>
   </aside>
 
   <!-- Main content -->
-  <main class="projects-grid">
+  <main class="projects-grid" id="top">
 
-    <!-- ============================= -->
-    <!-- 1) GODADDY → CLOUDFLARE -->
-    <!-- ============================= -->
+    <!-- 1 -->
     <article id="p1" class="project-card">
       <div class="project-head">
         <h2>GoDaddy to Cloudflare DNS Migration</h2>
@@ -103,9 +103,7 @@
       <p class="techline"><strong>Technologies:</strong> Cloudflare, GoDaddy, DNS, SSL/TLS, DMARC/SPF/DKIM, Proxy vs DNS-only</p>
     </article>
 
-    <!-- ============================= -->
-    <!-- 2) MICROSOFT ↔ GOOGLE INTEROP -->
-    <!-- ============================= -->
+    <!-- 2 -->
     <article id="p2" class="project-card">
       <div class="project-head">
         <h2>Microsoft 365 ↔ Google Workspace Calendar Interop (Free/Busy)</h2>
@@ -151,9 +149,7 @@
       <p class="techline"><strong>Technologies:</strong> Microsoft 365, Exchange Online, Google Workspace, Calendar Interop, OAuth/API Permissions</p>
     </article>
 
-    <!-- ============================= -->
-    <!-- 3) OKTA → ENTRA -->
-    <!-- ============================= -->
+    <!-- 3 -->
     <article id="p3" class="project-card">
       <div class="project-head">
         <h2>Okta to Microsoft Entra ID SSO Migration</h2>
@@ -202,9 +198,7 @@
       <p class="techline"><strong>Technologies:</strong> Okta, Microsoft Entra ID (Azure AD), SAML 2.0, RBAC, Microsoft 365, Provisioning</p>
     </article>
 
-    <!-- ============================= -->
-    <!-- 4) INTERMEDIA → M365 -->
-    <!-- ============================= -->
+    <!-- 4 -->
     <article id="p4" class="project-card">
       <div class="project-head">
         <h2>Intermedia to Microsoft 365 Email Migration</h2>
@@ -253,9 +247,7 @@
       <p class="techline"><strong>Technologies:</strong> Intermedia, Microsoft 365, Exchange Online, BitTitan MigrationWiz, DNS (MX/SPF/Autodiscover)</p>
     </article>
 
-    <!-- ============================= -->
-    <!-- 5) VMWARE → AZURE -->
-    <!-- ============================= -->
+    <!-- 5 -->
     <article id="p5" class="project-card">
       <div class="project-head">
         <h2>VMware to Microsoft Azure Infrastructure Migration</h2>
@@ -306,9 +298,7 @@
       <p class="techline"><strong>Technologies:</strong> VMware ESXi/vSphere, Microsoft Azure, Azure VMs, VNet, NSG, Azure Backup, RBAC, PowerShell</p>
     </article>
 
-    <!-- ============================= -->
-    <!-- 6) FILE SHARES → SHAREPOINT -->
-    <!-- ============================= -->
+    <!-- 6 -->
     <article id="p6" class="project-card">
       <div class="project-head">
         <h2>On-Prem File Shares to SharePoint Online Migration</h2>
@@ -357,9 +347,7 @@
       <p class="techline"><strong>Technologies:</strong> SharePoint Online, SPMT, Microsoft 365, Permissions/Groups, Information Architecture</p>
     </article>
 
-    <!-- ============================= -->
-    <!-- 7) HYBRID IDENTITY + ENDPOINT -->
-    <!-- ============================= -->
+    <!-- 7 -->
     <article id="p7" class="project-card">
       <div class="project-head">
         <h2>Hybrid Identity + Endpoint Management (Azure AD Connect + Windows/macOS MDM)</h2>
@@ -415,7 +403,6 @@
   const tocLinks = document.querySelectorAll('.toc-link');
   const sections = Array.from(document.querySelectorAll('.project-card'));
 
-  // Highlight current section in TOC as you scroll
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
@@ -426,13 +413,23 @@
 
   sections.forEach(sec => observer.observe(sec));
 
-  // Optional: close-to-instant smooth scroll with offset behavior handled by scroll-margin-top in CSS
-  tocLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-      // allow default anchor behavior; smooth scroll is CSS-driven
-      // keep this here in case you later want analytics or extra behavior
-    });
-  });
+  // Sticky support check -> fallback to fixed if sticky is blocked by a parent
+  (function ensureStickyTOC(){
+    const toc = document.getElementById('toc');
+    if (!toc) return;
+
+    if (window.innerWidth <= 980) return;
+
+    const before = toc.getBoundingClientRect().top;
+    window.scrollBy(0, 2);
+    const after = toc.getBoundingClientRect().top;
+    window.scrollBy(0, -2);
+
+    // If TOC moves with the page when it should "stick", enable fixed fallback
+    if (Math.abs(after - before) > 0.5) {
+      toc.classList.add('force-fixed');
+    }
+  })();
 </script>
 
 </body>
