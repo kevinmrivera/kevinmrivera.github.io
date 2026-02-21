@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
   <title>Projects | Kevin Rivera</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
@@ -27,36 +28,35 @@
   </p>
 </header>
 
-<!-- NEW: Layout wrapper for sticky TOC + content -->
-<section class="projects-layout">
+<!-- LAYOUT WRAPPER (TOC + CONTENT) -->
+<section class="page">
 
-  <!-- NEW: Sticky TOC (desktop) / collapsible (mobile) -->
+  <!-- Sticky TOC -->
   <aside class="toc" aria-label="Project table of contents">
-    <div class="toc-inner">
-      <div class="toc-title">Contents</div>
-      <nav class="toc-links">
-        <a href="#proj-cloudflare" class="toc-link">GoDaddy → Cloudflare DNS</a>
-        <a href="#proj-interop" class="toc-link">M365 ↔ Google Calendar Interop</a>
-        <a href="#proj-okta" class="toc-link">Okta → Entra ID SSO</a>
-        <a href="#proj-intermedia" class="toc-link">Intermedia → Microsoft 365</a>
-        <a href="#proj-vmware-azure" class="toc-link">VMware → Azure Migration</a>
-        <a href="#proj-spto" class="toc-link">File Shares → SharePoint Online</a>
-        <a href="#proj-hybrid-mdm" class="toc-link">Hybrid Identity + Endpoint Mgmt</a>
+    <div class="toc-card">
+      <h2 class="toc-title">Contents</h2>
+
+      <nav class="toc-nav">
+        <a class="toc-link" href="#p1">GoDaddy → Cloudflare DNS</a>
+        <a class="toc-link" href="#p2">M365 ↔ Google Calendar Interop</a>
+        <a class="toc-link" href="#p3">Okta → Entra ID SSO</a>
+        <a class="toc-link" href="#p4">Intermedia → Microsoft 365</a>
+        <a class="toc-link" href="#p5">VMware → Azure Migration</a>
+        <a class="toc-link" href="#p6">File Shares → SharePoint Online</a>
+        <a class="toc-link" href="#p7">Hybrid Identity + Endpoint Mgmt</a>
       </nav>
 
-      <div class="toc-footnote">
-        Tip: click a project to jump — the list stays with you.
-      </div>
+      <p class="toc-tip">Tip: click a project to jump — the list stays with you.</p>
     </div>
   </aside>
 
-  <!-- Projects -->
-  <div class="projects-grid">
+  <!-- Main content -->
+  <main class="projects-grid">
 
     <!-- ============================= -->
     <!-- 1) GODADDY → CLOUDFLARE -->
     <!-- ============================= -->
-    <article id="proj-cloudflare" class="project-card">
+    <article id="p1" class="project-card">
       <div class="project-head">
         <h2>GoDaddy to Cloudflare DNS Migration</h2>
         <div class="tagrow">
@@ -106,7 +106,7 @@
     <!-- ============================= -->
     <!-- 2) MICROSOFT ↔ GOOGLE INTEROP -->
     <!-- ============================= -->
-    <article id="proj-interop" class="project-card">
+    <article id="p2" class="project-card">
       <div class="project-head">
         <h2>Microsoft 365 ↔ Google Workspace Calendar Interop (Free/Busy)</h2>
         <div class="tagrow">
@@ -154,7 +154,7 @@
     <!-- ============================= -->
     <!-- 3) OKTA → ENTRA -->
     <!-- ============================= -->
-    <article id="proj-okta" class="project-card">
+    <article id="p3" class="project-card">
       <div class="project-head">
         <h2>Okta to Microsoft Entra ID SSO Migration</h2>
         <div class="tagrow">
@@ -205,7 +205,7 @@
     <!-- ============================= -->
     <!-- 4) INTERMEDIA → M365 -->
     <!-- ============================= -->
-    <article id="proj-intermedia" class="project-card">
+    <article id="p4" class="project-card">
       <div class="project-head">
         <h2>Intermedia to Microsoft 365 Email Migration</h2>
         <div class="tagrow">
@@ -256,7 +256,7 @@
     <!-- ============================= -->
     <!-- 5) VMWARE → AZURE -->
     <!-- ============================= -->
-    <article id="proj-vmware-azure" class="project-card">
+    <article id="p5" class="project-card">
       <div class="project-head">
         <h2>VMware to Microsoft Azure Infrastructure Migration</h2>
         <div class="tagrow">
@@ -309,7 +309,7 @@
     <!-- ============================= -->
     <!-- 6) FILE SHARES → SHAREPOINT -->
     <!-- ============================= -->
-    <article id="proj-spto" class="project-card">
+    <article id="p6" class="project-card">
       <div class="project-head">
         <h2>On-Prem File Shares to SharePoint Online Migration</h2>
         <div class="tagrow">
@@ -358,9 +358,9 @@
     </article>
 
     <!-- ============================= -->
-    <!-- 7) HYBRID IDENTITY + MDM -->
+    <!-- 7) HYBRID IDENTITY + ENDPOINT -->
     <!-- ============================= -->
-    <article id="proj-hybrid-mdm" class="project-card">
+    <article id="p7" class="project-card">
       <div class="project-head">
         <h2>Hybrid Identity + Endpoint Management (Azure AD Connect + Windows/macOS MDM)</h2>
         <div class="tagrow">
@@ -407,34 +407,32 @@
       <p class="techline"><strong>Technologies:</strong> Active Directory, Microsoft Entra ID (Azure AD), Azure AD Connect, Intune MDM, Windows, macOS</p>
     </article>
 
-  </div>
+  </main>
 </section>
 
 <script>
-  // Smooth-scroll offset so headings aren't hidden behind the top nav
-  // (works with the CSS scroll-margin too, but helps on some browsers)
-  document.querySelectorAll('.toc-link').forEach(link => {
-    link.addEventListener('click', () => {
-      // close mobile toc if you later decide to add a toggle
-    });
-  });
+  // Smooth scroll + "active" TOC highlight
+  const tocLinks = document.querySelectorAll('.toc-link');
+  const sections = Array.from(document.querySelectorAll('.project-card'));
 
-  // Highlight active TOC section as you scroll (nice UX)
-  const tocLinks = Array.from(document.querySelectorAll('.toc-link'));
-  const sections = tocLinks
-    .map(a => document.querySelector(a.getAttribute('href')))
-    .filter(Boolean);
-
+  // Highlight current section in TOC as you scroll
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
-      tocLinks.forEach(a => a.classList.remove('active'));
-      const active = tocLinks.find(a => a.getAttribute('href') === `#${entry.target.id}`);
-      if (active) active.classList.add('active');
+      const id = entry.target.id;
+      tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
     });
-  }, { root: null, threshold: 0.25 });
+  }, { rootMargin: "-35% 0px -60% 0px", threshold: 0.01 });
 
   sections.forEach(sec => observer.observe(sec));
+
+  // Optional: close-to-instant smooth scroll with offset behavior handled by scroll-margin-top in CSS
+  tocLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      // allow default anchor behavior; smooth scroll is CSS-driven
+      // keep this here in case you later want analytics or extra behavior
+    });
+  });
 </script>
 
 </body>
