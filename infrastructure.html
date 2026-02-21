@@ -162,12 +162,33 @@ Power: Back-UPS for network + monitoring stack</code></pre>
       site-to-site VPN, and tiered server architecture.
     </p>
 
-    <button class="toggle-btn" type="button" onclick="toggleTopology()">
-      Show Image
-    </button>
+    <div class="viewer-actions">
+      <button class="toggle-btn" type="button" onclick="toggleTopology()">
+        Show Image
+      </button>
+
+      <span class="hint">
+        Tip: click to expand • scroll to zoom • drag to pan
+      </span>
+    </div>
 
     <div id="topologyContainer" class="hidden-image" aria-hidden="true">
-      <img src="images/infrastructure-topology.png" alt="Hybrid Network Topology Diagram">
+      <!-- Clickable image wrapper -->
+      <button
+        class="img-btn"
+        type="button"
+        aria-label="Open diagram viewer"
+        onclick="openLightbox()"
+      >
+        <img
+          id="topologyImg"
+          src="images/infrastructure-topology.png"
+          alt="Hybrid Network Topology Diagram (click to expand)"
+        >
+        <span class="img-overlay">
+          Click to expand
+        </span>
+      </button>
     </div>
 
     <p class="meta">
@@ -201,6 +222,29 @@ Power: Back-UPS for network + monitoring stack</code></pre>
   <p>All diagrams and descriptions are portfolio-safe and intentionally abstracted.</p>
 </footer>
 
+<!-- ========================= -->
+<!-- LIGHTBOX (FULLSCREEN) -->
+<!-- ========================= -->
+<div id="lightbox" class="lightbox" aria-hidden="true">
+  <div class="lightbox-top">
+    <div class="lightbox-title">
+      Diagram Viewer
+      <span class="lightbox-sub">Scroll to zoom • Drag to pan • Esc to close</span>
+    </div>
+
+    <div class="lightbox-controls">
+      <button type="button" class="lb-btn" onclick="zoomOut()" aria-label="Zoom out">−</button>
+      <button type="button" class="lb-btn" onclick="resetZoom()" aria-label="Reset zoom">Reset</button>
+      <button type="button" class="lb-btn" onclick="zoomIn()" aria-label="Zoom in">+</button>
+      <button type="button" class="lb-btn close" onclick="closeLightbox()" aria-label="Close viewer">✕</button>
+    </div>
+  </div>
+
+  <div id="lightboxStage" class="lightbox-stage" role="dialog" aria-modal="true">
+    <img id="lightboxImg" src="" alt="Expanded topology diagram">
+  </div>
+</div>
+
 <script>
   function toggleTopology() {
     const container = document.getElementById("topologyContainer");
@@ -222,6 +266,132 @@ Power: Back-UPS for network + monitoring stack</code></pre>
       btn.textContent = "Hide Image";
     }
   }
+
+  // =========================
+  // Lightbox zoom + pan
+  // =========================
+  const lightbox = document.getElementById("lightbox");
+  const stage = document.getElementById("lightboxStage");
+  const lbImg = document.getElementById("lightboxImg");
+
+  let scale = 1;
+  let minScale = 1;
+  let maxScale = 6;
+
+  let isDragging = false;
+  let startX = 0, startY = 0;
+  let translateX = 0, translateY = 0;
+
+  function applyTransform() {
+    lbImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+  }
+
+  function openLightbox() {
+    const src = document.getElementById("topologyImg").getAttribute("src");
+    lbImg.src = src;
+
+    // reset
+    scale = 1;
+    translateX = 0;
+    translateY = 0;
+    applyTransform();
+
+    lightbox.classList.add("open");
+    lightbox.setAttribute("aria-hidden", "false");
+
+    // prevent background scroll
+    document.body.classList.add("no-scroll");
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove("open");
+    lightbox.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("no-scroll");
+  }
+
+  function zoomIn() {
+    scale = Math.min(maxScale, +(scale + 0.25).toFixed(2));
+    applyTransform();
+  }
+
+  function zoomOut() {
+    scale = Math.max(minScale, +(scale - 0.25).toFixed(2));
+    applyTransform();
+  }
+
+  function resetZoom() {
+    scale = 1;
+    translateX = 0;
+    translateY = 0;
+    applyTransform();
+  }
+
+  // close when clicking the dark overlay (but not when clicking the image)
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  // ESC to close
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && lightbox.classList.contains("open")) closeLightbox();
+  });
+
+  // mouse wheel zoom (center-ish feel)
+  stage.addEventListener("wheel", (e) => {
+    if (!lightbox.classList.contains("open")) return;
+    e.preventDefault();
+
+    const delta = Math.sign(e.deltaY);
+    const next = delta > 0 ? scale - 0.2 : scale + 0.2;
+    scale = Math.min(maxScale, Math.max(minScale, +next.toFixed(2)));
+    applyTransform();
+  }, { passive: false });
+
+  // drag to pan
+  stage.addEventListener("mousedown", (e) => {
+    if (!lightbox.classList.contains("open")) return;
+    isDragging = true;
+    startX = e.clientX - translateX;
+    startY = e.clientY - translateY;
+    stage.classList.add("dragging");
+  });
+
+  window.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    translateX = e.clientX - startX;
+    translateY = e.clientY - startY;
+    applyTransform();
+  });
+
+  window.addEventListener("mouseup", () => {
+    isDragging = false;
+    stage.classList.remove("dragging");
+  });
+
+  // optional: touch drag (mobile)
+  stage.addEventListener("touchstart", (e) => {
+    if (!lightbox.classList.contains("open")) return;
+    if (e.touches.length !== 1) return;
+
+    isDragging = true;
+    startX = e.touches[0].clientX - translateX;
+    startY = e.touches[0].clientY - translateY;
+    stage.classList.add("dragging");
+  }, { passive: true });
+
+  stage.addEventListener("touchmove", (e) => {
+    if (!isDragging) return;
+    if (e.touches.length !== 1) return;
+
+    translateX = e.touches[0].clientX - startX;
+    translateY = e.touches[0].clientY - startY;
+    applyTransform();
+  }, { passive: true });
+
+  stage.addEventListener("touchend", () => {
+    isDragging = false;
+    stage.classList.remove("dragging");
+  }, { passive: true });
 </script>
 
 </body>
