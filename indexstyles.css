@@ -98,12 +98,13 @@ body{
   max-width: 60ch;
 }
 
-/* ===== Skills dropdown (replaces old chips row) ===== */
+/* ===== Skills dropdown ===== */
 .skills{
   margin-top: 16px;
   max-width: 640px;
 }
 
+/* ✅ Updated: friendly standout color for the trigger */
 .skills-summary{
   list-style: none;
   cursor: pointer;
@@ -111,29 +112,60 @@ body{
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 14px;
+  padding: 11px 16px;
   border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.16);
-  background: rgba(255,255,255,0.04);
-  transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+
+  /* Friendly teal/green "call-to-action" look */
+  border: 1px solid rgba(52,211,153,0.40);
+  background: rgba(52,211,153,0.14);
+  box-shadow:
+    0 0 0 1px rgba(52,211,153,0.10) inset,
+    0 12px 30px rgba(52,211,153,0.08);
+
+  transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* soft glow sheen */
+.skills-summary:before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background: linear-gradient(90deg,
+    rgba(52,211,153,0.28),
+    rgba(76,201,255,0.18),
+    rgba(167,139,250,0.12)
+  );
+  filter: blur(18px);
+  opacity: 0.55;
+  z-index: 0;
+}
+
+.skills-summary > *{
+  position: relative;
+  z-index: 1;
 }
 
 .skills-summary:hover{
   transform: translateY(-1px);
-  background: rgba(255,255,255,0.06);
-  border-color: rgba(76,201,255,0.22);
+  background: rgba(52,211,153,0.20);
+  border-color: rgba(52,211,153,0.55);
+  box-shadow:
+    0 0 0 1px rgba(52,211,153,0.12) inset,
+    0 16px 44px rgba(52,211,153,0.12);
 }
 
 .skills summary::-webkit-details-marker{ display: none; }
 
 .skills-label{
-  font-weight: 700;
+  font-weight: 800;
   font-size: 13px;
-  color: rgba(230,233,242,0.92);
+  color: rgba(230,233,242,0.96);
 }
 
 .skills-chevron{
-  color: rgba(230,233,242,0.75);
+  color: rgba(230,233,242,0.85);
   font-size: 14px;
   transition: transform 0.18s ease;
 }
