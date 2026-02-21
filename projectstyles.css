@@ -4,11 +4,17 @@
   --border: rgba(255,255,255,0.14);
   --text: #e6e9f2;
   --muted: rgba(230,233,242,0.7);
+
+  --tocW: 270px;
 }
 
 *{ box-sizing: border-box; }
 
 html, body { height: 100%; }
+
+html{
+  scroll-behavior: smooth;
+}
 
 body{
   margin: 0;
@@ -71,13 +77,82 @@ body{
   max-width: 92ch;
 }
 
-/* GRID */
-.projects-grid{
+/* ===== NEW: Layout (TOC + content) ===== */
+.projects-layout{
   max-width: 1100px;
   margin: 0 auto 60px;
   padding: 0 18px;
   display: grid;
+  grid-template-columns: var(--tocW) 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+/* Sticky TOC */
+.toc{
+  position: relative;
+}
+
+.toc-inner{
+  position: sticky;
+  top: 18px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 18px;
+  padding: 14px;
+  backdrop-filter: blur(10px);
+}
+
+.toc-title{
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  margin-bottom: 10px;
+}
+
+.toc-links{
+  display: grid;
+  gap: 8px;
+}
+
+.toc-link{
+  text-decoration: none;
+  color: rgba(230,233,242,0.86);
+  font-size: 13px;
+  line-height: 1.4;
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.12);
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.toc-link:hover{
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(76,201,255,0.25);
+  transform: translateY(-1px);
+}
+
+.toc-link.active{
+  background: rgba(76,201,255,0.12);
+  border-color: rgba(76,201,255,0.30);
+  color: rgba(230,233,242,0.95);
+}
+
+.toc-footnote{
+  margin-top: 12px;
+  font-size: 12px;
+  color: rgba(230,233,242,0.68);
+}
+
+/* ===== Projects column ===== */
+.projects-grid{
+  display: grid;
   gap: 22px;
+}
+
+/* Add a scroll margin so anchor jumps land nicely */
+.project-card{
+  scroll-margin-top: 18px;
 }
 
 /* CARD */
@@ -199,7 +274,23 @@ body{
 .tag-api   { border-color: rgba(244,63,94,0.45);  background: rgba(244,63,94,0.12);  color: rgba(251,113,133,1); }
 .tag-vm    { border-color: rgba(250,204,21,0.45); background: rgba(250,204,21,0.10); color: rgba(250,204,21,0.95); }
 
-/* Mobile polish */
+/* ===== Responsive ===== */
+@media (max-width: 980px){
+  .projects-layout{
+    grid-template-columns: 1fr;
+  }
+
+  /* TOC becomes a compact sticky bar on mobile/tablet */
+  .toc-inner{
+    top: 12px;
+    padding: 12px;
+  }
+
+  .toc-links{
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 720px){
   .topnav{
     margin-top: 18px;
