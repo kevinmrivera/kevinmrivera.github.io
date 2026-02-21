@@ -62,7 +62,7 @@
       <li>Updated nameservers at registrar and confirmed authoritative DNS cutover.</li>
     </ul>
 
-    <h3>Issues & Mitigation</h3>
+    <h3>Issues &amp; Mitigation</h3>
     <ul>
       <li>SSL conflicts when origin hosting manages certificates (resolved via DNS-only + correct SSL mode where needed).</li>
       <li>Incorrect proxy settings causing validation failures (fixed by switching impacted records to DNS-only).</li>
@@ -110,11 +110,11 @@
       <li>Mapped domains correctly to ensure Free/Busy queries routed to the correct tenant.</li>
     </ul>
 
-    <h3>Issues & Mitigation</h3>
+    <h3>Issues &amp; Mitigation</h3>
     <ul>
-      <li>Free/Busy failures caused by policy restrictions or incorrect sharing scope.</li>
-      <li>Permission scope mismatches for API access.</li>
-      <li>Propagation delays after configuration changes (validated with staged testing).</li>
+      <li>Free/Busy failures caused by policy restrictions or incorrect sharing scope (resolved by aligning sharing + org relationship configuration).</li>
+      <li>Permission scope mismatches for API access (resolved by confirming app/service account permissions and delegated access settings).</li>
+      <li>Propagation delays after changes (handled via staged testing and validation windows).</li>
     </ul>
 
     <h3>Post-Implementation Testing</h3>
@@ -144,7 +144,7 @@
 
     <p><strong>Objective:</strong> Migrate SSO and identity provisioning from Okta to Microsoft Entra ID to centralize authentication, streamline access management, and align identity with Microsoft 365 infrastructure.</p>
 
-    <h3>Planning & Preparation</h3>
+    <h3>Planning &amp; Preparation</h3>
     <ul>
       <li>Captured and documented complete Okta configuration (apps, groups, provisioning rules, license mappings).</li>
       <li>Created pilot plan and tested with dedicated test accounts to validate authentication and provisioning behavior.</li>
@@ -160,7 +160,7 @@
       <li>Configured provisioning and attribute mappings where supported.</li>
     </ul>
 
-    <h3>Challenges & Mitigation</h3>
+    <h3>Challenges &amp; Mitigation</h3>
     <ul>
       <li>Troubleshot SAML errors related to metadata mismatch, endpoints, and certificate configuration.</li>
       <li>Resolved provisioning failures caused by permission scopes and attribute mapping issues.</li>
@@ -195,7 +195,7 @@
 
     <p><strong>Objective:</strong> Migrate organizational email from Intermedia to Microsoft 365 to consolidate collaboration tools, improve security controls, and centralize administration.</p>
 
-    <h3>Planning & Preparation</h3>
+    <h3>Planning &amp; Preparation</h3>
     <ul>
       <li>Documented mailboxes, groups, licenses, rules, forwarding, signatures, and delegated access.</li>
       <li>Backed up mailboxes using a disaster recovery solution prior to migration.</li>
@@ -208,6 +208,15 @@
       <li>Configured MigrationWiz projects and enabled “Do Not Duplicate Emails” to prevent mailbox inflation.</li>
       <li>Performed staged migrations and recreated rules/forwarding/permissions in Microsoft 365.</li>
       <li>Updated DNS records (MX, SPF, Autodiscover) to route mail flow to Microsoft 365.</li>
+    </ul>
+
+    <h3>Issues &amp; Mitigation</h3>
+    <ul>
+      <li><strong>Rules/forwarding/delegation gaps:</strong> Not all mailbox rules and delegated access migrate cleanly (mitigated by exporting inventories and rebuilding settings post-cutover).</li>
+      <li><strong>Shared mailbox permissions:</strong> Send-As/Full Access may require reapplication (mitigated by documenting access models and validating with test users).</li>
+      <li><strong>Archive/public folder complexity:</strong> Archives/public folders may require separate handling (mitigated by scoping early and using staged pilots).</li>
+      <li><strong>Mail flow cutover risk:</strong> MX/SPF/Autodiscover timing can cause mixed routing (mitigated with staged DNS changes + monitoring message trace).</li>
+      <li><strong>Client reprofile impact:</strong> Outlook may require profile refresh/autodiscover updates (mitigated with user comms + quick support window during cutover).</li>
     </ul>
 
     <h3>Post-Migration Validation</h3>
@@ -237,7 +246,7 @@
 
     <p><strong>Objective:</strong> Migrate on-prem VMware workloads to Microsoft Azure to modernize infrastructure, improve scalability, and strengthen disaster recovery readiness.</p>
 
-    <h3>Planning & Preparation</h3>
+    <h3>Planning &amp; Preparation</h3>
     <ul>
       <li>Audited VMware VM inventory, dependencies, OS versions, and workload requirements.</li>
       <li>Outlined Azure services: Virtual Machines, database services, Azure Backup, VNet, NSGs, monitoring, secure admin access.</li>
@@ -245,13 +254,22 @@
       <li>Reviewed licensing requirements including Windows Server licensing and CAL considerations.</li>
     </ul>
 
-    <h3>Migration Strategy & Execution</h3>
+    <h3>Migration Strategy &amp; Execution</h3>
     <ul>
       <li>Evaluated migration methods (PowerShell-based recreation vs snapshot/backup restore workflows).</li>
       <li>Provisioned Azure VMs aligned with workload requirements and segmented networking design.</li>
       <li>Implemented NSGs to restrict RDP access and enforce least-privilege network controls.</li>
       <li>Migrated SQL workloads and validated application/database connectivity.</li>
       <li>Configured Azure Backup policies for workload protection.</li>
+    </ul>
+
+    <h3>Issues &amp; Mitigation</h3>
+    <ul>
+      <li><strong>Dependency mapping:</strong> App/DB/service dependencies can be missed (mitigated via inventory + validation testing and staged moves).</li>
+      <li><strong>Networking reachability:</strong> NSG/VNet rules can break east-west or admin access (mitigated using explicit allow-lists, test subnets, and documented ports).</li>
+      <li><strong>RDP exposure risk:</strong> Public RDP is high risk (mitigated with restricted source IPs, jump access patterns, and least-privilege rules).</li>
+      <li><strong>Performance/right-sizing:</strong> Incorrect VM sizing increases cost or reduces performance (mitigated by baseline metrics + right-size iterations).</li>
+      <li><strong>Backup/restore expectations:</strong> Recovery testing is often skipped (mitigated by validating restore workflows and documenting RPO/RTO assumptions).</li>
     </ul>
 
     <h3>Post-Migration Validation</h3>
@@ -299,7 +317,7 @@
       <li>Executed pilot migrations first, then scaled to staged migrations before final cutover.</li>
     </ul>
 
-    <h3>Issues & Mitigation</h3>
+    <h3>Issues &amp; Mitigation</h3>
     <ul>
       <li>Permissions do not always “pass through” 1:1 (resolved by standardizing SharePoint groups and inheritance strategy).</li>
       <li>Filename/path constraints and unsupported file types (resolved via pre-scan and remediation of invalid items).</li>
@@ -349,7 +367,7 @@
       <li>Aligned endpoint enrollment policies and baseline configuration profiles for Windows and macOS.</li>
     </ul>
 
-    <h3>Common Issues & Mitigation</h3>
+    <h3>Common Issues &amp; Mitigation</h3>
     <ul>
       <li>Sync issues caused by attribute conflicts or duplicate accounts (resolved via cleanup and attribute alignment).</li>
       <li>Over-syncing due to broad OU selection (resolved by tighter OU filtering and staged rollout).</li>
