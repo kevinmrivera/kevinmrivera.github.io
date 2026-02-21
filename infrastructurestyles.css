@@ -26,6 +26,8 @@ body{
   min-height: 100vh;
 }
 
+.no-scroll{ overflow: hidden; }
+
 /* NAV */
 .topnav{
   max-width: 1100px;
@@ -167,9 +169,7 @@ body{
 .badge.cloud{ border-color: rgba(251,113,133,0.45); background: rgba(251,113,133,0.12); color: var(--pink); }
 
 /* Tags */
-.tags{
-  margin-top: 12px;
-}
+.tags{ margin-top: 12px; }
 
 .tags span{
   display: inline-block;
@@ -199,9 +199,26 @@ body{
   white-space: pre;
 }
 
+/* Toggle + hint row */
+.viewer-actions{
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.hint{
+  font-size: 12.5px;
+  color: rgba(230,233,242,0.70);
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.03);
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
 /* Toggle Button */
 .toggle-btn{
-  margin-top: 14px;
   padding: 10px 16px;
   font-weight: 700;
   border-radius: 12px;
@@ -217,7 +234,7 @@ body{
   transform: translateY(-1px);
 }
 
-/* Hidden image container (expand/collapse) */
+/* Expand/collapse image container */
 .hidden-image{
   max-height: 0;
   overflow: hidden;
@@ -229,10 +246,38 @@ body{
   background: rgba(255,255,255,0.03);
 }
 
-.hidden-image img{
+.hidden-image.open{
+  opacity: 1;
+}
+
+/* Clickable image button */
+.img-btn{
+  position: relative;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+  display: block;
+}
+
+.img-btn img{
   width: 100%;
   height: auto;
   display: block;
+}
+
+.img-overlay{
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(0,0,0,0.35);
+  color: rgba(230,233,242,0.92);
+  backdrop-filter: blur(8px);
 }
 
 /* Meta + Footer */
@@ -248,4 +293,102 @@ body{
   padding: 0 18px;
   color: var(--muted);
   font-size: 13px;
+}
+
+/* ========================= */
+/* LIGHTBOX */
+/* ========================= */
+.lightbox{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.72);
+  backdrop-filter: blur(6px);
+  display: none;
+  z-index: 9999;
+}
+
+.lightbox.open{
+  display: block;
+}
+
+.lightbox-top{
+  max-width: 1200px;
+  margin: 14px auto 10px;
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: rgba(230,233,242,0.92);
+}
+
+.lightbox-title{
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.lightbox-sub{
+  display: inline-block;
+  margin-left: 10px;
+  font-weight: 600;
+  font-size: 12px;
+  color: rgba(230,233,242,0.70);
+}
+
+.lightbox-controls{
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.lb-btn{
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.06);
+  color: rgba(230,233,242,0.92);
+  padding: 8px 10px;
+  border-radius: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.lb-btn:hover{
+  background: rgba(255,255,255,0.10);
+  transform: translateY(-1px);
+}
+
+.lb-btn.close{
+  border-color: rgba(251,113,133,0.35);
+  background: rgba(251,113,133,0.10);
+}
+
+.lb-btn.close:hover{
+  background: rgba(251,113,133,0.16);
+}
+
+.lightbox-stage{
+  max-width: 1200px;
+  height: calc(100vh - 86px);
+  margin: 0 auto 18px;
+  padding: 0 14px 14px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  cursor: grab;
+}
+
+.lightbox-stage.dragging{
+  cursor: grabbing;
+}
+
+.lightbox-stage img{
+  max-width: 100%;
+  max-height: 100%;
+  transform-origin: center center;
+  transition: transform 0.05s linear;
+  user-select: none;
+  -webkit-user-drag: none;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.02);
 }
