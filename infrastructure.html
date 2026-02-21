@@ -52,33 +52,43 @@
                                               └─ SOAR (workflow automation)
 Power: Back-UPS for network + monitoring stack</code></pre>
 
-    <h3>Component Breakdown</h3>
-    <ul>
-      <li><strong>Modem:</strong> terminates ISP service and provides internet handoff.</li>
-      <li><strong>Firewall:</strong> security boundary (NAT, inspection, threat filtering, VPN, logging).</li>
-      <li><strong>Router:</strong> internal routing / subnet design (sometimes combined into firewall).</li>
-      <li><strong>Primary + Backup switch:</strong> access-layer connectivity and fast recovery from switch failure.</li>
-      <li><strong>KVM switch:</strong> operational control of multiple endpoints from one console.</li>
-      <li><strong>SIEM:</strong> central telemetry for detection, investigation, and reporting.</li>
-      <li><strong>SOAR:</strong> playbooks for triage, enrichment, notifications, and controlled response actions.</li>
-      <li><strong>Back-UPS:</strong> prevents monitoring and routing interruption during brief power events.</li>
-    </ul>
+    <!-- ✅ View description dropdown -->
+    <details class="more">
+      <summary class="more-summary">
+        <span>View description</span>
+        <span class="chev" aria-hidden="true">▾</span>
+      </summary>
 
-    <h3>How SIEM + SOAR Work Together</h3>
-    <ul>
-      <li><strong>Collect:</strong> endpoints and firewall forward logs/telemetry into the SIEM.</li>
-      <li><strong>Detect:</strong> correlation rules generate alerts with context (user/device/network).</li>
-      <li><strong>Automate:</strong> SOAR ingests alerts, enriches data, and runs playbooks (ticket, notify, script).</li>
-      <li><strong>Respond (controlled):</strong> safe actions such as blocking a test IP or isolating a lab endpoint (where supported).</li>
-    </ul>
+      <div class="more-body">
+        <h3>Component Breakdown</h3>
+        <ul>
+          <li><strong>Modem:</strong> terminates ISP service and provides internet handoff.</li>
+          <li><strong>Firewall:</strong> security boundary (NAT, inspection, threat filtering, VPN, logging).</li>
+          <li><strong>Router:</strong> internal routing / subnet design (sometimes combined into firewall).</li>
+          <li><strong>Primary + Backup switch:</strong> access-layer connectivity and fast recovery from switch failure.</li>
+          <li><strong>KVM switch:</strong> operational control of multiple endpoints from one console.</li>
+          <li><strong>SIEM:</strong> central telemetry for detection, investigation, and reporting.</li>
+          <li><strong>SOAR:</strong> playbooks for triage, enrichment, notifications, and controlled response actions.</li>
+          <li><strong>Back-UPS:</strong> prevents monitoring and routing interruption during brief power events.</li>
+        </ul>
 
-    <div class="tags">
-      <span>Segmentation</span>
-      <span>SIEM</span>
-      <span>SOAR</span>
-      <span>Back-UPS</span>
-      <span>Operational Resilience</span>
-    </div>
+        <h3>How SIEM + SOAR Work Together</h3>
+        <ul>
+          <li><strong>Collect:</strong> endpoints and firewall forward logs/telemetry into the SIEM.</li>
+          <li><strong>Detect:</strong> correlation rules generate alerts with context (user/device/network).</li>
+          <li><strong>Automate:</strong> SOAR ingests alerts, enriches data, and runs playbooks (ticket, notify, script).</li>
+          <li><strong>Respond (controlled):</strong> safe actions such as blocking a test IP or isolating a lab endpoint (where supported).</li>
+        </ul>
+
+        <div class="tags">
+          <span>Segmentation</span>
+          <span>SIEM</span>
+          <span>SOAR</span>
+          <span>Back-UPS</span>
+          <span>Operational Resilience</span>
+        </div>
+      </div>
+    </details>
   </article>
 
   <!-- DESIGN 2 -->
@@ -108,41 +118,50 @@ Power: Back-UPS for network + monitoring stack</code></pre>
                                          ├─ Linux Server (apps/services)
                                          └─ Exchange Server (or migration path to M365)</code></pre>
 
-    <h3>Why This Design Works</h3>
-    <ul>
-      <li><strong>ISP failover:</strong> continuity when the primary circuit fails (policy enforced at firewall).</li>
-      <li><strong>Virtualization:</strong> consolidates workloads, improves recovery options, and supports scaling.</li>
-      <li><strong>Identity-first:</strong> domain services enable centralized authentication, policy, and access control.</li>
-      <li><strong>Remote access:</strong> RDS provides controlled access to internal tools without exposing services directly.</li>
-    </ul>
+    <!-- ✅ View description dropdown -->
+    <details class="more">
+      <summary class="more-summary">
+        <span>View description</span>
+        <span class="chev" aria-hidden="true">▾</span>
+      </summary>
 
-    <h3>Role Breakdown (High-Level)</h3>
-    <ul>
-      <li><strong>Domain Controllers:</strong> authentication, GPO, and often DNS (resilience with a secondary DC).</li>
-      <li><strong>RDS:</strong> secure workspace access for employees and contractors.</li>
-      <li><strong>QuickBooks Server:</strong> centralized accounting database/app access for multi-user workflows.</li>
-      <li><strong>IIS:</strong> internal applications, web portals, or service endpoints.</li>
-      <li><strong>SQL:</strong> database layer for business apps and services.</li>
-      <li><strong>Linux:</strong> app runtimes, automation services, monitoring, or middleware.</li>
-      <li><strong>Exchange:</strong> on-prem messaging or transitional hybrid model.</li>
-    </ul>
+      <div class="more-body">
+        <h3>Why This Design Works</h3>
+        <ul>
+          <li><strong>ISP failover:</strong> continuity when the primary circuit fails (policy enforced at firewall).</li>
+          <li><strong>Virtualization:</strong> consolidates workloads, improves recovery options, and supports scaling.</li>
+          <li><strong>Identity-first:</strong> domain services enable centralized authentication, policy, and access control.</li>
+          <li><strong>Remote access:</strong> RDS provides controlled access to internal tools without exposing services directly.</li>
+        </ul>
 
-    <h3>Operational Practices Typically Paired</h3>
-    <ul>
-      <li>Patch and change windows for servers and network infrastructure.</li>
-      <li>Backups (image + app-aware) and periodic restore testing.</li>
-      <li>Least privilege, RBAC, and administrative separation.</li>
-      <li>Network segmentation (VLANs) and restricted management access.</li>
-    </ul>
+        <h3>Role Breakdown (High-Level)</h3>
+        <ul>
+          <li><strong>Domain Controllers:</strong> authentication, GPO, and often DNS (resilience with a secondary DC).</li>
+          <li><strong>RDS:</strong> secure workspace access for employees and contractors.</li>
+          <li><strong>QuickBooks Server:</strong> centralized accounting database/app access for multi-user workflows.</li>
+          <li><strong>IIS:</strong> internal applications, web portals, or service endpoints.</li>
+          <li><strong>SQL:</strong> database layer for business apps and services.</li>
+          <li><strong>Linux:</strong> app runtimes, automation services, monitoring, or middleware.</li>
+          <li><strong>Exchange:</strong> on-prem messaging or transitional hybrid model.</li>
+        </ul>
 
-    <div class="tags">
-      <span>VMware</span>
-      <span>Active Directory</span>
-      <span>RDS</span>
-      <span>QuickBooks</span>
-      <span>IIS / SQL</span>
-      <span>Business Continuity</span>
-    </div>
+        <h3>Operational Practices Typically Paired</h3>
+        <ul>
+          <li>Patch and change windows for servers and network infrastructure.</li>
+          <li>Backups (image + app-aware) and periodic restore testing.</li>
+          <li>Least privilege, RBAC, and administrative separation.</li>
+          <li>Network segmentation (VLANs) and restricted management access.</li>
+        </ul>
+
+        <div class="tags">
+          <span>Virtualization</span>
+          <span>Identity Services</span>
+          <span>Remote Access</span>
+          <span>Backup & Restore Testing</span>
+          <span>Business Continuity</span>
+        </div>
+      </div>
+    </details>
   </article>
 
   <!-- DESIGN 3 -->
@@ -173,7 +192,6 @@ Power: Back-UPS for network + monitoring stack</code></pre>
     </div>
 
     <div id="topologyContainer" class="hidden-image" aria-hidden="true">
-      <!-- Clickable image wrapper -->
       <button
         class="img-btn"
         type="button"
@@ -185,9 +203,7 @@ Power: Back-UPS for network + monitoring stack</code></pre>
           src="images/infrastructure-topology.png"
           alt="Hybrid Network Topology Diagram (click to expand)"
         >
-        <span class="img-overlay">
-          Click to expand
-        </span>
+        <span class="img-overlay">Click to expand</span>
       </button>
     </div>
 
@@ -290,7 +306,6 @@ Power: Back-UPS for network + monitoring stack</code></pre>
     const src = document.getElementById("topologyImg").getAttribute("src");
     lbImg.src = src;
 
-    // reset
     scale = 1;
     translateX = 0;
     translateY = 0;
@@ -298,8 +313,6 @@ Power: Back-UPS for network + monitoring stack</code></pre>
 
     lightbox.classList.add("open");
     lightbox.setAttribute("aria-hidden", "false");
-
-    // prevent background scroll
     document.body.classList.add("no-scroll");
   }
 
@@ -326,17 +339,14 @@ Power: Back-UPS for network + monitoring stack</code></pre>
     applyTransform();
   }
 
-  // close when clicking the dark overlay (but not when clicking the image)
   lightbox.addEventListener("click", (e) => {
     if (e.target === lightbox) closeLightbox();
   });
 
-  // ESC to close
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && lightbox.classList.contains("open")) closeLightbox();
   });
 
-  // mouse wheel zoom (center-ish feel)
   stage.addEventListener("wheel", (e) => {
     if (!lightbox.classList.contains("open")) return;
     e.preventDefault();
@@ -347,7 +357,6 @@ Power: Back-UPS for network + monitoring stack</code></pre>
     applyTransform();
   }, { passive: false });
 
-  // drag to pan
   stage.addEventListener("mousedown", (e) => {
     if (!lightbox.classList.contains("open")) return;
     isDragging = true;
@@ -368,7 +377,6 @@ Power: Back-UPS for network + monitoring stack</code></pre>
     stage.classList.remove("dragging");
   });
 
-  // optional: touch drag (mobile)
   stage.addEventListener("touchstart", (e) => {
     if (!lightbox.classList.contains("open")) return;
     if (e.touches.length !== 1) return;
