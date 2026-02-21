@@ -98,28 +98,170 @@ body{
   max-width: 60ch;
 }
 
-/* CHIPS */
-.chips{
+/* ===== Skills dropdown (replaces old chips row) ===== */
+.skills{
   margin-top: 16px;
+  max-width: 640px;
+}
+
+.skills-summary{
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.04);
+  transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+}
+
+.skills-summary:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(76,201,255,0.22);
+}
+
+.skills summary::-webkit-details-marker{ display: none; }
+
+.skills-label{
+  font-weight: 700;
+  font-size: 13px;
+  color: rgba(230,233,242,0.92);
+}
+
+.skills-chevron{
+  color: rgba(230,233,242,0.75);
+  font-size: 14px;
+  transition: transform 0.18s ease;
+}
+
+.skills[open] .skills-chevron{
+  transform: rotate(180deg);
+}
+
+.skills-body{
+  margin-top: 12px;
+  padding: 14px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.skills-body:before{
+  content:"";
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(90deg,
+    rgba(76,201,255,0.22),
+    rgba(167,139,250,0.18),
+    rgba(52,211,153,0.16),
+    rgba(251,191,36,0.14)
+  );
+  filter: blur(20px);
+  opacity: 0.26;
+  z-index: 0;
+}
+
+.skills-body > *{
+  position: relative;
+  z-index: 1;
+}
+
+.skills-chips{
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.chip{
-  border: 1px solid rgba(255,255,255,0.16);
-  border-radius: 999px;
-  padding: 7px 12px;
+.skill-chip{
+  display: inline-block;
   font-size: 12px;
-  background: rgba(255,255,255,0.04);
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(0,0,0,0.10);
+  color: rgba(230,233,242,0.92);
   white-space: nowrap;
 }
 
-.chip.azure{ border-color: rgba(76,201,255,0.45); background: rgba(76,201,255,0.12); color: var(--blue); }
-.chip.ms{ border-color: rgba(59,130,246,0.45); background: rgba(59,130,246,0.12); color: rgba(147,197,253,1); }
-.chip.sec{ border-color: rgba(52,211,153,0.45); background: rgba(52,211,153,0.12); color: var(--green); }
-.chip.ops{ border-color: rgba(251,191,36,0.45); background: rgba(251,191,36,0.12); color: var(--amber); }
-.chip.id{ border-color: rgba(167,139,250,0.45); background: rgba(167,139,250,0.12); color: var(--purple); }
+/* Color variants for skill category chips */
+.skill-chip.s-cloud{
+  border-color: rgba(76,201,255,0.45);
+  background: rgba(76,201,255,0.12);
+  color: var(--blue);
+}
+
+.skill-chip.s-id{
+  border-color: rgba(167,139,250,0.45);
+  background: rgba(167,139,250,0.12);
+  color: var(--purple);
+}
+
+.skill-chip.s-endpoint{
+  border-color: rgba(59,130,246,0.45);
+  background: rgba(59,130,246,0.12);
+  color: rgba(147,197,253,1);
+}
+
+.skill-chip.s-secops{
+  border-color: rgba(52,211,153,0.45);
+  background: rgba(52,211,153,0.12);
+  color: var(--green);
+}
+
+.skill-chip.s-email{
+  border-color: rgba(251,113,133,0.45);
+  background: rgba(251,113,133,0.12);
+  color: var(--pink);
+}
+
+.skill-chip.s-dns{
+  border-color: rgba(34,211,238,0.45);
+  background: rgba(34,211,238,0.12);
+  color: rgba(34,211,238,0.95);
+}
+
+.skill-chip.s-file{
+  border-color: rgba(250,204,21,0.45);
+  background: rgba(250,204,21,0.12);
+  color: rgba(250,204,21,0.95);
+}
+
+.skill-chip.s-ops{
+  border-color: rgba(251,191,36,0.45);
+  background: rgba(251,191,36,0.12);
+  color: var(--amber);
+}
+
+.skill-chip.s-automation{
+  border-color: rgba(76,201,255,0.45);
+  background: rgba(76,201,255,0.10);
+  color: rgba(230,233,242,0.92);
+}
+
+.skill-chip.s-dr{
+  border-color: rgba(52,211,153,0.35);
+  background: rgba(52,211,153,0.08);
+  color: rgba(230,233,242,0.92);
+}
+
+.skill-chip.s-compliance{
+  border-color: rgba(167,139,250,0.35);
+  background: rgba(167,139,250,0.08);
+  color: rgba(230,233,242,0.92);
+}
+
+.skills-note{
+  margin: 12px 0 0;
+  color: rgba(230,233,242,0.65);
+  font-size: 12px;
+}
 
 /* TERMINAL CARD */
 .terminal{
@@ -383,65 +525,6 @@ body{
   border-color: rgba(52,211,153,0.35);
   background: rgba(52,211,153,0.12);
   color: rgba(52,211,153,0.95);
-}
-
-/* ===== Core Tooling (categorized) ===== */
-
-.tool-groups{
-  margin-top: 14px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
-}
-
-@media (min-width: 980px){
-  .tool-groups{
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.tool-group{
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(0,0,0,0.10);
-  border-radius: 16px;
-  padding: 14px;
-}
-
-.tool-group-head h3{
-  margin: 0;
-  font-size: 14px;
-  letter-spacing: 0.2px;
-  color: rgba(76,201,255,0.95);
-}
-
-.tool-group-head p{
-  margin: 6px 0 0;
-  color: rgba(230,233,242,0.68);
-  font-size: 12.5px;
-  line-height: 1.55;
-}
-
-.tool-chips{
-  margin-top: 12px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.tool{
-  font-size: 12px;
-  padding: 7px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.16);
-  background: rgba(255,255,255,0.04);
-  color: rgba(230,233,242,0.92);
-}
-
-/* Panel footnote */
-.panel-footnote{
-  margin: 14px 0 0;
-  color: var(--muted);
-  font-size: 13px;
 }
 
 /* FOOTER */
