@@ -1,3 +1,5 @@
+/* /infrastructure/infrastructurestyles.css */
+
 :root{
   --bg: #060913;
   --panel: rgba(255,255,255,0.06);
@@ -29,6 +31,9 @@ body{
     radial-gradient(900px 450px at 60% 95%, rgba(52,211,153,0.14), transparent 55%),
     linear-gradient(180deg, #050714, #060913 60%, #050714);
   min-height: 100vh;
+
+  /* prevents “mystery” horizontal scroll/layout damage */
+  overflow-x: hidden;
 }
 
 /* NAV */
@@ -120,6 +125,7 @@ body{
   background: rgba(255,255,255,0.05);
   color: rgba(230,233,242,0.94);
   transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+  cursor: pointer;
 }
 
 .btn:hover{
@@ -203,13 +209,7 @@ body{
   background: rgba(255,255,255,0.04);
 }
 
-.dot{
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
+.dot{ width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 .dot.red{ background: #ff5f57; }
 .dot.yellow{ background: #febc2e; }
 .dot.green{ background: #28c840; }
@@ -220,12 +220,7 @@ body{
   font-size: 12px;
 }
 
-.terminal pre{
-  margin: 0;
-  padding: 14px;
-  overflow: auto;
-}
-
+.terminal pre{ margin: 0; padding: 14px; overflow: auto; }
 .terminal code{
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
   font-size: 12.5px;
@@ -241,9 +236,7 @@ body{
 }
 
 /* SECTIONS */
-.section{
-  margin-top: 26px;
-}
+.section{ margin-top: 26px; }
 
 .section-head h2{
   margin: 0;
@@ -267,9 +260,7 @@ body{
 }
 
 @media (min-width: 860px){
-  .grid{
-    grid-template-columns: 1fr 1fr;
-  }
+  .grid{ grid-template-columns: 1fr 1fr; }
 }
 
 .card{
@@ -305,11 +296,7 @@ body{
   flex-wrap: wrap;
 }
 
-.card h3{
-  margin: 0;
-  font-size: 16px;
-  letter-spacing: 0.2px;
-}
+.card h3{ margin: 0; font-size: 16px; letter-spacing: 0.2px; }
 
 .card p{
   margin: 10px 0 0;
@@ -323,18 +310,10 @@ body{
   color: rgba(230,233,242,0.78);
   line-height: 1.7;
 }
-
-.card li{
-  margin: 6px 0;
-}
+.card li{ margin: 6px 0; }
 
 /* Chips */
-.chips{
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
+.chips{ display: flex; flex-wrap: wrap; gap: 8px; }
 .chip{
   display: inline-block;
   font-size: 12px;
@@ -351,7 +330,7 @@ body{
 .chip.c-purple{ border-color: rgba(167,139,250,0.45); background: rgba(167,139,250,0.12); color: var(--purple); }
 .chip.c-pink{ border-color: rgba(251,113,133,0.45); background: rgba(251,113,133,0.12); color: var(--pink); }
 
-/* TOPOLOGY BLOCK */
+/* TOPOLOGY */
 .topology{
   margin-top: 14px;
   display: grid;
@@ -370,15 +349,43 @@ body{
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 18px;
-  overflow: hidden;
-  padding: 10px;
+  padding: 14px;
 }
 
-.topology-media img{
+.topology-preview{
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.18);
+  overflow: hidden;
+
+  /* ✅ keeps the preview from “destroying” the page */
+  max-height: 420px;
+}
+
+.topology-preview img{
   width: 100%;
-  height: auto;
+  height: 420px;
   display: block;
-  border-radius: 12px;
+
+  /* ✅ makes diagrams readable without stretching */
+  object-fit: contain;
+
+  /* ✅ keeps the diagram background clean */
+  background: #ffffff;
+}
+
+.topology-actions{
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.topology-hint{
+  margin: 10px 0 0;
+  color: rgba(230,233,242,0.62);
+  font-size: 12px;
+  line-height: 1.6;
 }
 
 .topology-notes{
@@ -388,10 +395,7 @@ body{
   padding: 16px;
 }
 
-.topology-notes h3{
-  margin: 0;
-  font-size: 16px;
-}
+.topology-notes h3{ margin: 0; font-size: 16px; }
 
 .topology-notes ul{
   margin: 10px 0 0 18px;
@@ -399,9 +403,7 @@ body{
   line-height: 1.7;
 }
 
-.topology-notes strong{
-  color: rgba(230,233,242,0.95);
-}
+.topology-notes strong{ color: rgba(230,233,242,0.95); }
 
 .callout{
   margin-top: 12px;
@@ -421,9 +423,7 @@ body{
 }
 
 @media (min-width: 860px){
-  .highlights{
-    grid-template-columns: 1fr 1fr 1fr;
-  }
+  .highlights{ grid-template-columns: 1fr 1fr 1fr; }
 }
 
 .highlight{
@@ -433,16 +433,8 @@ body{
   padding: 16px;
 }
 
-.highlight h3{
-  margin: 0;
-  font-size: 15px;
-}
-
-.highlight p{
-  margin: 8px 0 0;
-  color: var(--muted);
-  line-height: 1.7;
-}
+.highlight h3{ margin: 0; font-size: 15px; }
+.highlight p{ margin: 8px 0 0; color: var(--muted); line-height: 1.7; }
 
 /* FOOTER */
 .footer{
@@ -451,4 +443,77 @@ body{
   padding: 0 18px;
   color: var(--muted);
   font-size: 13px;
+}
+
+/* MODAL */
+.modal{
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 9999;
+}
+
+.modal.open{ display: block; }
+
+.modal-backdrop{
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.70);
+}
+
+.modal-card{
+  position: relative;
+  width: min(1100px, calc(100% - 28px));
+  margin: 18px auto;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(15,18,30,0.92);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.modal-head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+
+.modal-title{
+  font-weight: 800;
+  font-size: 13px;
+  color: rgba(230,233,242,0.92);
+}
+
+.modal-close{
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+  color: rgba(230,233,242,0.92);
+  border-radius: 12px;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.modal-close:hover{
+  background: rgba(255,255,255,0.10);
+  border-color: rgba(76,201,255,0.22);
+}
+
+.modal-body{
+  padding: 12px;
+}
+
+.modal-body img{
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  background: #fff;
+}
+
+body.modal-open{
+  overflow: hidden;
 }
