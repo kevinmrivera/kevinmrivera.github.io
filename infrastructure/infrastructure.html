@@ -1,3 +1,4 @@
+<!-- /infrastructure/infrastructure.html -->
 <!DOCTYPE html>
 <html lang="en" id="top">
 <head>
@@ -33,7 +34,7 @@
       <a class="btn ghost" href="#topology">View topology</a>
     </div>
 
-    <div class="pillrow">
+    <div class="pillrow" aria-label="Domain focus tags">
       <span class="pill p-blue">Azure</span>
       <span class="pill p-purple">Identity</span>
       <span class="pill p-green">Endpoint</span>
@@ -64,7 +65,7 @@ Standardize, automate, and harden — with measurable outcomes</code></pre>
 
 <main class="wrap">
 
-  <!-- DOMAIN CARDS -->
+  <!-- DOMAINS -->
   <section class="section" id="domains">
     <div class="section-head">
       <h2>Infrastructure domains</h2>
@@ -209,7 +210,22 @@ Standardize, automate, and harden — with measurable outcomes</code></pre>
 
     <div class="topology">
       <div class="topology-media">
-        <img src="/images/infrastructure-topology.png" alt="Infrastructure topology diagram">
+        <div class="topology-preview">
+          <img
+            src="/images/infrastructure-topology.png"
+            alt="Infrastructure topology diagram preview"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="topology-actions">
+          <button class="btn primary" type="button" id="openTopo">Open full diagram</button>
+          <a class="btn ghost" href="/images/infrastructure-topology.png" target="_blank" rel="noopener">Open in new tab</a>
+        </div>
+
+        <p class="topology-hint">
+          Tip: The preview is intentionally constrained so the page layout stays clean.
+        </p>
       </div>
 
       <div class="topology-notes">
@@ -228,7 +244,7 @@ Standardize, automate, and harden — with measurable outcomes</code></pre>
     </div>
   </section>
 
-  <!-- QUICK STRENGTHS -->
+  <!-- HIGHLIGHTS -->
   <section class="section" id="highlights">
     <div class="section-head">
       <h2>Implementation highlights</h2>
@@ -257,8 +273,48 @@ Standardize, automate, and harden — with measurable outcomes</code></pre>
   <p>© <span id="year"></span> Kevin Rivera</p>
 </footer>
 
+<!-- Topology modal -->
+<div class="modal" id="topoModal" aria-hidden="true" role="dialog" aria-label="Topology diagram viewer">
+  <div class="modal-backdrop" data-close="true"></div>
+  <div class="modal-card" role="document">
+    <div class="modal-head">
+      <div class="modal-title">Infrastructure topology</div>
+      <button class="modal-close" type="button" aria-label="Close" data-close="true">✕</button>
+    </div>
+    <div class="modal-body">
+      <img src="/images/infrastructure-topology.png" alt="Infrastructure topology diagram">
+    </div>
+  </div>
+</div>
+
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
+
+  const modal = document.getElementById("topoModal");
+  const openBtn = document.getElementById("openTopo");
+
+  function openModal(){
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+  }
+
+  function closeModal(){
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+  }
+
+  openBtn.addEventListener("click", openModal);
+
+  modal.addEventListener("click", (e) => {
+    const close = e.target?.dataset?.close;
+    if (close) closeModal();
+  });
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("open")) closeModal();
+  });
 </script>
 
 </body>
