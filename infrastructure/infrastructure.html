@@ -5,7 +5,6 @@
   <title>Infrastructure | Kevin Rivera</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <!-- CSS is in the SAME folder as infrastructure.html -->
   <link rel="stylesheet" href="infrastructurestyles.css">
 </head>
 
@@ -22,40 +21,25 @@
 
 <header class="hero">
   <div class="hero-left">
-    <p class="kicker">IT Infrastructure & Cybersecurity</p>
-    <h1>Kevin Rivera</h1>
+    <p class="kicker">Infrastructure</p>
+    <h1>Hybrid Systems, Cloud, Network &amp; Endpoint Delivery</h1>
     <p class="headline">
-      Hybrid Cloud • Identity • Endpoint Management • Compliance • Automation
+      Architecture patterns and operational practices across identity, networking, compute, endpoint management,
+      and resilience—shared at a high level and portfolio-safe.
     </p>
 
-    <!-- ✅ Skills dropdown -->
-    <details class="skills" role="group">
-      <summary class="skills-summary">
-        <span class="skills-label">Click to view skills</span>
-        <span class="skills-chevron" aria-hidden="true">▾</span>
-      </summary>
+    <div class="hero-actions">
+      <a class="btn primary" href="#domains">Explore domains</a>
+      <a class="btn ghost" href="#topology">View topology</a>
+    </div>
 
-      <div class="skills-body" aria-label="Skill categories">
-        <div class="skills-chips">
-          <span class="skill-chip s-cloud">Cloud & Infrastructure</span>
-          <span class="skill-chip s-id">Identity & Access</span>
-          <span class="skill-chip s-endpoint">Endpoint Management</span>
-          <span class="skill-chip s-secops">Security Operations</span>
-          <span class="skill-chip s-email">Email Security</span>
-          <span class="skill-chip s-dns">DNS / CDN / Domains</span>
-          <span class="skill-chip s-file">File Management</span>
-          <span class="skill-chip s-ops">IT Operations</span>
-          <span class="skill-chip s-automation">Automation & Scripting</span>
-          <span class="skill-chip s-dr">Disaster Recovery</span>
-          <span class="skill-chip s-compliance">Compliance & Governance</span>
-        </div>
-
-        <p class="skills-note">
-          Categories shown at a high level (portfolio-safe).
-        </p>
-      </div>
-    </details>
-
+    <div class="pillrow">
+      <span class="pill p-blue">Azure</span>
+      <span class="pill p-purple">Identity</span>
+      <span class="pill p-green">Endpoint</span>
+      <span class="pill p-amber">Networking</span>
+      <span class="pill p-pink">Resilience</span>
+    </div>
   </div>
 
   <div class="hero-right">
@@ -64,169 +48,210 @@
         <span class="dot red"></span>
         <span class="dot yellow"></span>
         <span class="dot green"></span>
-        <span class="term-title">portfolio://kevin-rivera</span>
+        <span class="term-title">infra://overview</span>
       </div>
-      <pre><code>$ whoami
-Kevin Rivera
+      <pre><code>$ focus
+Hybrid infrastructure + secure operations
 
-$ focus
-Hybrid infrastructure, security operations, and cloud modernization
+$ pillars
+Identity | Network | Compute | Endpoint | DR
 
-$ core
-Windows Server | Microsoft Ecosystem | Azure | VMware | Automation
-
-$ status
-Building resilient, scalable environments with measurable risk reduction</code></pre>
+$ approach
+Standardize, automate, and harden — with measurable outcomes</code></pre>
     </div>
   </div>
 </header>
 
-<section class="content">
-  <h2>About</h2>
+<main class="wrap">
 
-  <p>
-    I am an IT Infrastructure and Cybersecurity professional with over seven years of experience
-    designing, managing, and securing hybrid enterprise environments. My expertise spans on-premise
-    Windows Server infrastructure, Active Directory architecture, Azure cloud services, VMware,
-    Google Workspace, Microsoft 365, macOS and Windows environments, endpoint management, and
-    security-focused operational practices.
-  </p>
+  <!-- DOMAIN CARDS -->
+  <section class="section" id="domains">
+    <div class="section-head">
+      <h2>Infrastructure domains</h2>
+      <p>
+        A quick view of the areas I typically own end-to-end, from design through implementation and support.
+      </p>
+    </div>
 
-  <p>
-    My experience includes supporting organizations across global nonprofit, legal and professional
-    services, executive search and financial recruiting, consumer goods, and marketing environments.
-    Working across diverse operational models has strengthened my ability to design secure, scalable
-    infrastructure solutions aligned to regulatory, performance, and business growth objectives.
-  </p>
+    <div class="grid">
 
-  <p>
-    I specialize in hybrid infrastructure architecture integrating on-premise systems with cloud identity
-    and access controls. My work has supported initiatives aligned with HIPAA and NIST frameworks,
-    including hybrid identity management, endpoint automation, audit readiness, and vulnerability remediation.
-  </p>
-
-  <!-- ✅ CERTIFICATIONS SECTION -->
-  <div class="panel">
-    <div class="panel-head">
-      <div>
-        <h2>Certifications</h2>
-        <p class="panel-sub">
-          Official digital badges linked to public verification. No credential IDs are displayed on this site.
+      <article class="card">
+        <div class="card-top">
+          <h3>Cloud &amp; Compute</h3>
+          <div class="chips">
+            <span class="chip c-blue">Azure</span>
+            <span class="chip c-purple">VMs</span>
+            <span class="chip c-amber">Cost</span>
+          </div>
+        </div>
+        <p>
+          VM and workload planning, segmentation, secure admin patterns, monitoring, and right-sizing
+          to balance performance with cost.
         </p>
-      </div>
-      <div class="panel-note">
-        <span class="status-pill">Verified Links</span>
-      </div>
-    </div>
+        <ul>
+          <li>Workload inventory + dependency mapping</li>
+          <li>Secure access patterns (jump/bastion-style)</li>
+          <li>Backup + restore validation and RPO/RTO alignment</li>
+        </ul>
+      </article>
 
-    <div class="cert-list">
+      <article class="card">
+        <div class="card-top">
+          <h3>Identity &amp; Access</h3>
+          <div class="chips">
+            <span class="chip c-purple">Entra ID</span>
+            <span class="chip c-green">SSO</span>
+            <span class="chip c-pink">MFA</span>
+          </div>
+        </div>
+        <p>
+          Hybrid identity foundations, SSO integrations, conditional access patterns, and access governance
+          that reduces friction while improving control.
+        </p>
+        <ul>
+          <li>Hybrid identity alignment (directory + cloud)</li>
+          <li>Least privilege and role-based admin models</li>
+          <li>Access reviews and sign-in log driven tuning</li>
+        </ul>
+      </article>
 
-      <a class="cert-item" href="https://www.credly.com/badges/b4c0e741-e6a5-4eb9-a143-36aa84234758/public_url" target="_blank" rel="noopener">
-        <div class="cert-badge">
-          <img src="/images/certs/Securityplus.png" alt="CompTIA Security+ badge">
-        </div>
-        <div class="cert-info">
-          <div class="cert-title-row">
-            <h3>CompTIA Security+ (ce)</h3>
-            <span class="cert-vendor vendor-comptia">CompTIA</span>
-          </div>
-          <p class="cert-desc">Core security foundations: risk, identity, network security, operations, and incident response.</p>
-          <div class="cert-meta">
-            <span class="meta-chip">Credential Verification</span>
-            <span class="meta-link">Open badge ↗</span>
+      <article class="card">
+        <div class="card-top">
+          <h3>Networking</h3>
+          <div class="chips">
+            <span class="chip c-amber">VLANs</span>
+            <span class="chip c-blue">VPN</span>
+            <span class="chip c-green">Firewall</span>
           </div>
         </div>
-      </a>
+        <p>
+          Segmented networks, secure remote connectivity, and practical troubleshooting across routers,
+          switches, Wi-Fi, and firewall policy.
+        </p>
+        <ul>
+          <li>VLAN segmentation + guest/corp isolation</li>
+          <li>Site-to-site and remote user VPN patterns</li>
+          <li>DNS, DHCP, routing, and layered troubleshooting</li>
+        </ul>
+      </article>
 
-      <a class="cert-item" href="https://www.credly.com/badges/258154a9-ab93-415b-b65c-40572641a6c2/public_url" target="_blank" rel="noopener">
-        <div class="cert-badge">
-          <img src="/images/certs/CySAplus.png" alt="CompTIA CySA+ badge">
-        </div>
-        <div class="cert-info">
-          <div class="cert-title-row">
-            <h3>CompTIA CySA+ (ce)</h3>
-            <span class="cert-vendor vendor-comptia">CompTIA</span>
-          </div>
-          <p class="cert-desc">Security analytics, detection, response workflows, and vulnerability management practices.</p>
-          <div class="cert-meta">
-            <span class="meta-chip">Credential Verification</span>
-            <span class="meta-link">Open badge ↗</span>
+      <article class="card">
+        <div class="card-top">
+          <h3>Endpoint Management</h3>
+          <div class="chips">
+            <span class="chip c-green">Intune</span>
+            <span class="chip c-blue">Windows</span>
+            <span class="chip c-purple">macOS</span>
           </div>
         </div>
-      </a>
+        <p>
+          Standardized provisioning, configuration baselines, encryption posture, compliance reporting,
+          and practical support at scale.
+        </p>
+        <ul>
+          <li>Policy baselines (encryption, updates, hardening)</li>
+          <li>Application deployment + lifecycle management</li>
+          <li>Compliance + device health reporting</li>
+        </ul>
+      </article>
 
-      <a class="cert-item" href="https://www.credly.com/badges/edd0625c-28dc-4599-929a-36c3937a5f52/public_url" target="_blank" rel="noopener">
-        <div class="cert-badge">
-          <img src="/images/certs/PenTestplus.png" alt="CompTIA PenTest+ badge">
-        </div>
-        <div class="cert-info">
-          <div class="cert-title-row">
-            <h3>CompTIA PenTest+ (ce)</h3>
-            <span class="cert-vendor vendor-comptia">CompTIA</span>
-          </div>
-          <p class="cert-desc">Pen testing concepts, assessment methodology, reporting, and remediation alignment.</p>
-          <div class="cert-meta">
-            <span class="meta-chip">Credential Verification</span>
-            <span class="meta-link">Open badge ↗</span>
+      <article class="card">
+        <div class="card-top">
+          <h3>Collaboration Platforms</h3>
+          <div class="chips">
+            <span class="chip c-blue">M365</span>
+            <span class="chip c-purple">Google</span>
+            <span class="chip c-amber">Interop</span>
           </div>
         </div>
-      </a>
+        <p>
+          Tenant administration, mailbox and data migrations, and cross-platform interoperability to improve
+          usability without weakening security.
+        </p>
+        <ul>
+          <li>Email migrations and staged cutovers</li>
+          <li>Calendar free/busy interoperability</li>
+          <li>Governance: sharing controls + audit readiness</li>
+        </ul>
+      </article>
 
-      <a class="cert-item" href="https://learn.microsoft.com/api/credentials/share/en-us/KevinRivera-1147/91DFB47DB592F0B7?sharingId=C7CB5D16962175F3" target="_blank" rel="noopener">
-        <div class="cert-badge">
-          <img src="/images/certs/azure-admin.png" alt="Microsoft Azure Administrator Associate badge">
-        </div>
-        <div class="cert-info">
-          <div class="cert-title-row">
-            <h3>Microsoft Certified: Azure Administrator Associate</h3>
-            <span class="cert-vendor vendor-ms">Microsoft</span>
-          </div>
-          <p class="cert-desc">Azure administration across compute, networking, storage, identity, governance, and operations.</p>
-          <div class="cert-meta">
-            <span class="meta-chip">Credential Verification</span>
-            <span class="meta-link">Open credential ↗</span>
+      <article class="card">
+        <div class="card-top">
+          <h3>Resilience &amp; Operations</h3>
+          <div class="chips">
+            <span class="chip c-pink">DR</span>
+            <span class="chip c-amber">Runbooks</span>
+            <span class="chip c-green">Automation</span>
           </div>
         </div>
-      </a>
-
-      <a class="cert-item" href="https://learn.microsoft.com/api/credentials/share/en-us/KevinRivera-1147/CFF72B906F45B5B6?sharingId=C7CB5D16962175F3" target="_blank" rel="noopener">
-        <div class="cert-badge">
-          <img src="/images/certs/azure-architect.png" alt="Microsoft Azure Solutions Architect Expert badge">
-        </div>
-        <div class="cert-info">
-          <div class="cert-title-row">
-            <h3>Microsoft Certified: Azure Solutions Architect Expert</h3>
-            <span class="cert-vendor vendor-ms">Microsoft</span>
-          </div>
-          <p class="cert-desc">Architecture, design, and implementation of secure, scalable Azure solutions.</p>
-          <div class="cert-meta">
-            <span class="meta-chip">Credential Verification</span>
-            <span class="meta-link">Open credential ↗</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="cert-item" href="https://www.credly.com/badges/20354730-ad94-49e7-bbf4-8a56070f45a3/public_url" target="_blank" rel="noopener">
-        <div class="cert-badge">
-          <img src="/images/certs/isc2-cc.png" alt="ISC2 Certified in Cybersecurity badge">
-        </div>
-        <div class="cert-info">
-          <div class="cert-title-row">
-            <h3>ISC2 Certified in Cybersecurity (CC)</h3>
-            <span class="cert-vendor vendor-isc2">ISC2</span>
-          </div>
-          <p class="cert-desc">Security principles, risk, incident response basics, and governance-aligned controls.</p>
-          <div class="cert-meta">
-            <span class="meta-chip">Credential Verification</span>
-            <span class="meta-link">Open badge ↗</span>
-          </div>
-        </div>
-      </a>
+        <p>
+          Operational discipline: documentation, standard workflows, incident response coordination,
+          and automation that reduces repeat work.
+        </p>
+        <ul>
+          <li>Backup strategy + recovery testing</li>
+          <li>Change management + rollout comms</li>
+          <li>Repeatable runbooks and checklists</li>
+        </ul>
+      </article>
 
     </div>
-  </div>
+  </section>
 
-</section>
+  <!-- TOPOLOGY -->
+  <section class="section" id="topology">
+    <div class="section-head">
+      <h2>Reference topology</h2>
+      <p>
+        A high-level view of how I think about segmentation, secure admin, and hybrid connectivity.
+      </p>
+    </div>
+
+    <div class="topology">
+      <div class="topology-media">
+        <img src="/images/infrastructure-topology.png" alt="Infrastructure topology diagram">
+      </div>
+
+      <div class="topology-notes">
+        <h3>What this diagram is showing</h3>
+        <ul>
+          <li><strong>Segmentation:</strong> separate trusted endpoints, servers, and guest traffic.</li>
+          <li><strong>Secure admin:</strong> minimize direct exposure of management protocols.</li>
+          <li><strong>Hybrid:</strong> cloud workloads integrate with identity and access controls.</li>
+          <li><strong>Resilience:</strong> backups and monitoring are part of the architecture—not bolt-ons.</li>
+        </ul>
+
+        <div class="callout">
+          <p><strong>Note:</strong> Diagram is intentionally simplified and portfolio-safe.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK STRENGTHS -->
+  <section class="section" id="highlights">
+    <div class="section-head">
+      <h2>Implementation highlights</h2>
+      <p>Examples of the kinds of outcomes I usually drive in infrastructure projects.</p>
+    </div>
+
+    <div class="highlights">
+      <div class="highlight">
+        <h3>Reduced risk</h3>
+        <p>Stronger access controls, secure configs, and improved visibility across endpoints and identity.</p>
+      </div>
+      <div class="highlight">
+        <h3>Improved reliability</h3>
+        <p>Clear runbooks, tested recovery paths, and fewer single points of failure.</p>
+      </div>
+      <div class="highlight">
+        <h3>Less manual work</h3>
+        <p>Repeatable workflows and automation to standardize onboarding, changes, and reporting.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
 
 <footer class="footer">
   <p>© <span id="year"></span> Kevin Rivera</p>
