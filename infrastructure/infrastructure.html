@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
   <title>Infrastructure | Kevin Rivera</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
@@ -52,7 +53,6 @@
                                               └─ SOAR (workflow automation)
 Power: Back-UPS for network + monitoring stack</code></pre>
 
-    <!-- ✅ View description dropdown -->
     <details class="more">
       <summary class="more-summary">
         <span>View description</span>
@@ -118,7 +118,6 @@ Power: Back-UPS for network + monitoring stack</code></pre>
                                          ├─ Linux Server (apps/services)
                                          └─ Exchange Server (or migration path to M365)</code></pre>
 
-    <!-- ✅ View description dropdown -->
     <details class="more">
       <summary class="more-summary">
         <span>View description</span>
@@ -182,34 +181,22 @@ Power: Back-UPS for network + monitoring stack</code></pre>
     </p>
 
     <div class="viewer-actions">
-      <button class="toggle-btn" type="button" onclick="toggleTopology()">
-        Show Image
-      </button>
-
-      <span class="hint">
-        Tip: click to expand • scroll to zoom • drag to pan
-      </span>
+      <button class="toggle-btn" id="toggleBtn" type="button" onclick="toggleTopology()">Show Image</button>
+      <span class="hint">Tip: click to expand • scroll to zoom • drag to pan</span>
     </div>
 
     <div id="topologyContainer" class="hidden-image" aria-hidden="true">
-      <button
-        class="img-btn"
-        type="button"
-        aria-label="Open diagram viewer"
-        onclick="openLightbox()"
-      >
+      <button class="img-btn" type="button" aria-label="Open diagram viewer" onclick="openLightbox()">
         <img
           id="topologyImg"
-          src="/images/infrastructure-topology.png"
+          src="/images/certs/infrastructure-topology.png"
           alt="Hybrid Network Topology Diagram (click to expand)"
         >
         <span class="img-overlay">Click to expand</span>
       </button>
     </div>
 
-    <p class="meta">
-      Diagram is intentionally abstracted to avoid internal identifiers.
-    </p>
+    <p class="meta">Diagram is intentionally abstracted to avoid internal identifiers.</p>
 
     <h3>Architecture Highlights</h3>
     <ul>
@@ -238,9 +225,7 @@ Power: Back-UPS for network + monitoring stack</code></pre>
   <p>All diagrams and descriptions are portfolio-safe and intentionally abstracted.</p>
 </footer>
 
-<!-- ========================= -->
-<!-- LIGHTBOX (FULLSCREEN) -->
-<!-- ========================= -->
+<!-- LIGHTBOX -->
 <div id="lightbox" class="lightbox" aria-hidden="true">
   <div class="lightbox-top">
     <div class="lightbox-title">
@@ -264,7 +249,7 @@ Power: Back-UPS for network + monitoring stack</code></pre>
 <script>
   function toggleTopology() {
     const container = document.getElementById("topologyContainer");
-    const btn = document.querySelector(".toggle-btn");
+    const btn = document.getElementById("toggleBtn");
 
     const isOpen = container.classList.contains("open");
 
@@ -283,16 +268,14 @@ Power: Back-UPS for network + monitoring stack</code></pre>
     }
   }
 
-  // =========================
   // Lightbox zoom + pan
-  // =========================
   const lightbox = document.getElementById("lightbox");
   const stage = document.getElementById("lightboxStage");
   const lbImg = document.getElementById("lightboxImg");
 
   let scale = 1;
-  let minScale = 1;
-  let maxScale = 6;
+  const minScale = 1;
+  const maxScale = 6;
 
   let isDragging = false;
   let startX = 0, startY = 0;
