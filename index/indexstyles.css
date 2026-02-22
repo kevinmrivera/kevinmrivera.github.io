@@ -104,7 +104,7 @@ body{
   max-width: 640px;
 }
 
-/* ✅ Updated: friendly standout color for the trigger */
+/* ✅ Friendly standout color for the trigger */
 .skills-summary{
   list-style: none;
   cursor: pointer;
@@ -115,7 +115,6 @@ body{
   padding: 11px 16px;
   border-radius: 14px;
 
-  /* Friendly teal/green "call-to-action" look */
   border: 1px solid rgba(52,211,153,0.40);
   background: rgba(52,211,153,0.14);
   box-shadow:
@@ -127,7 +126,6 @@ body{
   overflow: hidden;
 }
 
-/* soft glow sheen */
 .skills-summary:before{
   content:"";
   position:absolute;
