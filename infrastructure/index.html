@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Infrastructure | Kevin Rivera</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- If you want Google to index your portfolio, remove the next line -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="canonical" href="/infrastructure/" />
+  <link rel="stylesheet" href="infrastructurestyles.css">
+</head>
+
+<body>
+
+<nav class="topnav" aria-label="Primary navigation">
+  <a href="/">Home</a>
+  <a href="/projects/">Projects</a>
+  <a class="active" href="/infrastructure/">Infrastructure</a>
+  <a href="/cybersecurity/">Cybersecurity</a>
+  <a href="/automation/">Automation</a>
+  <a href="/homelab/">Home Labs</a>
+</nav>
+
+<header class="hero">
+  <h1>Infrastructure</h1>
+  <p>
+    Infrastructure designs focused on reliability, segmentation, operational resilience,
+    and hybrid scalability across cloud and on-prem environments.
+  </p>
+</header>
+
+<section class="grid">
+
+  <!-- DESIGN 1 -->
+  <article class="card">
+    <div class="card-top">
+      <h2>Design 1 — Secure Lab / Small Office Topology</h2>
+      <div class="badges">
+        <span class="badge net">Network</span>
+        <span class="badge sec">Security</span>
+        <span class="badge ops">Resilience</span>
+      </div>
+    </div>
+
+    <p>
+      A practical design for a home lab or small office where the goals are <strong>strong perimeter control</strong>,
+      <strong>centralized visibility</strong> (SIEM), and <strong>repeatable response</strong> (SOAR),
+      while keeping the environment easy to operate and document.
+    </p>
+
+    <pre class="diagram"><code>ISP Modem → Firewall → Router → Primary Switch (+ Backup Switch) → KVM → Endpoints
+                                              ├─ Windows / macOS workstations
+                                              ├─ Linux / Kali (testing)
+                                              ├─ SIEM (log collection + correlation)
+                                              └─ SOAR (workflow automation)
+Power: Back-UPS for network + monitoring stack</code></pre>
+
+    <details class="more">
+      <summary class="more-summary">
+        <span>View description</span>
+        <span class="chev" aria-hidden="true">▾</span>
+      </summary>
+
+      <div class="more-body">
+        <h3>Component Breakdown</h3>
+        <ul>
+          <li><strong>Modem:</strong> terminates ISP service and provides internet handoff.</li>
+          <li><strong>Firewall:</strong> security boundary (NAT, inspection, threat filtering, VPN, logging).</li>
+          <li><strong>Router:</strong> internal routing / subnet design (sometimes combined into firewall).</li>
+          <li><strong>Primary + Backup switch:</strong> access-layer connectivity and fast recovery from switch failure.</li>
+          <li><strong>KVM switch:</strong> operational control of multiple endpoints from one console.</li>
+          <li><strong>SIEM:</strong> central telemetry for detection, investigation, and reporting.</li>
+          <li><strong>SOAR:</strong> playbooks for triage, enrichment, notifications, and controlled response actions.</li>
+          <li><strong>Back-UPS:</strong> prevents monitoring and routing interruption during brief power events.</li>
+        </ul>
+
+        <h3>How SIEM + SOAR Work Together</h3>
+        <ul>
+          <li><strong>Collect:</strong> endpoints and firewall forward logs/telemetry into the SIEM.</li>
+          <li><strong>Detect:</strong> correlation rules generate alerts with context (user/device/network).</li>
+          <li><strong>Automate:</strong> SOAR ingests alerts, enriches data, and runs playbooks (ticket, notify, script).</li>
+          <li><strong>Respond (controlled):</strong> safe actions such as blocking a test IP or isolating a lab endpoint (where supported).</li>
+        </ul>
+
+        <div class="tags">
+          <span>Segmentation</span>
+          <span>SIEM</span>
+          <span>SOAR</span>
+          <span>Back-UPS</span>
+          <span>Operational Resilience</span>
+        </div>
+      </div>
+    </details>
+  </article>
+
+  <!-- DESIGN 2 -->
+  <article class="card">
+    <div class="card-top">
+      <h2>Design 2 — Business On-Prem Virtualized Environment</h2>
+      <div class="badges">
+        <span class="badge vm">Virtualization</span>
+        <span class="badge net">WAN Failover</span>
+        <span class="badge ops">Core Services</span>
+      </div>
+    </div>
+
+    <p>
+      A traditional business infrastructure design with <strong>primary + backup ISP</strong>,
+      <strong>VMware-hosted server workloads</strong>, and centralized identity/services
+      to support internal applications and remote access.
+    </p>
+
+    <pre class="diagram"><code>Primary ISP + Backup ISP → Firewall → Switch (+ Backup Switch) → VMware Hosts → Server Workloads
+                                         ├─ Domain Controller (Primary)
+                                         ├─ Domain Controller (Secondary/Backup)
+                                         ├─ Remote Desktop Services (Employees)
+                                         ├─ QuickBooks Server (DB/App role)
+                                         ├─ IIS Web Server
+                                         ├─ SQL Server
+                                         ├─ Linux Server (apps/services)
+                                         └─ Exchange Server (or migration path to M365)</code></pre>
+
+    <details class="more">
+      <summary class="more-summary">
+        <span>View description</span>
+        <span class="chev" aria-hidden="true">▾</span>
+      </summary>
+
+      <div class="more-body">
+        <h3>Why This Design Works</h3>
+        <ul>
+          <li><strong>ISP failover:</strong> continuity when the primary circuit fails (policy enforced at firewall).</li>
+          <li><strong>Virtualization:</strong> consolidates workloads, improves recovery options, and supports scaling.</li>
+          <li><strong>Identity-first:</strong> domain services enable centralized authentication, policy, and access control.</li>
+         
