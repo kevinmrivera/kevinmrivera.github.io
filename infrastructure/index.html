@@ -134,4 +134,260 @@ Power: Back-UPS for network + monitoring stack</code></pre>
           <li><strong>ISP failover:</strong> continuity when the primary circuit fails (policy enforced at firewall).</li>
           <li><strong>Virtualization:</strong> consolidates workloads, improves recovery options, and supports scaling.</li>
           <li><strong>Identity-first:</strong> domain services enable centralized authentication, policy, and access control.</li>
-         
+          <li><strong>Remote access:</strong> RDS provides controlled access to internal tools without exposing services directly.</li>
+        </ul>
+
+        <h3>Role Breakdown (High-Level)</h3>
+        <ul>
+          <li><strong>Domain Controllers:</strong> authentication, GPO, and often DNS (resilience with a secondary DC).</li>
+          <li><strong>RDS:</strong> secure workspace access for employees and contractors.</li>
+          <li><strong>QuickBooks Server:</strong> centralized accounting database/app access for multi-user workflows.</li>
+          <li><strong>IIS:</strong> internal applications, web portals, or service endpoints.</li>
+          <li><strong>SQL:</strong> database layer for business apps and services.</li>
+          <li><strong>Linux:</strong> app runtimes, automation services, monitoring, or middleware.</li>
+          <li><strong>Exchange:</strong> on-prem messaging or transitional hybrid model.</li>
+        </ul>
+
+        <h3>Operational Practices Typically Paired</h3>
+        <ul>
+          <li>Patch and change windows for servers and network infrastructure.</li>
+          <li>Backups (image + app-aware) and periodic restore testing.</li>
+          <li>Least privilege, RBAC, and administrative separation.</li>
+          <li>Network segmentation (VLANs) and restricted management access.</li>
+        </ul>
+
+        <div class="tags">
+          <span>Virtualization</span>
+          <span>Identity Services</span>
+          <span>Remote Access</span>
+          <span>Backup &amp; Restore Testing</span>
+          <span>Business Continuity</span>
+        </div>
+      </div>
+    </details>
+  </article>
+
+  <!-- DESIGN 3 -->
+  <article class="card wide">
+    <div class="card-top">
+      <h2>Design 3 — Hybrid Network Topology Diagram</h2>
+      <div class="badges">
+        <span class="badge cloud">Hybrid</span>
+        <span class="badge sec">Segmentation</span>
+        <span class="badge ops">Architecture</span>
+      </div>
+    </div>
+
+    <p>
+      This reference diagram illustrates hybrid connectivity between on-prem infrastructure
+      and Azure cloud components, including segmented VLANs, firewall boundaries,
+      site-to-site VPN, and tiered server architecture.
+    </p>
+
+    <div class="viewer-actions">
+      <button class="toggle-btn" id="toggleBtn" type="button" onclick="toggleTopology()">Show Image</button>
+      <span class="hint">Tip: click to expand • scroll to zoom • drag to pan</span>
+    </div>
+
+    <div id="topologyContainer" class="hidden-image" aria-hidden="true">
+      <button class="img-btn" type="button" aria-label="Open diagram viewer" onclick="openLightbox()">
+        <img
+          id="topologyImg"
+          src="/images/infrastructure-topology.png"
+          alt="Hybrid Network Topology Diagram (click to expand)"
+        >
+        <span class="img-overlay">Click to expand</span>
+      </button>
+    </div>
+
+    <p class="meta">Diagram is intentionally abstracted to avoid internal identifiers.</p>
+
+    <h3>Architecture Highlights</h3>
+    <ul>
+      <li><strong>Azure segmentation:</strong> separate tiers for app, web, admin access, and data services.</li>
+      <li><strong>Site-to-Site VPN:</strong> secure connectivity between on-prem and cloud networks.</li>
+      <li><strong>Firewall boundary:</strong> enforced policies for inbound/outbound traffic and inter-zone traffic.</li>
+      <li><strong>Core services:</strong> identity services, remote access, and application/database tiers.</li>
+      <li><strong>VLAN design:</strong> segmentation for user, server, and specialized device networks.</li>
+    </ul>
+
+    <div class="tags">
+      <span>Cloud + On-Prem</span>
+      <span>Network Boundaries</span>
+      <span>Tiered Architecture</span>
+      <span>Resilience</span>
+    </div>
+
+    <p class="meta">
+      All details are shared at a high level with no internal IPs, hostnames, or sensitive configuration data.
+    </p>
+  </article>
+
+</section>
+
+<footer class="footer">
+  <p>All diagrams and descriptions are portfolio-safe and intentionally abstracted.</p>
+</footer>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox" aria-hidden="true">
+  <div class="lightbox-top">
+    <div class="lightbox-title">
+      Diagram Viewer
+      <span class="lightbox-sub">Scroll to zoom • Drag to pan • Esc to close</span>
+    </div>
+
+    <div class="lightbox-controls">
+      <button type="button" class="lb-btn" onclick="zoomOut()" aria-label="Zoom out">−</button>
+      <button type="button" class="lb-btn" onclick="resetZoom()" aria-label="Reset zoom">Reset</button>
+      <button type="button" class="lb-btn" onclick="zoomIn()" aria-label="Zoom in">+</button>
+      <button type="button" class="lb-btn close" onclick="closeLightbox()" aria-label="Close viewer">✕</button>
+    </div>
+  </div>
+
+  <div id="lightboxStage" class="lightbox-stage" role="dialog" aria-modal="true">
+    <img id="lightboxImg" src="" alt="Expanded topology diagram">
+  </div>
+</div>
+
+<script>
+  function toggleTopology() {
+    const container = document.getElementById("topologyContainer");
+    const btn = document.getElementById("toggleBtn");
+
+    const isOpen = container.classList.contains("open");
+
+    if (isOpen) {
+      container.style.maxHeight = "0px";
+      container.style.opacity = "0";
+      container.classList.remove("open");
+      container.setAttribute("aria-hidden", "true");
+      btn.textContent = "Show Image";
+    } else {
+      container.classList.add("open");
+      container.style.maxHeight = container.scrollHeight + "px";
+      container.style.opacity = "1";
+      container.setAttribute("aria-hidden", "false");
+      btn.textContent = "Hide Image";
+    }
+  }
+
+  // Lightbox zoom + pan
+  const lightbox = document.getElementById("lightbox");
+  const stage = document.getElementById("lightboxStage");
+  const lbImg = document.getElementById("lightboxImg");
+
+  let scale = 1;
+  const minScale = 1;
+  const maxScale = 6;
+
+  let isDragging = false;
+  let startX = 0, startY = 0;
+  let translateX = 0, translateY = 0;
+
+  function applyTransform() {
+    lbImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+  }
+
+  function openLightbox() {
+    const src = document.getElementById("topologyImg").getAttribute("src");
+    lbImg.src = src;
+
+    scale = 1;
+    translateX = 0;
+    translateY = 0;
+    applyTransform();
+
+    lightbox.classList.add("open");
+    lightbox.setAttribute("aria-hidden", "false");
+    document.body.classList.add("no-scroll");
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove("open");
+    lightbox.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("no-scroll");
+  }
+
+  function zoomIn() {
+    scale = Math.min(maxScale, +(scale + 0.25).toFixed(2));
+    applyTransform();
+  }
+
+  function zoomOut() {
+    scale = Math.max(minScale, +(scale - 0.25).toFixed(2));
+    applyTransform();
+  }
+
+  function resetZoom() {
+    scale = 1;
+    translateX = 0;
+    translateY = 0;
+    applyTransform();
+  }
+
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && lightbox.classList.contains("open")) closeLightbox();
+  });
+
+  stage.addEventListener("wheel", (e) => {
+    if (!lightbox.classList.contains("open")) return;
+    e.preventDefault();
+
+    const delta = Math.sign(e.deltaY);
+    const next = delta > 0 ? scale - 0.2 : scale + 0.2;
+    scale = Math.min(maxScale, Math.max(minScale, +next.toFixed(2)));
+    applyTransform();
+  }, { passive: false });
+
+  stage.addEventListener("mousedown", (e) => {
+    if (!lightbox.classList.contains("open")) return;
+    isDragging = true;
+    startX = e.clientX - translateX;
+    startY = e.clientY - translateY;
+    stage.classList.add("dragging");
+  });
+
+  window.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    translateX = e.clientX - startX;
+    translateY = e.clientY - startY;
+    applyTransform();
+  });
+
+  window.addEventListener("mouseup", () => {
+    isDragging = false;
+    stage.classList.remove("dragging");
+  });
+
+  stage.addEventListener("touchstart", (e) => {
+    if (!lightbox.classList.contains("open")) return;
+    if (e.touches.length !== 1) return;
+
+    isDragging = true;
+    startX = e.touches[0].clientX - translateX;
+    startY = e.touches[0].clientY - translateY;
+    stage.classList.add("dragging");
+  }, { passive: true });
+
+  stage.addEventListener("touchmove", (e) => {
+    if (!isDragging) return;
+    if (e.touches.length !== 1) return;
+
+    translateX = e.touches[0].clientX - startX;
+    translateY = e.touches[0].clientY - startY;
+    applyTransform();
+  }, { passive: true });
+
+  stage.addEventListener("touchend", () => {
+    isDragging = false;
+    stage.classList.remove("dragging");
+  }, { passive: true });
+</script>
+
+</body>
+</html>
