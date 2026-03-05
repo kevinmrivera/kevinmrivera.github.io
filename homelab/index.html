@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Home Labs | Kevin Rivera</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- If you want Google to index your portfolio, remove the next line -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="canonical" href="/homelab/" />
+  <link rel="stylesheet" href="homelabstyles.css">
+</head>
+
+<body>
+
+<nav class="topnav" aria-label="Primary navigation">
+  <a href="/">Home</a>
+  <a href="/projects/">Projects</a>
+  <a href="/infrastructure/">Infrastructure</a>
+  <a href="/cybersecurity/">Cybersecurity</a>
+  <a href="/automation/">Automation</a>
+  <a class="active" href="/homelab/">Home Labs</a>
+</nav>
+
+<header class="hero">
+  <h1>Home Lab Environments</h1>
+  <p>Controlled lab environments used to validate security monitoring, detection workflows, and infrastructure experiments.</p>
+</header>
+
+<section class="grid">
+
+  <article class="card">
+    <div class="card-top">
+      <h2>Security Lab Topology</h2>
+      <div class="badges">
+        <span class="badge lab">Lab</span>
+        <span class="badge sec">Security</span>
+        <span class="badge net">Network</span>
+      </div>
+    </div>
+
+    <p>
+      This lab simulates a small enterprise security monitoring environment. It is designed for testing detection rules,
+      endpoint visibility, and incident workflows in a controlled setting.
+    </p>
+
+    <pre class="diagram"><code>Modem → Firewall → Router → Switches → KVM Switch → Endpoints
+                                  ├─ Windows (Workstation)
+                                  ├─ macOS (Workstation)
+                                  ├─ Kali Linux (Testing / Security Tools)
+                                  └─ Raspberry Pi (Wazuh Agent / collectors)
+
+Security Monitoring Stack (Ubuntu Server)
+  ├─ Wazuh Manager
+  ├─ Elasticsearch
+  └─ Kibana</code></pre>
+
+    <p class="meta">
+      <strong>Focus:</strong> endpoint telemetry, log collection, alerting, and repeatable security testing scenarios.
+    </p>
+  </article>
+
+  <article class="card">
+    <div class="card-top">
+      <h2>Monitoring Workflow</h2>
+      <div class="badges">
+        <span class="badge siem">SIEM</span>
+        <span class="badge api">Logs</span>
+        <span class="badge dash">Dashboards</span>
+      </div>
+    </div>
+
+    <ul>
+      <li>Endpoints forward security telemetry to the Wazuh Manager (agent-based monitoring).</li>
+      <li>Wazuh analyzes events and forwards indexed data into Elasticsearch.</li>
+      <li>Kibana provides dashboards for visibility, investigations, and detection tuning.</li>
+      <li>The firewall can forward logs (syslog) into the monitoring pipeline for perimeter visibility.</li>
+    </ul>
+
+    <p class="meta">
+      <strong>Outcome:</strong> improved detection tuning, reduced false positives, and repeatable incident simulations.
+    </p>
+  </article>
+
+  <article class="card">
+    <div class="card-top">
+      <h2>SOAR Integration</h2>
+      <div class="badges">
+        <span class="badge soar">SOAR</span>
+        <span class="badge sec">Response</span>
+        <span class="badge auto">Automation</span>
+      </div>
+    </div>
+
+    <p>
+      A SOAR platform should sit <strong>next to the SIEM</strong> and consume alerts from Wazuh/Elastic. In this lab,
+      the SOAR tool would run either on the Ubuntu Server (if resources allow) or on a separate lightweight VM/host
+      to keep workflows isolated and stable.
+    </p>
+
+    <h3>How it works across this setup</h3>
+    <ul>
+      <li><strong>Ingest:</strong> SOAR pulls alerts via API/webhook from Wazuh or Elasticsearch.</li>
+      <li><strong>Enrich:</strong> Adds context (asset inventory, user identity, GeoIP, threat intel).</li>
+      <li><strong>Decide:</strong> Runs playbooks to classify severity and recommend actions.</li>
+      <li><strong>Respond:</strong> Triggers actions such as ticket creation, Slack/email alerts, or script execution.</li>
+      <li><strong>Contain (lab-safe):</strong> Optional actions like blocking a test IP at the firewall or disabling a test account (where supported).</li>
+    </ul>
+
+    <p class="meta">
+      <strong>Goal:</strong> reduce time-to-triage by automating repetitive steps while keeping actions controlled and auditable.
+    </p>
+  </article>
+
+  <article class="card">
+    <div class="card-top">
+      <h2>Planned Lab Scenarios</h2>
+      <div class="badges">
+        <span class="badge test">Testing</span>
+        <span class="badge sec">Detection</span>
+        <span class="badge ops">Ops</span>
+      </div>
+    </div>
+
+    <ul>
+      <li>Credential access simulations and detection tuning (lab-only test accounts).</li>
+      <li>Phishing and suspicious sign-in investigations using log correlation.</li>
+      <li>Baseline hardening checks and compliance validation workflows.</li>
+      <li>SOAR playbooks for alert enrichment + ticketing + notifications.</li>
+    </ul>
+  </article>
+
+</section>
+
+<footer class="footer">
+  <p>All lab details are shared at a high level with no internal identifiers, IPs, or sensitive configurations.</p>
+</footer>
+
+</body>
+</html>
