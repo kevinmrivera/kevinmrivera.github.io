@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Automation | Kevin Rivera</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- If you want Google to index your portfolio, remove the next line -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="canonical" href="/automation/" />
+  <link rel="stylesheet" href="automationstyles.css">
+</head>
+
+<body>
+
+<nav class="topnav" aria-label="Primary navigation">
+  <a href="/">Home</a>
+  <a href="/projects/">Projects</a>
+  <a href="/infrastructure/">Infrastructure</a>
+  <a href="/cybersecurity/">Cybersecurity</a>
+  <a class="active" href="/automation/">Automation</a>
+  <a href="/homelab/">Home Labs</a>
+</nav>
+
+<header class="hero">
+  <h1>Infrastructure, Cloud &amp; Security Automation</h1>
+  <p>Automation examples focused on repeatability, compliance, and operational efficiency across hybrid environments.</p>
+</header>
+
+<h2 class="section-title">PowerShell Automations</h2>
+
+<section class="grid">
+
+  <!-- PS 1 -->
+  <article class="card">
+    <div class="card-top">
+      <h3>Active Directory &amp; GPO Weekly Information Pull</h3>
+      <div class="badges">
+        <span class="badge ps">PowerShell</span>
+        <span class="badge ps">Active Directory</span>
+        <span class="badge ps">GPO</span>
+        <span class="badge ps">Reporting</span>
+      </div>
+    </div>
+
+    <p><strong>Purpose:</strong> Generate a weekly snapshot of AD posture and GPO changes for visibility and audit readiness.</p>
+    <ul>
+      <li>Exports privileged group membership and basic account status indicators.</li>
+      <li>Produces GPO reports and highlights recently modified policies.</li>
+      <li>Outputs to CSV/HTML for review and reporting.</li>
+    </ul>
+
+    <details>
+      <summary>View sample code</summary>
+      <pre><code># Weekly AD + GPO Report (Sample)
+# NOTE: Replace placeholders and adapt to your environment.
+
+Import-Module ActiveDirectory
+Import-Module GroupPolicy
+
+$ReportPath = "C:\Reports"
+New-Item -ItemType Directory -Path $ReportPath -Force | Out-Null
+
+# Privileged groups to track
+$PrivGroups = @("Domain Admins","Enterprise Admins","Administrators")
+
+$PrivReport = foreach ($g in $PrivGroups) {
+  Get-ADGroupMember -Identity $g -Recursive |
+    Select-Object @{Name="Group";Expression={$g}}, Name, SamAccountName, ObjectClass
+}
+
+$PrivReport | Export-Csv "$ReportPath\PrivilegedGroups.csv" -NoTypeInformation
+
+# GPO HTML Reports
+$AllGpos = Get-GPO -All
+foreach ($gpo in $AllGpos) {
+  Get-GPOReport -Guid $gpo.Id -ReportType Html -Path "$ReportPath\GPO_$($gpo.DisplayName).html"
+}
+
+Write-Host "Report generated at $ReportPath"</code></pre>
+    </details>
+  </article>
+
+  <!-- PS 2 -->
+  <article class="card">
+    <div class="card-top">
+      <h3>Patch Compliance &amp; Endpoint Inventory Report</h3>
+      <div class="badges">
+        <span class="badge ps">PowerShell</span>
+        <span class="badge ps">Compliance</span>
+        <span class="badge ps">Inventory</span>
+        <span class="badge ps">Patching</span>
+      </div>
+    </div>
+
+    <p><strong>Purpose:</strong> Produce a compliance view of endpoint OS versions and patch age for remediation planning.</p>
+    <ul>
+      <li>Pulls device inventory from a source list or management export.</li>
+      <li>Queries last installed update information (where available).</li>
+      <li>Flags devices outside your patch window.</li>
+    </ul>
+
+    <details>
+      <summary>View sample code</summary>
+      <pre><code># Patch Compliance + Inventory (Sample)
+# NOTE: Replace endpoints list, credentials method, and logic to fit your tooling.
+
+$Computers = Get-Content "C:\Input\computers.txt"  # one hostname per line
+$ThresholdDays = 30
+$Now = Get-Date
+
+$Results = foreach ($c in $Computers) {
+  try {
+    $os = Get-CimInstance -ClassName Win32_OperatingSystem -ComputerName $c
+    $hotfix = Get-HotFix -ComputerName $c | Sort-Object InstalledOn -Descending | Select-Object -First 1
+
+    $lastPatch = $hotfix.InstalledOn
+    $days = ($Now - $lastPatch).Days
+
+    [PSCustomObject]@{
+      ComputerName = $c
+      OS          = $os.Caption
+      Build       = $os.BuildNumber
+      LastPatch   = $lastPatch
+      PatchAgeDays= $days
+      Compliant   = ($days -le $ThresholdDays)
+    }
+  } catch {
+    [PSCustomObject]@{
+      ComputerName = $c
+      OS          = "UNKNOWN"
+      Build       = "UNKNOWN"
+      LastPatch   = "UNKNOWN"
+      PatchAgeDays= "UNKNOWN"
+      Compliant   = $false
+    }
+  }
+}
+
+$Results | Export-Csv "C:\Reports\PatchCompliance.csv" -NoTypeInformation</code></pre>
+    </details>
+  </article>
+
+  <!-- PS 3 -->
+  <article class="card">
+    <div class="card-top">
+      <h3>Automated User Provisioning + Group Assignment Workflow</h3>
+      <div class="badges">
+        <span class="badge ps">PowerShell</span>
+        <span class="badge ps">Onboarding</span>
+        <span class="badge ps">Access</span>
+        <span class="badge ps">Standardization</span>
+      </div>
+    </div>
+
+    <p><strong>Purpose:</strong> Standardize onboarding by creating users, applying attributes, and assigning groups.</p>
+    <ul>
+      <li>Creates accounts using standard templates and required attributes.</li>
+      <li>Assigns department-based groups.</li>
+      <li>Outputs a checklist for IT operations.</li>
+    </ul>
+
+    <details>
+      <summary>View sample code</summary>
+      <pre><code># User Provisioning + Group Assignment (Sample)
+# NOTE: Replace OU paths, groups, naming rules, and input source as needed.
+
+Import-Module ActiveDirectory
+
+$FirstName = "FIRST_NAME"
+$LastName  = "LAST_NAME"
+$UPNDomain = "YOURDOMAIN.COM"
+$OUPath    = "OU=Users,DC=YOURDOMAIN,DC=COM"
+
+$Sam = ($FirstName.Substring(0,1) + $LastName).ToLower()
+$UPN = "$Sam@$UPNDomain"
+
+$TempPassword = ConvertTo-SecureString "TEMP_PASSWORD_HERE" -AsPlainText -Force
+
+New-ADUser `
+  -Name "$FirstName $LastName" `
+  -GivenName $FirstName `
+  -Surname $LastName `
+  -SamAccountName $Sam `
+  -UserPrincipalName $UPN `
+  -Path $OUPath `
+  -AccountPassword $TempPassword `
+  -Enabled $true `
+  -ChangePasswordAtLogon $true
+
+# Assign baseline groups
+$Groups = @("GROUP_NAME_HERE","GROUP_NAME_HERE")
+foreach ($g in $Groups) {
+  Add-ADGroupMember -Identity $g -Members $Sam
+}
+
+Write-Host "Created user $UPN and assigned baseline groups."</code></pre>
+    </details>
+  </article>
+
+</section>
+
+<h2 class="section-title">Python Automations</h2>
+
+<section class="grid">
+
+  <!-- PY 1 -->
+  <article class="card">
+    <div class="card-top">
+      <h3>Microsoft Graph: Entra ID → SharePoint Data Pull</h3>
+      <div class="badges">
+        <span class="badge py">Python</span>
+        <span class="badge api">Graph API</span>
+        <span class="badge api">Entra ID</span>
+        <span class="badge api">SharePoint</span>
+      </div>
+    </div>
+
+    <p><strong>Purpose:</strong> Authenticate via Microsoft Graph and export targeted SharePoint list/library data for reporting.</p>
+
+    <details>
+      <summary>View sample code</summary>
+      <pre><code># Graph API -> SharePoint Data Pull (Sample)
+# pip install requests
+
+import requests
+
+TENANT_ID = "TENANT_ID"
+CLIENT_ID = "CLIENT_ID"
+CLIENT_SECRET = "CLIENT_SECRET"
+
+SITE_ID = "SHAREPOINT_SITE_ID"
+LIST_ID = "SHAREPOINT_LIST_ID"
+
+token_url = f"https://login.microsoftonline.com/{TENANT_ID}/oauth2/v2.0/token"
+token_data = {
+    "client_id": CLIENT_ID,
+    "client_secret": CLIENT_SECRET,
+    "scope": "https://graph.microsoft.com/.default",
+    "grant_type": "client_credentials",
+}
+
+token_resp = requests.post(token_url, data=token_data)
+token_resp.raise_for_status()
+access_token = token_resp.json()["access_token"]
+
+headers = {"Authorization": f"Bearer {access_token}"}
+
+url = f"https://graph.microsoft.com/v1.0/sites/{SITE_ID}/lists/{LIST_ID}/items?expand=fields"
+resp = requests.get(url, headers=headers)
+resp.raise_for_status()
+
+items = resp.json().get("value", [])
+print(f"Pulled {len(items)} items")
+for i in items[:5]:
+    print(i["fields"])</code></pre>
+    </details>
+  </article>
+
+  <!-- PY 2 -->
+  <article class="card">
+    <div class="card-top">
+      <h3>Security Alert Normalization &amp; Triage Helper</h3>
+      <div class="badges">
+        <span class="badge py">Python</span>
+        <span class="badge api">Security Ops</span>
+        <span class="badge api">Normalization</span>
+        <span class="badge api">Triage</span>
+      </div>
+    </div>
+
+    <p><strong>Purpose:</strong> Normalize alerts into a consistent structure and prioritize a triage queue.</p>
+
+    <details>
+      <summary>View sample code</summary>
+      <pre><code># Alert Normalization + Triage (Sample)
+
+import json
+from datetime import datetime
+
+SEVERITY_MAP = {"low": 1, "medium": 2, "high": 3, "critical": 4}
+
+def normalize(alert: dict) -> dict:
+    sev = alert.get("severity", "medium").lower()
+    return {
+        "timestamp": alert.get("timestamp", datetime.utcnow().isoformat()),
+        "source": alert.get("source", "UNKNOWN"),
+        "title": alert.get("title", "UNTITLED"),
+        "severity": sev,
+        "severity_score": SEVERITY_MAP.get(sev, 2),
+        "asset": alert.get("asset", "UNKNOWN_ASSET"),
+        "recommended_action": alert.get("recommended_action", "Review and triage"),
+    }
+
+with open("alerts.json", "r", encoding="utf-8") as f:
+    raw_alerts = json.load(f)
+
+normalized = [normalize(a) for a in raw_alerts]
+queue = sorted(normalized, key=lambda x: x["severity_score"], reverse=True)
+
+with open("triage_queue.json", "w", encoding="utf-8") as f:
+    json.dump(queue, f, indent=2)
+
+print(f"Created triage queue with {len(queue)} alerts")</code></pre>
+    </details>
+  </article>
+
+  <!-- PY 3 -->
+  <article class="card">
+    <div class="card-top">
+      <h3>Asset &amp; License Reconciliation Report</h3>
+      <div class="badges">
+        <span class="badge py">Python</span>
+        <span class="badge api">Inventory</span>
+        <span class="badge api">Licensing</span>
+        <span class="badge api">Cost Optimization</span>
+      </div>
+    </div>
+
+    <p><strong>Purpose:</strong> Reconcile inventory with license assignments to identify mismatches and reduce spend.</p>
+
+    <details>
+      <summary>View sample code</summary>
+      <pre><code># Asset + License Reconciliation (Sample)
+
+import csv
+
+INVENTORY_CSV = "device_inventory.csv"
+LICENSES_CSV = "license_assignments.csv"
+
+def load_set(path, key):
+    s = set()
+    with open(path, newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            s.add(row[key].strip().lower())
+    return s
+
+devices = load_set(INVENTORY_CSV, "user_upn")
+licensed_users = load_set(LICENSES_CSV, "user_upn")
+
+inactive_but_licensed = sorted(licensed_users - devices)
+missing_license = sorted(devices - licensed_users)
+
+with open("reconciliation_output.txt", "w", encoding="utf-8") as f:
+    f.write("Inactive but Licensed (review for removal):\n")
+    f.write("\n".join(inactive_but_licensed) + "\n\n")
+    f.write("Active but Missing License (review for assignment):\n")
+    f.write("\n".join(missing_license) + "\n")
+
+print("Reconciliation report created: reconciliation_output.txt")</code></pre>
+    </details>
+  </article>
+
+</section>
+
+</body>
+</html>
