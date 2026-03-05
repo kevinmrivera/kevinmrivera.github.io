@@ -1,1 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Cybersecurity | Kevin Rivera</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- If you want Google to index your portfolio, remove the next line -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="canonical" href="/cybersecurity/" />
+  <link rel="stylesheet" href="cybersecuritystyles.css">
+</head>
+
+<body>
+
+<nav class="topnav" aria-label="Primary navigation">
+  <a href="/">Home</a>
+  <a href="/projects/">Projects</a>
+  <a href="/infrastructure/">Infrastructure</a>
+  <a class="active" href="/cybersecurity/">Cybersecurity</a>
+  <a href="/automation/">Automation</a>
+  <a href="/homelab/">Home Labs</a>
+</nav>
+
+<header class="hero">
+  <h1>Cybersecurity</h1>
+  <p>
+    Security operations, detection engineering, compliance alignment, and practical
+    risk reduction across hybrid cloud and on-premise environments.
+  </p>
+</header>
+
+<section class="grid">
+
+  <!-- SIEM -->
+  <article class="card">
+    <div class="card-head">
+      <h2>SIEM</h2>
+      <div class="tagrow">
+        <span class="tag tag-siem">SIEM</span>
+        <span class="tag tag-logs">Ingestion</span>
+        <span class="tag tag-detect">Correlation</span>
+      </div>
+    </div>
+
+    <p class="summary">
+      A SIEM centralizes logs across endpoints, identity, cloud, and network sources so security teams can
+      search, correlate, alert, and report from one place.
+    </p>
+
+    <button class="expand-btn" type="button" aria-expanded="false">
+      View more
+    </button>
+
+    <div class="more" aria-hidden="true">
+      <h3>Implementation approach</h3>
+      <ul>
+        <li><strong>Plan sources:</strong> endpoints, firewall/VPN, Microsoft ecosystem (M365/Entra), cloud apps, servers, and DNS/email security.</li>
+        <li><strong>Deploy agents/collectors:</strong> install endpoint agents (Windows/macOS/Linux) and configure syslog collectors for network devices.</li>
+        <li><strong>Integrate cloud applications:</strong> connect via API/OAuth (audit logs, sign-ins, mailbox activity, CASB sources, etc.).</li>
+        <li><strong>Normalize + parse:</strong> ensure fields map consistently (user, host, IP, action, status, severity) for reliable detection.</li>
+        <li><strong>Build detections:</strong> start with high-signal rules (impossible travel, brute force, suspicious PowerShell, new admin roles).</li>
+        <li><strong>Tune alerts:</strong> define thresholds, suppression logic, and allowlists to reduce false positives.</li>
+        <li><strong>Dashboards + reporting:</strong> create views for identity security, endpoint activity, and compliance evidence.</li>
+      </ul>
+
+      <p class="callout">
+        <strong>Outcome:</strong> faster investigations, audit-ready logging, and consistent detection across hybrid environments.
+      </p>
+    </div>
+  </article>
+
+  <!-- SOAR -->
+  <article class="card">
+    <div class="card-head">
+      <h2>SOAR</h2>
+      <div class="tagrow">
+        <span class="tag tag-soar">SOAR</span>
+        <span class="tag tag-auto">Orchestration</span>
+        <span class="tag tag-response">Workflows</span>
+      </div>
+    </div>
+
+    <p class="summary">
+      SOAR turns alerts into repeatable response workflows—enriching data, coordinating tools, and executing
+      safe actions through approvals and playbooks.
+    </p>
+
+    <button class="expand-btn" type="button" aria-expanded="false">
+      View more
+    </button>
+
+    <div class="more" aria-hidden="true">
+      <h3>Workflow & automation building</h3>
+      <ul>
+        <li><strong>Trigger:</strong> SIEM/EDR alert, email/phishing report, or identity risk event.</li>
+        <li><strong>Enrichment:</strong> query APIs for user/device context (directory, asset inventory, threat intel, known-good locations).</li>
+        <li><strong>Decision logic:</strong> scripting + conditions (severity, confidence, asset criticality, repeated behavior).</li>
+        <li><strong>Actions:</strong> disable account, revoke sessions/tokens, isolate endpoint, block sender/domain, open ticket, notify SOC.</li>
+        <li><strong>Approvals:</strong> require human confirmation for disruptive steps (account disable, isolation, mailbox purge).</li>
+        <li><strong>AI assist (optional):</strong> summarize alerts, recommend next steps, draft ticket notes—while keeping execution controlled.</li>
+      </ul>
+
+      <p class="callout">
+        <strong>Outcome:</strong> reduced time-to-triage, consistent responses, and better documentation.
+      </p>
+    </div>
+  </article>
+
+  <!-- EDR -->
+  <article class="card">
+    <div class="card-head">
+      <h2>EDR</h2>
+      <div class="tagrow">
+        <span class="tag tag-edr">EDR</span>
+        <span class="tag tag-detect">Alerts</span>
+        <span class="tag tag-logs">Dashboards</span>
+      </div>
+    </div>
+
+    <p class="summary">
+      Endpoint Detection & Response provides visibility into process behavior, persistence, lateral movement,
+      and suspicious activity on endpoints—plus the ability to contain threats.
+    </p>
+
+    <button class="expand-btn" type="button" aria-expanded="false">
+      View more
+    </button>
+
+    <div class="more" aria-hidden="true">
+      <h3>Operational approach</h3>
+      <ul>
+        <li><strong>Deployment:</strong> install EDR agents via MDM/RMM/GPO and validate coverage by device group.</li>
+        <li><strong>Policies:</strong> define prevention + detection settings, exclusions (carefully), and tamper protection.</li>
+        <li><strong>Alert handling:</strong> triage by severity, confidence, and affected asset; confirm whether activity is expected or malicious.</li>
+        <li><strong>Dashboards:</strong> build views for top alerts, active incidents, vulnerable devices, and endpoint health/coverage.</li>
+        <li><strong>Integrations:</strong> forward alerts to SIEM/SOAR for correlation and automation.</li>
+      </ul>
+
+      <p class="callout">
+        <strong>Outcome:</strong> better endpoint visibility and faster containment for high-impact events.
+      </p>
+    </div>
+  </article>
+
+  <!-- MDR -->
+  <article class="card">
+    <div class="card-head">
+      <h2>MDR</h2>
+      <div class="tagrow">
+        <span class="tag tag-mdr">MDR</span>
+        <span class="tag tag-response">24/7</span>
+        <span class="tag tag-contain">Containment</span>
+      </div>
+    </div>
+
+    <p class="summary">
+      Managed Detection & Response adds 24/7 monitoring, expert triage, and guided/managed response.
+      MDR typically layers on top of EDR + SIEM and can integrate with third-party tools.
+    </p>
+
+    <button class="expand-btn" type="button" aria-expanded="false">
+      View more
+    </button>
+
+    <div class="more" aria-hidden="true">
+      <h3>What MDR brings to the table</h3>
+      <ul>
+        <li><strong>24/7 monitoring:</strong> continuous alert review, escalation, and incident coordination.</li>
+        <li><strong>Response support:</strong> recommended actions, investigation notes, and containment steps.</li>
+        <li><strong>Containment actions:</strong> isolate devices, kill malicious processes, or block indicators—based on agreed runbooks.</li>
+        <li><strong>Integrations:</strong> can connect with ticketing, identity providers, firewalls, email security, and SOAR tooling.</li>
+        <li><strong>Reporting:</strong> incident summaries, trend reporting, and coverage/health metrics.</li>
+      </ul>
+
+      <p class="callout">
+        <strong>Outcome:</strong> faster response outside business hours and improved overall security operations maturity.
+      </p>
+    </div>
+  </article>
+
+  <!-- Email & Spam -->
+  <article class="card">
+    <div class="card-head">
+      <h2>Email &amp; Spam Security</h2>
+      <div class="tagrow">
+        <span class="tag tag-mail">Email</span>
+        <span class="tag tag-phish">Phishing</span>
+        <span class="tag tag-dmarc">DMARC</span>
+      </div>
+    </div>
+
+    <p class="summary">
+      Email remains a primary attack vector. Layered email security reduces phishing, spoofing, and malware delivery,
+      and improves user reporting workflows.
+    </p>
+
+    <button class="expand-btn" type="button" aria-expanded="false">
+      View more
+    </button>
+
+    <div class="more" aria-hidden="true">
+      <h3>Controls &amp; configuration</h3>
+      <ul>
+        <li><strong>Authentication:</strong> enforce SPF/DKIM/DMARC alignment to reduce spoofing and improve deliverability.</li>
+        <li><strong>Spam filter strength:</strong> tune aggressiveness, bulk thresholds, and attachment controls based on business tolerance.</li>
+        <li><strong>Safe links/attachments:</strong> URL rewriting, attachment detonation/scanning, and blocking risky file types.</li>
+        <li><strong>Quarantine management:</strong> configure quarantine policies and send <strong>quarantine digest emails</strong> so users can self-review safely.</li>
+        <li><strong>Reporting:</strong> “Report Phishing” button and clear internal workflow to route submissions to the SOC/IT.</li>
+      </ul>
+
+      <p class="callout">
+        <strong>Outcome:</strong> fewer successful phishing events + better visibility and user-driven reporting.
+      </p>
+    </div>
+  </article>
+
+  <!-- Frameworks -->
+  <article class="card">
+    <div class="card-head">
+      <h2>Frameworks &amp; Compliance</h2>
+      <div class="tagrow">
+        <span class="tag tag-gov">Governance</span>
+        <span class="tag tag-risk">Risk</span>
+        <span class="tag tag-audit">Audit</span>
+      </div>
+    </div>
+
+    <p class="summary">
+      Frameworks provide a structured way to design controls, document evidence, and demonstrate
+      security program maturity. Below are common frameworks and what they look like in practice.
+    </p>
+
+    <button class="expand-btn" type="button" aria-expanded="false">
+      View more
+    </button>
+
+    <div class="more" aria-hidden="true">
+      <div class="mini">
+        <h3>HIPAA (Healthcare)</h3>
+        <ul>
+          <li><strong>Focus:</strong> safeguards for PHI (administrative, physical, technical).</li>
+          <li><strong>Examples:</strong> access controls, audit logging, encryption, unique user IDs, device management, incident response documentation.</li>
+        </ul>
+
+        <h3>NIST CSF / NIST 800-53</h3>
+        <ul>
+          <li><strong>Focus:</strong> Identify / Protect / Detect / Respond / Recover; or control baselines in 800-53.</li>
+          <li><strong>Examples:</strong> MFA, least privilege, vulnerability management, logging/monitoring, response playbooks, backup testing.</li>
+        </ul>
+
+        <h3>ISO 27001</h3>
+        <ul>
+          <li><strong>Focus:</strong> building an ISMS (policies, risk assessments, continuous improvement).</li>
+          <li><strong>Examples:</strong> risk register, control ownership, change management, supplier risk, internal audits.</li>
+        </ul>
+
+        <h3>PCI-DSS</h3>
+        <ul>
+          <li><strong>Focus:</strong> protecting cardholder data environments.</li>
+          <li><strong>Examples:</strong> segmentation, strict access controls, logging, quarterly vulnerability scans, secure configs.</li>
+        </ul>
+
+        <h3>SOC 2</h3>
+        <ul>
+          <li><strong>Focus:</strong> Trust Services Criteria (Security, Availability, Confidentiality, Processing Integrity, Privacy).</li>
+          <li><strong>Examples:</strong> access reviews, monitoring, incident management, vendor management, evidence collection.</li>
+        </ul>
+
+        <h3>GDPR</h3>
+        <ul>
+          <li><strong>Focus:</strong> personal data protection, lawful processing, privacy rights.</li>
+          <li><strong>Examples:</strong> data minimization, retention policies, breach notification procedures, access requests workflows.</li>
+        </ul>
+
+        <h3>FedRAMP / CMMC</h3>
+        <ul>
+          <li><strong>Focus:</strong> government/cloud security standards (FedRAMP) and defense contractor maturity (CMMC).</li>
+          <li><strong>Examples:</strong> stronger control baselines, continuous monitoring, documented SSPs/POA&amp;Ms, secure configurations.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- Threat landscape -->
+  <article class="card">
+    <div class="card-head">
+      <h2>Current Threat Landscape</h2>
+      <div class="tagrow">
+        <span class="tag tag-threat">Threats</span>
+        <span class="tag tag-mfa">MFA</span>
+        <span class="tag tag-lp">Least Privilege</span>
+      </div>
+    </div>
+
+    <p class="summary">Common patterns seen across real-world environments today:</p>
+
+    <button class="expand-btn" type="button" aria-expanded="false">
+      View more
+    </button>
+
+    <div class="more" aria-hidden="true">
+      <ul>
+        <li>Credential phishing &amp; token/session theft</li>
+        <li>Business Email Compromise (BEC) and invoice fraud</li>
+        <li>Ransomware paired with data exfiltration</li>
+        <li>Supply chain vulnerabilities and misconfigurations</li>
+        <li>Abuse of remote tools, OAuth apps, and exposed services</li>
+      </ul>
+
+      <p class="callout">
+        <strong>Baseline defenses:</strong> MFA + conditional access, endpoint hardening, logging, backups, and tested response procedures.
+      </p>
+    </div>
+  </article>
+
+  <!-- Awareness -->
+  <article class="card">
+    <div class="card-head">
+      <h2>Security Awareness</h2>
+      <div class="tagrow">
+        <span class="tag tag-train">Training</span>
+        <span class="tag tag-policy">Policy</span>
+        <span class="tag tag-culture">Culture</span>
+      </div>
+    </div>
+
+    <p class="summary">
+      Strengthening human-layer defense through training, simulations,
+      and clear reporting channels.
+    </p>
+
+    <button class="expand-btn" type="button" aria-expanded="false">
+      View more
+    </button>
+
+    <div class="more" aria-hidden="true">
+      <h3>Program elements</h3>
+      <ul>
+        <li><strong>Phishing simulations:</strong> targeted campaigns and trend reporting.</li>
+        <li><strong>Role-based training:</strong> admin vs staff vs clinical/finance workflows.</li>
+        <li><strong>Simple reporting:</strong> “Report Phishing” + clear escalation path.</li>
+        <li><strong>Policy alignment:</strong> acceptable use, password/MFA guidance, and device security expectations.</li>
+      </ul>
+
+      <p class="callout">
+        <strong>Outcome:</strong> better reporting behavior, fewer successful social engineering attacks, and clearer security culture.
+      </p>
+    </div>
+  </article>
+
+</section>
+
+<footer class="footer">
+  <p>All content shared at a high level. No internal configurations or sensitive identifiers are exposed.</p>
+</footer>
+
+<script>
+  // Expand/collapse for every card (consistent behavior)
+  document.querySelectorAll('.card').forEach((card) => {
+    const btn = card.querySelector('.expand-btn');
+    const more = card.querySelector('.more');
+    if (!btn || !more) return;
+
+    // Ensure starts collapsed
+    more.style.maxHeight = '0px';
+
+    btn.addEventListener('click', () => {
+      const isOpen = card.classList.toggle('open');
+
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      more.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+      btn.textContent = isOpen ? 'View less' : 'View more';
+
+      if (isOpen) {
+        more.style.maxHeight = more.scrollHeight + 'px';
+      } else {
+        more.style.maxHeight = '0px';
+      }
+    });
+
+    // Recalculate height on resize for open cards
+    window.addEventListener('resize', () => {
+      if (!card.classList.contains('open')) return;
+      more.style.maxHeight = more.scrollHeight + 'px';
+    });
+  });
+</script>
+
+</body>
+</html>
